@@ -1,11 +1,10 @@
 // CUDA Agent project page - Main JavaScript
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize all features
     initScrollAnimations();
     initSmoothScroll();
     initNavigationHighlight();
-    initTaglineRotation();
     initProgressIndicator();
 });
 
@@ -46,20 +45,20 @@ function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            
+
             // Skip if it's just "#"
             if (href === '#') return;
-            
+
             const target = document.querySelector(href);
             if (target) {
                 e.preventDefault();
                 const offsetTop = target.offsetTop - 80; // Account for sticky nav
-                
+
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
                 });
-                
+
                 // Update URL without jumping
                 history.pushState(null, null, href);
             }
@@ -73,12 +72,12 @@ function initSmoothScroll() {
 function initNavigationHighlight() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('nav a[href^="#"]');
-    
+
     if (sections.length === 0 || navLinks.length === 0) return;
-    
+
     window.addEventListener('scroll', () => {
         let current = '';
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
@@ -86,7 +85,7 @@ function initNavigationHighlight() {
                 current = section.getAttribute('id');
             }
         });
-        
+
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${current}`) {
@@ -94,36 +93,6 @@ function initNavigationHighlight() {
             }
         });
     });
-}
-
-/* ========================================
-   Tagline Rotation
-   ======================================== */
-function initTaglineRotation() {
-    const taglineElement = document.querySelector('.tagline-text');
-    if (!taglineElement) return;
-    
-    const taglines = [
-        "High-Quality Training Tasks via a Scalable Data Pipeline",
-        "Skill-Augmented Environment with Reliable Rewards",
-        "Stable Large-Scale Agentic RL",
-        "State-of-the-Art Results on KernelBench"
-    ];
-    
-    let currentIndex = 0;
-    
-    function rotateTagline() {
-        taglineElement.style.opacity = '0';
-        
-        setTimeout(() => {
-            currentIndex = (currentIndex + 1) % taglines.length;
-            taglineElement.textContent = taglines[currentIndex];
-            taglineElement.style.opacity = '1';
-        }, 500);
-    }
-    
-    // Rotate every 5 seconds
-    setInterval(rotateTagline, 5000);
 }
 
 /* ========================================
@@ -135,7 +104,7 @@ function initProgressIndicator() {
     progressBar.className = 'reading-progress';
     progressBar.innerHTML = '<div class="reading-progress-bar"></div>';
     document.body.appendChild(progressBar);
-    
+
     // Add styles if not in CSS
     const style = document.createElement('style');
     style.textContent = `
@@ -157,15 +126,15 @@ function initProgressIndicator() {
         }
     `;
     document.head.appendChild(style);
-    
+
     const progressBarFill = progressBar.querySelector('.reading-progress-bar');
-    
+
     window.addEventListener('scroll', () => {
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
-        
+
         progressBarFill.style.width = scrollPercent + '%';
     });
 }
@@ -179,7 +148,7 @@ function initScrollToTop() {
     scrollBtn.innerHTML = '↑';
     scrollBtn.setAttribute('aria-label', 'Scroll to top');
     document.body.appendChild(scrollBtn);
-    
+
     // Add styles
     const style = document.createElement('style');
     style.textContent = `
@@ -211,7 +180,7 @@ function initScrollToTop() {
         }
     `;
     document.head.appendChild(style);
-    
+
     // Show/hide based on scroll position
     window.addEventListener('scroll', () => {
         if (window.pageYOffset > 500) {
@@ -220,7 +189,7 @@ function initScrollToTop() {
             scrollBtn.classList.remove('visible');
         }
     });
-    
+
     // Scroll to top on click
     scrollBtn.addEventListener('click', () => {
         window.scrollTo({
@@ -238,7 +207,7 @@ initScrollToTop();
    ======================================== */
 function initLazyLoading() {
     const images = document.querySelectorAll('img[data-src]');
-    
+
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -249,7 +218,7 @@ function initLazyLoading() {
             }
         });
     });
-    
+
     images.forEach(img => imageObserver.observe(img));
 }
 
@@ -261,15 +230,15 @@ initLazyLoading();
 function initTabs() {
     const tabButtons = document.querySelectorAll('[data-tab-button]');
     const tabContents = document.querySelectorAll('[data-tab-content]');
-    
+
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             const targetTab = button.dataset.tabButton;
-            
+
             // Remove active class from all buttons and contents
             tabButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
-            
+
             // Add active class to clicked button and corresponding content
             button.classList.add('active');
             const targetContent = document.querySelector(`[data-tab-content="${targetTab}"]`);
@@ -289,15 +258,15 @@ function initCopyButtons() {
     document.querySelectorAll('[data-copy]').forEach(button => {
         button.addEventListener('click', async () => {
             const textToCopy = button.dataset.copy || button.closest('.copy-container').querySelector('code, pre').textContent;
-            
+
             try {
                 await navigator.clipboard.writeText(textToCopy);
-                
+
                 // Visual feedback
                 const originalText = button.textContent;
                 button.textContent = '✓ Copied!';
                 button.style.background = '#10b981';
-                
+
                 setTimeout(() => {
                     button.textContent = originalText;
                     button.style.background = '';
@@ -317,15 +286,15 @@ initCopyButtons();
 function initMobileMenu() {
     const menuToggle = document.querySelector('.mobile-menu-toggle');
     const nav = document.querySelector('nav');
-    
+
     if (!menuToggle || !nav) return;
-    
+
     menuToggle.addEventListener('click', () => {
         nav.classList.toggle('mobile-open');
         menuToggle.classList.toggle('active');
         document.body.classList.toggle('menu-open');
     });
-    
+
     // Close menu when clicking a link
     nav.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {

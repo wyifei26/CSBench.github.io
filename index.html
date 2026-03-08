@@ -1,81 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CUDA Agent: Large-Scale Agentic RL for High-Performance CUDA Kernel Generation.">
-    <meta name="keywords" content="CUDA Agent, CUDA, RL, kernel generation, KernelBench, GPU optimization">
-    <meta name="author" content="CUDA Agent Team - ByteDance Seed, AIR Tsinghua, SIA-Lab">
-    <title>CUDA Agent | Large-Scale Agentic RL for CUDA Kernel Generation</title>
+    <meta name="description"
+        content="CSBench: A Comprehensive Benchmark for Evaluating Project-Level System Construction in Computer Science.">
+    <meta name="keywords"
+        content="CSBench, Benchmark, LLM, Coding Agent, System Construction, Computer Science, Software Engineering">
+    <meta name="author" content="CSBench Team">
+    <title>CSBench | Evaluating Project-Level System Construction in CS</title>
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/cuda-page.css">
+    <link rel="stylesheet" href="css/csbench.css">
 </head>
+
 <body>
     <a href="#main-content" class="skip-to-content">Skip to main content</a>
-
-    <div class="logo-bar">
-        <div class="logo-container">
-            <img src="asset/seed_logo.png" alt="ByteDance Seed">
-            <img src="asset/AIRlogo.png" alt="Institute for AI Industry Research, Tsinghua University">
-        </div>
-    </div>
 
     <section class="hero" id="hero">
         <div class="hero-particles" id="particles"></div>
         <div class="hero-content">
             <div class="hero-brand">
-                <h1 class="hero-title">CUDA Agent: Large-Scale Agentic RL for High-Performance CUDA Kernel Generation</h1>
                 <div class="flex-logo">
-                    <span>CUDA Agent</span>
+                    <span>CSBench</span>
                 </div>
-                <div class="hero-tagline">
-                    <span class="tagline-text">High-Quality Training Tasks via a Scalable Data Pipeline</span>
-                </div>
-            </div>
-
-            <p class="hero-description">
-                CUDA Agent is a large-scale agentic reinforcement learning system that develops robust CUDA kernel optimization ability
-                through scalable data synthesis, a skill-augmented execution environment, and stable long-horizon RL training.
-            </p>
-
-            <div class="authors">
-                <span class="author-block">Weinan Dai<sup>1,2,3</sup><sup>*</sup>,</span>
-                <span class="author-block">Hanlin Wu<sup>1,2,3</sup><sup>*</sup>,</span>
-                <span class="author-block">Qiying Yu<sup>1,2,3</sup>,</span>
-                <span class="author-block">Huan-ang Gao<sup>1,2,3</sup>,</span>
-                <span class="author-block">Jiahao Li<sup>1</sup>,</span>
-                <span class="author-block">Chengquan Jiang<sup>1</sup>,</span>
-                <span class="author-block">Weiqiang Lou<sup>1</sup>,</span>
-                <span class="author-block">Yufan Song<sup>1</sup>,</span>
-                <span class="author-block">Hongli Yu<sup>1,2,3</sup>,</span>
-                <span class="author-block">Jiaze Chen<sup>1,3</sup>,</span>
-                <span class="author-block">Wei-Ying Ma<sup>2,3</sup>,</span>
-                <span class="author-block">Ya-Qin Zhang<sup>2,3</sup>,</span>
-                <span class="author-block">Jingjing Liu<sup>2,3</sup>,</span>
-                <span class="author-block">Mingxuan Wang<sup>1,3</sup>,</span>
-                <span class="author-block">Xin Liu<sup>1</sup>,</span>
-                <span class="author-block">Hao Zhou<sup>2,3</sup><sup>&dagger;</sup></span>
-            </div>
-            <div class="affiliations">
-                <div><sup>1</sup>ByteDance Seed</div>
-                <div><sup>2</sup>Institute for AI Industry Research (AIR), Tsinghua University</div>
-                <div><sup>3</sup>SIA-Lab of Tsinghua AIR and ByteDance Seed</div>
-                <div class="hero-micro">* Equal contributions, † Corresponding Authors</div>
+                <h3 class="hero-title">A Comprehensive Benchmark for Evaluating Project-Level System Construction in
+                    Computer Science</h3>
             </div>
 
             <div class="hero-cta">
-                <a href="./static/pdf/CUDA_Agent_Arxiv_Version.pdf" class="btn btn-primary" target="_blank" rel="noopener">
+                <a href="#" class="btn btn-primary">
                     <span>Paper (PDF)</span>
                     <span class="btn-icon">📄</span>
                 </a>
-                <a href="https://github.com/BytedTsinghua-SIA/CUDA-Agent" class="btn btn-secondary" target="_blank" rel="noopener">
+                <a href="#" class="btn btn-secondary">
                     <span>GitHub</span>
                     <span class="btn-icon">⭐</span>
                 </a>
-                <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/CUDA-Agent-Ops-6K" class="btn btn-secondary" target="_blank" rel="noopener">
+                <a href="#" class="btn btn-secondary">
                     <span>Dataset</span>
                     <span class="btn-icon">🤗</span>
                 </a>
@@ -83,261 +49,669 @@
 
             <div class="hero-stats">
                 <div class="stat-card">
-                    <span class="stat-number">98.8%</span>
-                    <span class="stat-label">Overall Pass Rate</span>
+                    <span class="stat-number">100</span>
+                    <span class="stat-label">Expert-Curated Tasks</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">96.8%</span>
-                    <span class="stat-label">Overall Faster than torch.compile</span>
+                    <span class="stat-number">19</span>
+                    <span class="stat-label">CS Sub-Topics</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">2.11x</span>
-                    <span class="stat-label">Overall Speedup vs torch.compile</span>
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">SOTA Models Evaluated</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">6K</span>
-                    <span class="stat-label">Synthesized Training Ops</span>
+                    <span class="stat-number">55.5%</span>
+                    <span class="stat-label">Best Model (GPT-5.2)</span>
                 </div>
             </div>
 
-            <a class="scroll-indicator" href="#news" aria-label="Scroll to content">
-                <span>Scroll to details</span>
-                <span class="scroll-indicator-icon">↓</span>
-            </a>
         </div>
     </section>
 
     <nav role="navigation" aria-label="Main navigation">
-        <a href="#news">News</a>
+        <a href="#leaderboard">Leaderboard</a>
         <a href="#abstract">Abstract</a>
-        <a href="#contributions">Contributions</a>
-        <a href="#pipeline">Pipeline</a>
-        <a href="#main-results">Results</a>
+        <a href="#highlights">Highlights</a>
+        <a href="#benchmark">Benchmark</a>
+        <a href="#results">Results</a>
+        <a href="#analysis">Analysis</a>
         <a href="#citation">Citation</a>
     </nav>
 
     <main id="main-content">
         <div class="container">
-            <section id="news" class="news-section">
-                <h2>Latest News</h2>
-                <div class="news-item">
-                    <span class="news-date">2026.02.27</span>
-                    The <a href="https://github.com/BytedTsinghua-SIA/CUDA-Agent" target="_blank" rel="noopener">GitHub repository</a>
-                    now includes the agent workdir for the CUDA Agent workflow.
-                </div>
-                <div class="news-item">
-                    <span class="news-date">2026.02.27</span>
-                    The training dataset has been released on
-                    <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/CUDA-Agent-Ops-6K" target="_blank" rel="noopener">Hugging Face</a>
-                    as CUDA-Agent-Ops-6K.
+
+            <!-- ===== Leaderboard (Performance by Category) ===== -->
+            <section id="leaderboard">
+                <h2>Leaderboard</h2>
+                <p>
+                    We evaluate <strong>9 state-of-the-art LLMs</strong> using a minimalist agent loop with stateless
+                    Bash execution and file editing tools.
+                    Each task allows up to 50 interaction rounds. Results are <strong>averaged over 4 independent runs
+                        (avg@4)</strong>.
+                </p>
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3>Performance by Category</h3>
+                    <div class="table-scroll">
+                        <table class="data-table results-table">
+                            <colgroup>
+                                <col style="width: 22%">
+                                <col span="4">
+                                <col style="width: 15%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th class="cat-system">System (48)</th>
+                                    <th class="cat-ai">AI (28)</th>
+                                    <th class="cat-app">Application (19)</th>
+                                    <th class="cat-others">Others (5)</th>
+                                    <th class="cat-overall">Overall (100)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="rank-1">
+                                    <td><strong>GPT-5.2</strong> <span class="model-org">OpenAI</span></td>
+                                    <td>36.46%</td>
+                                    <td><strong>69.64%</strong></td>
+                                    <td><strong>77.63%</strong></td>
+                                    <td>75.00%</td>
+                                    <td class="overall-best"><strong>55.50%</strong></td>
+                                </tr>
+                                <tr class="rank-2">
+                                    <td><strong>Sonnet-4.5</strong> <span class="model-org">Anthropic</span></td>
+                                    <td>32.81%</td>
+                                    <td>49.11%</td>
+                                    <td>60.53%</td>
+                                    <td><strong>90.00%</strong></td>
+                                    <td>45.50%</td>
+                                </tr>
+                                <tr class="rank-3">
+                                    <td><strong>Gemini-3-Pro</strong> <span class="model-org">Google</span></td>
+                                    <td><strong>41.15%</strong></td>
+                                    <td>30.36%</td>
+                                    <td>46.05%</td>
+                                    <td>40.00%</td>
+                                    <td>39.00%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>DeepSeek-V3.2</strong> <span class="model-org">DeepSeek</span></td>
+                                    <td>13.02%</td>
+                                    <td>27.68%</td>
+                                    <td>38.16%</td>
+                                    <td>15.00%</td>
+                                    <td>22.00%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Seed-1.8</strong> <span class="model-org">ByteDance</span></td>
+                                    <td>15.10%</td>
+                                    <td>11.61%</td>
+                                    <td>26.32%</td>
+                                    <td>15.00%</td>
+                                    <td>16.25%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>GLM-4.7</strong> <span class="model-org">Zhipu AI</span></td>
+                                    <td>10.42%</td>
+                                    <td>22.32%</td>
+                                    <td>18.42%</td>
+                                    <td>15.00%</td>
+                                    <td>15.50%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Qwen3-Coder</strong> <span class="model-org">Alibaba</span></td>
+                                    <td>6.25%</td>
+                                    <td>17.86%</td>
+                                    <td>9.21%</td>
+                                    <td>10.00%</td>
+                                    <td>10.25%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Kimi-K2</strong> <span class="model-org">Moonshot AI</span></td>
+                                    <td>6.25%</td>
+                                    <td>17.86%</td>
+                                    <td>9.21%</td>
+                                    <td>5.00%</td>
+                                    <td>10.00%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Minimax-M2</strong> <span class="model-org">MiniMax</span></td>
+                                    <td>6.25%</td>
+                                    <td>9.82%</td>
+                                    <td>11.84%</td>
+                                    <td>10.00%</td>
+                                    <td>8.50%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="figure-caption">Model performance by category. Numbers in parentheses indicate the number
+                        of tasks. All results are avg@4.</p>
                 </div>
             </section>
 
+            <!-- ===== Abstract ===== -->
             <section id="abstract">
                 <h2>Abstract</h2>
                 <p>
-                    GPU kernel optimization is fundamental to modern deep learning but remains a specialized task requiring
-                    deep hardware expertise. Existing CUDA code generation approaches either rely on training-free refinement
-                    or fixed execution-feedback loops, which limits intrinsic optimization ability.
+                    While LLM-based coding agents have advanced to repository-scale engineering, existing benchmarks
+                    predominantly focus on <strong>software maintenance</strong>, overlooking the foundational
+                    capability of <em>system construction</em>.
                 </p>
                 <p>
-                    We present CUDA Agent, a large-scale agentic reinforcement learning system with three core components:
-                    scalable data synthesis, a skill-augmented CUDA development environment with reliable verification and profiling,
-                    and RL algorithmic techniques for stable long-context training.
+                    We introduce <strong>CSBench</strong>, a benchmark evaluating project-level
+                    <strong>Spec-to-Code</strong> implementation across core computer science domains (e.g., OS,
+                    compilers, databases). CSBench features <strong>100 expert-curated tasks</strong> from top-tier
+                    university assignments within containerized environments.
                 </p>
                 <p>
-                    CUDA Agent achieves state-of-the-art results on KernelBench, delivering 100%, 100%, and 92% faster rate
-                    over torch.compile on Level-1, Level-2, and Level-3 splits.
+                    Evaluating 12 state-of-the-art LLMs reveals a stark performance disparity: even top-tier models like
+                    GPT-5.2 see success rates plummet from over 90% in algorithmic tasks to below 35% in system-level
+                    domains. Our analysis identifies a <strong>fundamental deficiency in systemic reasoning and
+                        construction knowledge</strong> as the primary bottleneck, where agents either terminate
+                    prematurely due to overconfidence or fail to translate execution feedback into valid architectural
+                    fixes.
                 </p>
-                <div class="figure-wrap">
-                    <img src="static/images/benchmark_chart.png" alt="KernelBench benchmark chart for CUDA Agent">
-                    <p class="figure-caption">KernelBench comparison against torch.compile and strong proprietary models.</p>
+                <div class="figure-wrap"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+                    <div>
+                        <img src="static/images/csbench_comparison.png"
+                            alt="Comparison between CSBench and other software engineering benchmarks"
+                            style="width: 100%;">
+                        <p class="figure-caption">Comparison between CSBench and other software engineering benchmarks.
+                            CSBench targets <strong>System Construction</strong> (Spec-to-Code), complementing
+                            maintenance-centric benchmarks like SWE-bench.</p>
+                    </div>
+                    <div>
+                        <img src="static/images/case-252.png"
+                            alt="Case study of Gemini-3-Pro solving an OpenMP optimization task" style="width: 100%;">
+                        <p class="figure-caption">Case study: Gemini-3-Pro's problem-solving trajectory on an HPC task
+                            requiring OpenMP parallelization.</p>
+                    </div>
                 </div>
             </section>
 
-            <section id="contributions">
-                <h2>Key Contributions</h2>
+            <!-- ===== Key Highlights ===== -->
+            <section id="highlights">
+                <h2>Key Highlights</h2>
                 <div class="grid-3">
                     <div class="card">
-                        <h3>Large-Scale Agentic RL System for CUDA Optimization</h3>
+                        <h3>🏗️ Systematic Domain Coverage</h3>
                         <p>
-                            We introduce CUDA Agent, a large-scale agentic reinforcement learning system that improves
-                            intrinsic CUDA kernel generation and optimization ability through scalable synthesis,
-                            a skill-augmented environment, and stable long-horizon training.
+                            100 tasks spanning <strong>19 sub-topics</strong> across 4 major categories (Systems, AI,
+                            Application, Others), evaluating broad "CS mastery" rather than just language proficiency.
                         </p>
                     </div>
                     <div class="card">
-                        <h3>State-of-the-Art KernelBench Performance</h3>
+                        <h3>🧠 Deep Reasoning Requirements</h3>
                         <p>
-                            CUDA Agent achieves state-of-the-art results on KernelBench, delivering strong faster-than-compile
-                            rates across all levels and outperforming strong proprietary models on the hardest Level-3 setting.
+                            Tasks require implementing complex systems from scratch — B+ Trees, TCP stacks, OS kernels —
+                            demanding <strong>long-horizon planning</strong> and strict logical consistency beyond
+                            simple pattern matching.
                         </p>
                     </div>
                     <div class="card">
-                        <h3>Data Release: CUDA-Agent-Ops-6K</h3>
+                        <h3>🎓 Pedagogical Rigor</h3>
                         <p>
-                            We release CUDA-Agent-Ops-6K, a high-quality synthesized training dataset with filtering and
-                            contamination control, supporting reproducible research on RL-based CUDA kernel optimization.
+                            Sourced from <strong>top-tier university assignments</strong> (MIT, Berkeley, Stanford,
+                            etc.), each task comes with expert-curated test suites and containerized Docker environments
+                            for reproducible evaluation.
                         </p>
                     </div>
                 </div>
+
+                <!-- Dataset Statistics Comparison Table -->
+                <div class="stats-table-wrap">
+                    <h3>Dataset Statistics Comparison</h3>
+                    <div class="table-scroll">
+                        <table class="data-table comparison-table">
+                            <colgroup>
+                                <col style="width: 14%">
+                                <col style="width: 16%">
+                            </colgroup>
+                            <colgroup class="colgroup-swe">
+                                <col>
+                                <col>
+                            </colgroup>
+                            <colgroup class="colgroup-multi">
+                                <col>
+                                <col>
+                            </colgroup>
+                            <colgroup class="colgroup-csbench">
+                                <col>
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Metric</th>
+                                    <th rowspan="2">Attribute</th>
+                                    <th colspan="2" class="group-header">SWE-Bench</th>
+                                    <th colspan="2" class="group-header">Multi-SWE-Bench</th>
+                                    <th colspan="2" class="group-header group-csbench">CSBench</th>
+                                </tr>
+                                <tr>
+                                    <th>Mean</th>
+                                    <th>Max</th>
+                                    <th>Mean</th>
+                                    <th>Max</th>
+                                    <th class="th-csbench">Mean</th>
+                                    <th class="th-csbench">Max</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Task Specification</td>
+                                    <td>Length (words)</td>
+                                    <td>195.1</td>
+                                    <td>4,477</td>
+                                    <td>550.6</td>
+                                    <td>—</td>
+                                    <td class="highlight-cell">676.2</td>
+                                    <td class="highlight-cell">5,693</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">Initial Code</td>
+                                    <td># Files (non-test)</td>
+                                    <td>3,010</td>
+                                    <td>5,890</td>
+                                    <td>3,817.5</td>
+                                    <td>—</td>
+                                    <td>77.8</td>
+                                    <td>1,168</td>
+                                </tr>
+                                <tr>
+                                    <td># Lines (non-test)</td>
+                                    <td>438K</td>
+                                    <td>886K</td>
+                                    <td>178.6K</td>
+                                    <td>—</td>
+                                    <td>185K</td>
+                                    <td>657K</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3">Gold Patch</td>
+                                    <td># Lines edited</td>
+                                    <td>32.8</td>
+                                    <td>5,888</td>
+                                    <td>163.3</td>
+                                    <td>—</td>
+                                    <td class="highlight-cell">902.3</td>
+                                    <td class="highlight-cell">25K</td>
+                                </tr>
+                                <tr>
+                                    <td># Hunks edited</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                    <td>11.7</td>
+                                    <td>—</td>
+                                    <td class="highlight-cell">28.1</td>
+                                    <td class="highlight-cell">1,530</td>
+                                </tr>
+                                <tr>
+                                    <td># Files edited</td>
+                                    <td>1.7</td>
+                                    <td>31</td>
+                                    <td>4.89</td>
+                                    <td>—</td>
+                                    <td class="highlight-cell">10.6</td>
+                                    <td class="highlight-cell">363</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">Test Suite</td>
+                                    <td># Fail to Pass</td>
+                                    <td>9.1</td>
+                                    <td>1,633</td>
+                                    <td>6.26</td>
+                                    <td>—</td>
+                                    <td>13.7</td>
+                                    <td>63</td>
+                                </tr>
+                                <tr>
+                                    <td># Total</td>
+                                    <td>120.8</td>
+                                    <td>9,459</td>
+                                    <td>2,241.2</td>
+                                    <td>—</td>
+                                    <td>17.0</td>
+                                    <td>68</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="figure-caption">CSBench requires an order-of-magnitude more implementation effort (902
+                        lines edited on average vs. 33 in SWE-Bench), reflecting genuine system construction complexity.
+                    </p>
+                </div>
             </section>
 
-            <section id="pipeline">
-                <h2>System Pipeline</h2>
+            <!-- ===== Benchmark Design ===== -->
+            <section id="benchmark">
+                <h2>Benchmark Design</h2>
+                <p>
+                    Each CSBench task is formally defined as a tuple <strong>T = (S, C<sub>init</sub>, U, E)</strong>:
+                    a <em>Specification</em>, <em>Initial Scaffold</em>, <em>Test Suite</em>, and a containerized
+                    <em>Environment</em>.
+                    Given (S, C<sub>init</sub>), a model produces a completed implementation; a task is solved when all
+                    tests pass inside the Docker container.
+                </p>
+
                 <div class="pipeline-stack">
                     <div class="card">
-                        <h3>Data Synthesis</h3>
+                        <h3>Three-Stage Construction Pipeline</h3>
                         <p>
-                            We build training tasks with a three-stage pipeline: seed problem crawling, LLM-based combinatorial
-                            synthesis, and execution-driven filtering. Seed operators are mined from <code>torch</code> and
-                            <code>transformers</code>, each represented as a Python class with initialization and forward methods.
+                            CSBench employs an <strong>adversarial, expert-in-the-loop workflow</strong> to transform
+                            heterogeneous courseware into standardized, execution-based benchmark tasks.
                         </p>
-                        <ul class="pipeline-list">
-                            <li>Combinatorial synthesis samples up to 5 torch operators and composes them sequentially into fused tasks.</li>
-                            <li>Filtering keeps only tasks that run in both eager and compile modes and removes stochastic operators.</li>
-                            <li>Anti-hacking checks remove constant or indistinguishable outputs across different inputs.</li>
-                            <li>Workload control keeps eager runtime in the 1ms-100ms range and removes high-similarity KernelBench cases.</li>
-                        </ul>
-                        <p>
-                            The final curated dataset contains 6,000 training samples (CUDA-Agent-Ops-6K), designed for scalable
-                            RL training with broad task diversity and reduced contamination risk.
-                        </p>
+                        <div class="pipeline-stages">
+                            <div class="pipeline-stage">
+                                <div class="stage-number">1</div>
+                                <div class="stage-content">
+                                    <h4>Sourcing</h4>
+                                    <p>Candidate projects sourced from open-source CS courses at top-tier universities,
+                                        organized by a comprehensive topic taxonomy (System, AI, Application, Others).
+                                        Priority given to projects with non-trivial, multi-file starter scaffolds.</p>
+                                </div>
+                            </div>
+                            <div class="pipeline-stage">
+                                <div class="stage-number">2</div>
+                                <div class="stage-content">
+                                    <h4>Annotation</h4>
+                                    <p>Domain experts construct task artifacts with adversarial review:
+                                        <strong>Annotators</strong> build scaffold code, specifications, and test
+                                        suites; independent <strong>Reviewers</strong> audit outputs and iterate until
+                                        strict criteria are met.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="pipeline-stage">
+                                <div class="stage-number">3</div>
+                                <div class="stage-content">
+                                    <h4>Quality Assurance</h4>
+                                    <p>Three-layer verification: <strong>Automated checks</strong> (solvability,
+                                        layout), <strong>AI-assisted auditing</strong> (leakage, ambiguity), and
+                                        <strong>Human-in-the-loop decision</strong> (spec fidelity, runtime stability).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                         <div class="figure-wrap">
-                            <img src="static/images/data_pipeline.png" alt="CUDA Agent data synthesis pipeline">
+                            <img src="static/images/csbench_pipeline.png"
+                                alt="CSBench construction pipeline: Sourcing, Annotation, Quality Assurance"
+                                style="width: 80%;">
+                            <p class="figure-caption">The three-stage construction pipeline of CSBench: Sourcing,
+                                Annotation, and Quality Assurance.</p>
                         </div>
                     </div>
-                    <div class="card">
-                        <h3>Agent Environment</h3>
-                        <p>
-                            The agent loop follows a ReAct-style workflow with coding tools and a CUDA skill specification
-                            (SKILL.md), enabling iterative coding, compile-debug cycles, and profiler-guided optimization.
-                        </p>
-                        <ul class="pipeline-list">
-                            <li>Standard workflow: profile native PyTorch, implement CUDA kernels/bindings, compile in GPU sandbox, iterate.</li>
-                            <li>Target requirement: pass correctness checks and exceed a 5% speedup over <code>torch.compile</code>.</li>
-                            <li>Robust reward schedule uses milestone-based discrete rewards for correctness and speed gains.</li>
-                            <li>Anti-reward-hacking controls: protected verify/profile scripts, forbidden fallback calls, 5-input correctness checks, synchronized warm-up profiling, no web retrieval.</li>
-                        </ul>
-                        <p>
-                            These constraints provide reliable execution-based feedback so policy learning emphasizes true
-                            kernel quality rather than shortcut behaviors.
-                        </p>
-                        <div class="figure-wrap">
-                            <img src="static/images/agent_loop.png" alt="CUDA Agent environment loop">
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>Training Pipeline</h3>
-                        <p>
-                            Training is staged to stabilize long-horizon RL for CUDA coding. We first run single-turn PPO warm-up,
-                            then initialize both actor and critic before full multi-turn agentic RL.
-                        </p>
-                        <ul class="pipeline-list">
-                            <li>Single-turn warm-up improves base CUDA generation before entering interactive agent training.</li>
-                            <li>Actor initialization uses Rejection Fine-Tuning (RFT) on sampled trajectories with positive outcomes.</li>
-                            <li>RFT filtering removes inefficient loops and invalid tool-call patterns to reduce policy collapse risk.</li>
-                            <li>Critic initialization uses value pretraining so advantage estimates are reliable from early steps.</li>
-                        </ul>
-                        <p>
-                            With this multi-stage design, training remains stable for long-context settings (up to 128k context,
-                            150 training turns, and up to 200 turns during evaluation), enabling sustained reward growth.
-                        </p>
-                        <div class="figure-wrap">
-                            <img src="static/images/training_stages.png" alt="CUDA Agent training stages">
-                        </div>
+                </div>
+
+                <!-- Domain Distribution -->
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3>Domain &amp; Language Distribution</h3>
+                    <p>
+                        CSBench spans <strong>4 high-level topics</strong> and <strong>19 sub-topics</strong>, ensuring
+                        systematic domain representation. It covers Python (41%), C/C++ (32%), and other mainstream
+                        languages including Java, JavaScript, Go, Rust, and Assembly.
+                    </p>
+                    <div class="figure-wrap">
+                        <img src="static/images/category_language.png"
+                            alt="CSBench task distribution by topic and programming language">
+                        <p class="figure-caption">Left: Task distribution by course topic taxonomy. Right: Programming
+                            language distribution across CSBench tasks.</p>
                     </div>
                 </div>
             </section>
 
-            <section id="main-results">
-                <h2>Main Results</h2>
+            <!-- ===== Main Results ===== -->
+            <section id="results">
+                <h2>Detailed Results</h2>
+
+                <!-- Detailed Topic Results -->
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3>Detailed Performance by Topic (Top 3 Models)</h3>
+                    <div class="table-scroll">
+                        <table class="data-table topic-table">
+                            <colgroup>
+                                <col style="width: 35%">
+                                <col span="3">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Topic</th>
+                                    <th>GPT-5.2</th>
+                                    <th>Sonnet-4.5</th>
+                                    <th>Gemini-3-Pro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="category-group-header system-group">
+                                    <td colspan="4">System (48 tasks)</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Operating System (12)</td>
+                                    <td>37.50%</td>
+                                    <td class="best-in-row">45.83%</td>
+                                    <td>27.08%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>System Fundamentals (9)</td>
+                                    <td>19.44%</td>
+                                    <td>30.56%</td>
+                                    <td class="best-in-row">33.33%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>System Security (8)</td>
+                                    <td class="best-in-row">56.25%</td>
+                                    <td>43.75%</td>
+                                    <td class="best-in-row">56.25%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Computer Network (5)</td>
+                                    <td class="best-in-row">60.00%</td>
+                                    <td>35.00%</td>
+                                    <td>50.00%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Parallel &amp; Distributed (5)</td>
+                                    <td>20.00%</td>
+                                    <td>20.00%</td>
+                                    <td class="best-in-row">45.00%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Computer Architecture (4)</td>
+                                    <td>31.25%</td>
+                                    <td>31.25%</td>
+                                    <td class="best-in-row">62.50%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Database System (4)</td>
+                                    <td>31.25%</td>
+                                    <td>0.00%</td>
+                                    <td class="best-in-row">43.75%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Compiler (1)</td>
+                                    <td class="best-in-row">25.00%</td>
+                                    <td>0.00%</td>
+                                    <td>0.00%</td>
+                                </tr>
+                                <tr class="category-group-header ai-group">
+                                    <td colspan="4">AI (28 tasks)</td>
+                                </tr>
+                                <tr class="cat-ai-row">
+                                    <td>Deep Learning (13)</td>
+                                    <td class="best-in-row">71.15%</td>
+                                    <td>46.15%</td>
+                                    <td>36.54%</td>
+                                </tr>
+                                <tr class="cat-ai-row">
+                                    <td>Machine Learning (9)</td>
+                                    <td class="best-in-row">94.44%</td>
+                                    <td>72.22%</td>
+                                    <td>36.11%</td>
+                                </tr>
+                                <tr class="cat-ai-row">
+                                    <td>Introductory AI (4)</td>
+                                    <td class="best-in-row">37.50%</td>
+                                    <td>31.25%</td>
+                                    <td>12.50%</td>
+                                </tr>
+                                <tr class="cat-ai-row">
+                                    <td>ML System (2)</td>
+                                    <td class="best-in-row">12.50%</td>
+                                    <td>0.00%</td>
+                                    <td>0.00%</td>
+                                </tr>
+                                <tr class="category-group-header app-group">
+                                    <td colspan="4">Application (19 tasks)</td>
+                                </tr>
+                                <tr class="cat-app-row">
+                                    <td>Web Development (7)</td>
+                                    <td class="best-in-row">85.71%</td>
+                                    <td>75.00%</td>
+                                    <td>25.00%</td>
+                                </tr>
+                                <tr class="cat-app-row">
+                                    <td>Data Struct &amp; Algo (4)</td>
+                                    <td class="best-in-row">93.75%</td>
+                                    <td>81.25%</td>
+                                    <td>50.00%</td>
+                                </tr>
+                                <tr class="cat-app-row">
+                                    <td>Programming Fundamentals (4)</td>
+                                    <td>50.00%</td>
+                                    <td>75.00%</td>
+                                    <td class="best-in-row">100.00%</td>
+                                </tr>
+                                <tr class="cat-app-row">
+                                    <td>Data Science (3)</td>
+                                    <td class="best-in-row">66.67%</td>
+                                    <td>0.00%</td>
+                                    <td>33.33%</td>
+                                </tr>
+                                <tr class="category-group-header others-group">
+                                    <td colspan="4">Others (5 tasks)</td>
+                                </tr>
+                                <tr class="cat-others-row">
+                                    <td>Computer Graphics (3)</td>
+                                    <td>58.33%</td>
+                                    <td class="best-in-row">100.00%</td>
+                                    <td>50.00%</td>
+                                </tr>
+                                <tr class="cat-others-row">
+                                    <td>Mathematics (2)</td>
+                                    <td class="best-in-row">100.00%</td>
+                                    <td>75.00%</td>
+                                    <td>25.00%</td>
+                                </tr>
+                                <tr class="overall-row">
+                                    <td><strong>Overall (100)</strong></td>
+                                    <td class="overall-best"><strong>55.50%</strong></td>
+                                    <td><strong>45.50%</strong></td>
+                                    <td><strong>39.00%</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pass@k -->
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3>Pass@k Analysis</h3>
+                    <p>
+                        Pass@k metrics show GPT-5.2 maintains a steady lead in AI and Application categories, while
+                        <strong>Gemini-3-Pro demonstrates superior performance in the System category</strong>,
+                        consistently outperforming GPT-5.2 across all k values.
+                    </p>
+                    <div class="figure-wrap">
+                        <img src="static/images/pass_at_k.png" alt="Pass@k performance across task categories">
+                        <p class="figure-caption">Pass@k performance of representative models across different task
+                            categories.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== Analysis ===== -->
+            <section id="analysis">
+                <h2>Failure Analysis</h2>
                 <p>
-                    We report full metrics for both Overall and Level-3 splits on KernelBench:
-                    Pass Rate, Faster Rate (vs. Eager / vs. Compile), and Geomean Speed-up (vs. Eager / vs. Compile).
+                    We classify failed agent trajectories into four categories to diagnose root causes of failure in
+                    system construction tasks.
                 </p>
-                <div class="metric-columns">
-                    <div class="metric-panel overall">
-                        <h3>Overall</h3>
-                        <div class="metric-row">
-                            <span class="label">Pass Rate</span>
-                            <span class="value">98.8%</span>
-                        </div>
-                        <div class="metric-row">
-                            <span class="label">Faster Rate vs. Eager</span>
-                            <span class="value">98.4%</span>
-                        </div>
-                        <div class="metric-row">
-                            <span class="label">Faster Rate vs. Compile</span>
-                            <span class="value">96.8%</span>
-                        </div>
-                        <div class="metric-row">
-                            <span class="label">Speed-up vs. Eager</span>
-                            <span class="value">2.60x</span>
-                        </div>
-                        <div class="metric-row">
-                            <span class="label">Speed-up vs. Compile</span>
-                            <span class="value">2.11x</span>
-                        </div>
-                    </div>
 
-                    <div class="metric-panel level3">
-                        <h3>Level-3</h3>
-                        <div class="metric-row">
-                            <span class="label">Pass Rate</span>
-                            <span class="value">94%</span>
-                        </div>
-                        <div class="metric-row">
-                            <span class="label">Faster Rate vs. Eager</span>
-                            <span class="value">94%</span>
-                        </div>
-                        <div class="metric-row">
-                            <span class="label">Faster Rate vs. Compile</span>
-                            <span class="value">90%</span>
-                        </div>
-                        <div class="metric-row">
-                            <span class="label">Speed-up vs. Eager</span>
-                            <span class="value">1.80x</span>
-                        </div>
-                        <div class="metric-row">
-                            <span class="label">Speed-up vs. Compile</span>
-                            <span class="value">1.52x</span>
-                        </div>
+                <div class="grid-2" style="margin-top: 1.5rem;">
+                    <div class="card failure-card" style="border-left: 4px solid #2870e6;">
+                        <h3>🎯 Strategic &amp; Planning</h3>
+                        <p>Missing requirements, flawed design, or premature termination — the agent believes it has
+                            finished when critical features are incomplete.</p>
+                    </div>
+                    <div class="card failure-card" style="border-left: 4px solid #14a88a;">
+                        <h3>💻 Implementation &amp; Coding</h3>
+                        <p>Compilation errors, runtime crashes, or hallucinating non-existent APIs — low-level code
+                            correctness failures.</p>
+                    </div>
+                    <div class="card failure-card" style="border-left: 4px solid #d25014;">
+                        <h3>🔄 Debugging &amp; Iteration</h3>
+                        <p>Oscillating between broken states, test regression, or failing to locate root cause despite
+                            seeing error logs.</p>
+                    </div>
+                    <div class="card failure-card" style="border-left: 4px solid #b48c00;">
+                        <h3>🔧 Environment &amp; Tool Use</h3>
+                        <p>Environment destruction, test hacking, or incorrect tool-call formats — failures in system
+                            interaction.</p>
                     </div>
                 </div>
-                <div class="results-note">
-                    Compared with strong proprietary baselines, CUDA Agent shows a clear optimization gap in compile-relative
-                    performance: on overall KernelBench, it reaches 96.8% faster rate vs. compile and 2.11x geomean speed-up,
-                    while Claude Opus 4.5 and Gemini 3 Pro are around 66.4%-69.6% faster rate and 1.42x-1.46x speed-up.
-                    The advantage is most pronounced on difficult settings: on Level-3, CUDA Agent achieves 90% faster rate
-                    vs. compile (about +40 points over the strongest proprietary baselines), and on Level-2 operator-sequence
-                    tasks it reaches 100% faster rate with 2.80x geomean speed-up vs. compile.
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3>Failure Distribution</h3>
+                    <p>
+                        <strong>Strategic &amp; Planning</strong> and <strong>Debugging &amp; Iteration</strong>
+                        constitute the vast majority (&gt;60%) of failures across all models, indicating that
+                        cutting-edge models generally handle tool invocation and code correctness well, but struggle
+                        with long-term reasoning and planning.
+                    </p>
+                    <div class="figure-wrap">
+                        <img src="static/images/failure_distribution.png"
+                            alt="Distribution of failure categories across models">
+                        <p class="figure-caption">Distribution of failure categories across all task instances for each
+                            model.</p>
+                    </div>
                 </div>
-                <div class="figure-wrap">
-                    <img src="static/images/main_results.png" alt="Main experimental results on KernelBench">
-                    <p class="figure-caption">Overall performance and speedup metrics on KernelBench.</p>
+
+                <div class="results-note" style="margin-top: 1.5rem;">
+                    <strong>Universal Bottlenecks:</strong> <em>"Stopped Too Early"</em> and <em>"Failed to Locate Root
+                        Cause"</em> are the two most frequent failure patterns across all models. Given the complexity
+                    of CSBench tasks, agents frequently either abandon prematurely due to overconfidence, or get stuck
+                    in diagnostic loops without converging to a fix.
                 </div>
+
+
             </section>
 
+            <!-- ===== Citation ===== -->
             <section id="citation">
                 <h2>Citation</h2>
-                <p>If you use CUDA Agent in your research, please cite:</p>
+                <p>If you find CSBench useful in your research, please cite:</p>
                 <div class="citation-box">
-<pre>@article{cudaagent2026,
-  title   = {CUDA Agent: Large-Scale Agentic RL for High-Performance CUDA Kernel Generation},
-  author  = {Dai, Weinan and Wu, Hanlin and Yu, Qiying and Gao, Huan-ang and Li, Jiahao and Jiang, Chengquan and Lou, Weiqiang and Song, Yufan and Yu, Hongli and Chen, Jiaze and Ma, Wei-Ying and Zhang, Ya-Qin and Liu, Jingjing and Wang, Mingxuan and Liu, Xin and Zhou, Hao},
-  journal = {arXiv preprint},
+                    <pre>@inproceedings{csbench2026,
+  title   = {CSBench: A Comprehensive Benchmark for Evaluating
+             Project-Level System Construction in Computer Science},
+  author  = {Anonymous},
+  booktitle = {Proceedings of the 43rd International Conference
+               on Machine Learning (ICML)},
   year    = {2026}
 }</pre>
                 </div>
             </section>
+
         </div>
     </main>
 
     <footer>
-        <p>© CUDA Agent Team. Page style adapted from the FLEX project template.</p>
+        <p>&copy; CSBench Team. Page style adapted from the FLEX project template.</p>
     </footer>
 
     <script src="js/main.js"></script>
 </body>
+
 </html>
