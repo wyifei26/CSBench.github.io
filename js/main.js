@@ -1,4 +1,4 @@
-// CUDA Agent project page - Main JavaScript
+// CSBench project page - Main JavaScript
 
 document.addEventListener('DOMContentLoaded', function () {
     // Initialize all features
