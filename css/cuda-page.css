@@ -1,147 +1,104 @@
-/* CUDA Agent page-specific styles on top of the FLEX template */
+/* CSBench — Page Components: Dark Theme */
 
+/* ========================================
+   Navigation
+   ======================================== */
 nav {
-    background-color: var(--white);
-    padding: 1rem 0;
+    background: rgba(10, 15, 26, 0.85);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    padding: 0;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: var(--shadow);
+    border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0;
     flex-wrap: wrap;
 }
 
 nav a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text-muted);
     font-weight: 500;
-    transition: color 0.3s ease;
+    font-size: 0.85rem;
+    transition: color var(--t-fast);
     position: relative;
-    padding: 0.5rem 1rem;
+    padding: 0.85rem 1rem;
+    letter-spacing: 0.01em;
 }
 
 nav a::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
+    background: var(--primary);
+    transition: width var(--t-base);
+    border-radius: 1px;
 }
 
 nav a:hover {
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 nav a:hover::after,
 nav a.active::after {
-    width: 100%;
+    width: 60%;
 }
 
-.authors {
-    margin: 2.5rem auto 1rem auto;
+nav a.active {
+    color: var(--primary);
+}
+
+/* ========================================
+   Cards
+   ======================================== */
+.card {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    transition: all var(--t-base);
+}
+
+.card:hover {
+    border-color: var(--primary-border);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+}
+
+.card h3 {
+    color: var(--primary);
+    margin-bottom: 0.6rem;
     font-size: 1.1rem;
-    line-height: 1.9;
-    color: var(--text-color);
-    max-width: 1000px;
-    font-weight: 500;
 }
 
-.author-block {
-    display: inline-block;
-    margin-right: 0.22rem;
-}
-
-.authors sup,
-.affiliations sup {
-    font-size: 0.72em;
-    line-height: 0;
-    vertical-align: super;
-    color: var(--primary-color);
-    font-weight: 700;
-}
-
-.flex-logo {
-    line-height: 1.12;
-    padding-bottom: 0.12em;
-}
-
-.flex-logo span {
-    display: inline-block;
-    padding-bottom: 0.06em;
-}
-
-.affiliations {
-    margin: 1.2rem auto;
-    font-size: 1rem;
-    line-height: 1.8;
-    color: #6b7280;
-    max-width: 900px;
-    padding: 1.25rem 1.6rem;
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.hero-micro {
-    margin-top: 1.5rem;
-    color: #6b7280;
-    font-size: 0.95rem;
-}
-
-.news-section {
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-    border-radius: 16px;
-    padding: 1.7rem;
-    margin-top: 2rem;
-    margin-bottom: 2.5rem;
-    box-shadow: 0 4px 20px rgba(251, 191, 36, 0.25);
-    border-left: 6px solid #f59e0b;
-}
-
-.news-item {
-    background: #fff;
-    border-radius: 12px;
-    padding: 1.2rem;
-    line-height: 1.75;
-}
-
-.news-item + .news-item {
-    margin-top: 0.9rem;
-}
-
-.news-item a {
-    font-weight: 600;
-}
-
-.news-date {
-    color: #6b7280;
-    font-size: 0.9rem;
-    font-weight: 600;
-    display: inline-block;
-    margin-bottom: 0.5rem;
-}
-
+/* ========================================
+   Grids
+   ======================================== */
 .grid-2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 1.25rem;
     margin-top: 1.5rem;
 }
 
 .grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 1.25rem;
     margin-top: 1.5rem;
 }
 
+/* ========================================
+   Pipeline
+   ======================================== */
 .pipeline-stack {
     display: grid;
     grid-template-columns: 1fr;
@@ -149,35 +106,63 @@ nav a.active::after {
     margin-top: 1.5rem;
 }
 
-.card {
-    background: var(--white);
-    padding: 1.6rem;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.pipeline-stages {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.2rem 0;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+.pipeline-stage {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    transition: all var(--t-base);
 }
 
-.card h3 {
-    color: var(--primary-color);
-    margin-bottom: 0.7rem;
+.pipeline-stage:hover {
+    border-color: var(--primary-border);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
 }
 
-.pipeline-list {
-    margin: 0.8rem 0 0.6rem 1.1rem;
-    color: #374151;
-    line-height: 1.65;
+.stage-number {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    color: var(--text-inverse);
+    font-size: 1rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 12px rgba(6, 214, 160, 0.2);
 }
 
-.pipeline-list li {
-    margin-bottom: 0.45rem;
+.stage-content h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.3rem;
 }
 
+.stage-content p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* ========================================
+   Figures
+   ======================================== */
 .figure-wrap {
     margin-top: 1.5rem;
     text-align: center;
@@ -185,48 +170,55 @@ nav a.active::after {
 
 .figure-wrap img {
     max-width: 100%;
-    border-radius: 12px;
-    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
 }
 
 .figure-caption {
-    margin-top: 0.7rem;
-    font-size: 0.95rem;
-    color: #6b7280;
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
 }
 
-.metric-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-top: 1.5rem;
+/* ========================================
+   Failure Cards
+   ======================================== */
+.failure-card {
+    transition: all var(--t-base) !important;
 }
 
-.metric-columns {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-top: 1.5rem;
+.failure-card:hover {
+    transform: translateY(-3px) !important;
 }
 
-.metric-panel {
-    border-radius: 12px;
-    padding: 1.15rem;
-    box-shadow: var(--shadow);
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+.failure-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
 }
 
-.metric-panel.level3 {
-    background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+.failure-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0;
 }
 
-.metric-panel h3 {
-    margin-bottom: 0.85rem;
-    color: #1d4ed8;
+/* ========================================
+   Metrics
+   ======================================== */
+.metric-panel,
+.metric-card {
+    border-radius: var(--radius-md);
+    padding: 1.1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
 }
 
-.metric-panel.level3 h3 {
-    color: #0f766e;
+.metric-panel h3,
+.metric-card h3 {
+    color: var(--primary);
 }
 
 .metric-row {
@@ -234,8 +226,8 @@ nav a.active::after {
     justify-content: space-between;
     align-items: baseline;
     gap: 0.8rem;
-    border-top: 1px solid rgba(15, 23, 42, 0.08);
-    padding: 0.8rem 0;
+    border-top: 1px solid var(--border);
+    padding: 0.7rem 0;
 }
 
 .metric-row:first-of-type {
@@ -244,142 +236,136 @@ nav a.active::after {
 }
 
 .metric-row .label {
-    color: #4b5563;
-    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
 .metric-row .value {
-    color: #1e40af;
-    font-size: 1.32rem;
+    color: var(--primary);
+    font-size: 1.2rem;
     font-weight: 800;
+    font-family: var(--font-mono);
     white-space: nowrap;
 }
 
+/* ========================================
+   Results Note
+   ======================================== */
 .results-note {
-    margin-top: 1rem;
-    background: linear-gradient(135deg, #f8fafc 0%, #f0f9ff 100%);
-    border-left: 4px solid var(--primary-color);
-    border-radius: 10px;
-    padding: 0.95rem 1rem;
-    color: #374151;
+    margin-top: 1.2rem;
+    background: var(--bg-surface);
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.2rem;
+    color: var(--text-secondary);
     line-height: 1.7;
+    font-size: 0.92rem;
 }
 
-.metric-card {
-    border-radius: 12px;
-    padding: 1.1rem;
-    box-shadow: var(--shadow);
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+/* ========================================
+   News
+   ======================================== */
+.news-section {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 209, 102, 0.15);
+    border-left: 4px solid var(--accent);
 }
 
-.metric-card.level3 {
-    background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
-}
-
-.metric-card .group {
-    display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: #1d4ed8;
-    background: rgba(255, 255, 255, 0.68);
-    border-radius: 999px;
-    padding: 0.2rem 0.5rem;
-    margin-bottom: 0.45rem;
-}
-
-.metric-card.level3 .group {
-    color: #0f766e;
-}
-
-.metric-card .label {
-    color: #4b5563;
-    font-size: 0.9rem;
-    margin-bottom: 0.35rem;
-}
-
-.metric-card .value {
-    color: #1e40af;
-    font-size: 1.3rem;
-    font-weight: 800;
-}
-
+/* ========================================
+   Resources / Buttons
+   ======================================== */
 .resources {
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
     flex-wrap: wrap;
     margin-top: 1rem;
 }
 
 .resource-btn {
-    padding: 0.85rem 1.3rem;
+    padding: 0.7rem 1.2rem;
     border-radius: 999px;
-    border: 2px solid var(--primary-color);
+    border: 1px solid var(--primary-border);
     font-weight: 600;
-    background: #fff;
-    color: var(--primary-color);
+    font-size: 0.85rem;
+    background: transparent;
+    color: var(--primary);
+    transition: all var(--t-base);
+}
+
+.resource-btn:hover {
+    background: var(--primary-glow);
+    border-color: var(--primary);
 }
 
 .resource-btn.primary {
-    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
-    color: #fff;
+    background: var(--primary);
+    color: var(--text-inverse);
     border-color: transparent;
 }
 
+.resource-btn.primary:hover {
+    box-shadow: 0 4px 16px rgba(6, 214, 160, 0.3);
+}
+
+/* ========================================
+   Citation
+   ======================================== */
 .citation-box {
     margin-top: 1rem;
-    background: #0f172a;
-    color: #dbeafe;
-    border-radius: 12px;
+    background: var(--bg-secondary);
+    color: var(--primary);
+    border-radius: var(--radius-md);
     padding: 1.2rem;
+    border: 1px solid var(--border);
     overflow-x: auto;
+    position: relative;
 }
 
 .citation-box pre {
     margin: 0;
-    font-size: 0.86rem;
-    line-height: 1.55;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
 }
 
+/* ========================================
+   Footer
+   ======================================== */
 footer {
     margin-top: 2rem;
-    padding: 1.5rem 1rem 2rem;
+    padding: 2rem 1rem;
     text-align: center;
-    color: #6b7280;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
 }
 
-@media (max-width: 1024px) {
-    .metric-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
+/* ========================================
+   Responsive
+   ======================================== */
 @media (max-width: 768px) {
     nav {
-        gap: 0.25rem;
+        gap: 0;
     }
 
     nav a {
-        padding: 0.45rem 0.75rem;
-        font-size: 0.9rem;
+        padding: 0.6rem 0.6rem;
+        font-size: 0.78rem;
     }
 
     .grid-2,
-    .grid-3,
-    .metric-grid {
+    .grid-3 {
         grid-template-columns: 1fr;
     }
 
-    .metric-columns {
-        grid-template-columns: 1fr;
-    }
-
-    .authors {
-        font-size: 1rem;
-    }
-
-    .affiliations {
-        font-size: 0.95rem;
+    .pipeline-stage {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 }

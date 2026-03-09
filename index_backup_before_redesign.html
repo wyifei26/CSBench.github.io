@@ -16,15 +16,11 @@
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/cuda-page.css">
     <link rel="stylesheet" href="css/csbench.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vscode/codicons@0.0.36/dist/codicon.css">
 </head>
 
 <body>
     <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
-    <!-- ============================================================
-         HERO
-         ============================================================ -->
     <section class="hero" id="hero">
         <div class="hero-particles" id="particles"></div>
         <div class="hero-content">
@@ -32,67 +28,61 @@
                 <div class="flex-logo">
                     <span>CSBench</span>
                 </div>
-                <h3 class="hero-title">A Comprehensive Benchmark for Evaluating<br>
-                    Project-Level System Construction in Computer Science</h3>
+                <h3 class="hero-title">A Comprehensive Benchmark for Evaluating Project-Level System Construction in
+                    Computer Science</h3>
             </div>
 
             <div class="hero-cta">
                 <a href="#" class="btn btn-primary">
+                    <span>Paper (PDF)</span>
                     <span class="btn-icon">📄</span>
-                    <span>Paper</span>
                 </a>
                 <a href="#" class="btn btn-secondary">
-                    <span class="btn-icon">⭐</span>
                     <span>GitHub</span>
+                    <span class="btn-icon">⭐</span>
                 </a>
                 <a href="#" class="btn btn-secondary">
-                    <span class="btn-icon">🤗</span>
                     <span>Dataset</span>
+                    <span class="btn-icon">🤗</span>
                 </a>
             </div>
 
             <div class="hero-stats">
                 <div class="stat-card">
                     <span class="stat-number">100</span>
-                    <span class="stat-label">Expert Tasks</span>
+                    <span class="stat-label">Expert-Curated Tasks</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">19</span>
-                    <span class="stat-label">CS Topics</span>
+                    <span class="stat-label">CS Sub-Topics</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">12</span>
-                    <span class="stat-label">Models Tested</span>
+                    <span class="stat-label">SOTA Models Evaluated</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">55.5%</span>
-                    <span class="stat-label">Best (GPT-5.2)</span>
+                    <span class="stat-label">Best Model (GPT-5.2)</span>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- ============================================================
-         NAV
-         ============================================================ -->
     <nav role="navigation" aria-label="Main navigation">
         <a href="#leaderboard">Leaderboard</a>
         <a href="#abstract">Abstract</a>
         <a href="#highlights">Highlights</a>
         <a href="#benchmark">Benchmark</a>
-        <a href="#case-study">Case Study</a>
         <a href="#results">Results</a>
         <a href="#analysis">Analysis</a>
         <a href="#citation">Citation</a>
     </nav>
 
-    <!-- ============================================================
-         MAIN CONTENT
-         ============================================================ -->
     <main id="main-content">
         <div class="container">
 
-            <!-- ===== Leaderboard ===== -->
+            <!-- ===== Leaderboard (Performance by Category) ===== -->
             <section id="leaderboard">
                 <h2>Leaderboard</h2>
                 <p>
@@ -101,209 +91,101 @@
                     Each task allows up to 50 interaction rounds. Results are <strong>averaged over 4 independent runs
                         (avg@4)</strong>.
                 </p>
-
                 <div class="card" style="margin-top: 1.5rem;">
-                    <div class="perf-header">
-                        <h3>Performance by Category</h3>
-                        <div class="perf-toggle">
-                            <button class="perf-toggle-btn active" data-view="overall">Overall</button>
-                            <button class="perf-toggle-btn" data-view="details">Details</button>
-                        </div>
+                    <h3>Performance by Category</h3>
+                    <div class="table-scroll">
+                        <table class="data-table results-table">
+                            <colgroup>
+                                <col style="width: 22%">
+                                <col span="4">
+                                <col style="width: 15%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th class="cat-system">System (48)</th>
+                                    <th class="cat-ai">AI (28)</th>
+                                    <th class="cat-app">Application (19)</th>
+                                    <th class="cat-others">Others (5)</th>
+                                    <th class="cat-overall">Overall (100)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="rank-1">
+                                    <td><strong>GPT-5.2</strong> <span class="model-org">OpenAI</span></td>
+                                    <td>36.46%</td>
+                                    <td><strong>69.64%</strong></td>
+                                    <td><strong>77.63%</strong></td>
+                                    <td>75.00%</td>
+                                    <td class="overall-best"><strong>55.50%</strong></td>
+                                </tr>
+                                <tr class="rank-2">
+                                    <td><strong>Sonnet-4.5</strong> <span class="model-org">Anthropic</span></td>
+                                    <td>32.81%</td>
+                                    <td>49.11%</td>
+                                    <td>60.53%</td>
+                                    <td><strong>90.00%</strong></td>
+                                    <td>45.50%</td>
+                                </tr>
+                                <tr class="rank-3">
+                                    <td><strong>Gemini-3-Pro</strong> <span class="model-org">Google</span></td>
+                                    <td><strong>41.15%</strong></td>
+                                    <td>30.36%</td>
+                                    <td>46.05%</td>
+                                    <td>40.00%</td>
+                                    <td>39.00%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>DeepSeek-V3.2</strong> <span class="model-org">DeepSeek</span></td>
+                                    <td>13.02%</td>
+                                    <td>27.68%</td>
+                                    <td>38.16%</td>
+                                    <td>15.00%</td>
+                                    <td>22.00%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Seed-1.8</strong> <span class="model-org">ByteDance</span></td>
+                                    <td>15.10%</td>
+                                    <td>11.61%</td>
+                                    <td>26.32%</td>
+                                    <td>15.00%</td>
+                                    <td>16.25%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>GLM-4.7</strong> <span class="model-org">Zhipu AI</span></td>
+                                    <td>10.42%</td>
+                                    <td>22.32%</td>
+                                    <td>18.42%</td>
+                                    <td>15.00%</td>
+                                    <td>15.50%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Qwen3-Coder</strong> <span class="model-org">Alibaba</span></td>
+                                    <td>6.25%</td>
+                                    <td>17.86%</td>
+                                    <td>9.21%</td>
+                                    <td>10.00%</td>
+                                    <td>10.25%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Kimi-K2</strong> <span class="model-org">Moonshot AI</span></td>
+                                    <td>6.25%</td>
+                                    <td>17.86%</td>
+                                    <td>9.21%</td>
+                                    <td>5.00%</td>
+                                    <td>10.00%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Minimax-M2</strong> <span class="model-org">MiniMax</span></td>
+                                    <td>6.25%</td>
+                                    <td>9.82%</td>
+                                    <td>11.84%</td>
+                                    <td>10.00%</td>
+                                    <td>8.50%</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-
-                    <!-- ===== View 1: Overall (default) ===== -->
-                    <div class="perf-view perf-view-overall active">
-                        <div class="perf-chart">
-                            <div class="perf-model">
-                                <div class="perf-label">🥇 <strong>GPT-5.2</strong> <span
-                                        class="model-org">OpenAI</span></div>
-                                <div class="perf-bars">
-                                    <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank rank-gold" style="width:55.50%"></div>
-                                        <span class="perf-val best-overall-val">55.50%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="perf-model">
-                                <div class="perf-label">🥈 <strong>Sonnet-4.5</strong> <span
-                                        class="model-org">Anthropic</span></div>
-                                <div class="perf-bars">
-                                    <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank rank-silver" style="width:45.50%"></div>
-                                        <span class="perf-val">45.50%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="perf-model">
-                                <div class="perf-label">🥉 <strong>Gemini-3-Pro</strong> <span
-                                        class="model-org">Google</span></div>
-                                <div class="perf-bars">
-                                    <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank rank-bronze" style="width:39.00%"></div>
-                                        <span class="perf-val">39.00%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="perf-model">
-                                <div class="perf-label"><strong>DeepSeek-V3.2</strong> <span
-                                        class="model-org">DeepSeek</span></div>
-                                <div class="perf-bars">
-                                    <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank" style="width:22.00%"></div><span
-                                            class="perf-val">22.00%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="perf-model">
-                                <div class="perf-label"><strong>Seed-1.8</strong> <span
-                                        class="model-org">ByteDance</span></div>
-                                <div class="perf-bars">
-                                    <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank" style="width:16.25%"></div><span
-                                            class="perf-val">16.25%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="perf-model">
-                                <div class="perf-label"><strong>GLM-4.7</strong> <span class="model-org">Zhipu AI</span>
-                                </div>
-                                <div class="perf-bars">
-                                    <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank" style="width:15.50%"></div><span
-                                            class="perf-val">15.50%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="perf-model">
-                                <div class="perf-label"><strong>Qwen3-Coder</strong> <span
-                                        class="model-org">Alibaba</span></div>
-                                <div class="perf-bars">
-                                    <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank" style="width:10.25%"></div><span
-                                            class="perf-val">10.25%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="perf-model">
-                                <div class="perf-label"><strong>Kimi-K2</strong> <span class="model-org">Moonshot
-                                        AI</span></div>
-                                <div class="perf-bars">
-                                    <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank" style="width:10.00%"></div><span
-                                            class="perf-val">10.00%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="perf-model">
-                                <div class="perf-label"><strong>Minimax-M2</strong> <span
-                                        class="model-org">MiniMax</span></div>
-                                <div class="perf-bars">
-                                    <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank" style="width:8.50%"></div><span
-                                            class="perf-val">8.50%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ===== View 2: Details (table) ===== -->
-                    <div class="perf-view perf-view-details">
-                        <div class="table-scroll">
-                            <table class="data-table results-table">
-                                <colgroup>
-                                    <col style="width: 22%">
-                                    <col span="4">
-                                    <col style="width: 15%">
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th>Model</th>
-                                        <th class="cat-system">System (48)</th>
-                                        <th class="cat-ai">AI (28)</th>
-                                        <th class="cat-app">Application (19)</th>
-                                        <th class="cat-others">Others (5)</th>
-                                        <th class="cat-overall">Overall (100)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="rank-1">
-                                        <td><strong>GPT-5.2</strong> <span class="model-org">OpenAI</span></td>
-                                        <td>36.46%</td>
-                                        <td><strong>69.64%</strong></td>
-                                        <td><strong>77.63%</strong></td>
-                                        <td>75.00%</td>
-                                        <td class="overall-best"><strong>55.50%</strong></td>
-                                    </tr>
-                                    <tr class="rank-2">
-                                        <td><strong>Sonnet-4.5</strong> <span class="model-org">Anthropic</span></td>
-                                        <td>32.81%</td>
-                                        <td>49.11%</td>
-                                        <td>60.53%</td>
-                                        <td><strong>90.00%</strong></td>
-                                        <td>45.50%</td>
-                                    </tr>
-                                    <tr class="rank-3">
-                                        <td><strong>Gemini-3-Pro</strong> <span class="model-org">Google</span></td>
-                                        <td><strong>41.15%</strong></td>
-                                        <td>30.36%</td>
-                                        <td>46.05%</td>
-                                        <td>40.00%</td>
-                                        <td>39.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>DeepSeek-V3.2</strong> <span class="model-org">DeepSeek</span></td>
-                                        <td>13.02%</td>
-                                        <td>27.68%</td>
-                                        <td>38.16%</td>
-                                        <td>15.00%</td>
-                                        <td>22.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Seed-1.8</strong> <span class="model-org">ByteDance</span></td>
-                                        <td>15.10%</td>
-                                        <td>11.61%</td>
-                                        <td>26.32%</td>
-                                        <td>15.00%</td>
-                                        <td>16.25%</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>GLM-4.7</strong> <span class="model-org">Zhipu AI</span></td>
-                                        <td>10.42%</td>
-                                        <td>22.32%</td>
-                                        <td>18.42%</td>
-                                        <td>15.00%</td>
-                                        <td>15.50%</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Qwen3-Coder</strong> <span class="model-org">Alibaba</span></td>
-                                        <td>6.25%</td>
-                                        <td>17.86%</td>
-                                        <td>9.21%</td>
-                                        <td>10.00%</td>
-                                        <td>10.25%</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Kimi-K2</strong> <span class="model-org">Moonshot AI</span></td>
-                                        <td>6.25%</td>
-                                        <td>17.86%</td>
-                                        <td>9.21%</td>
-                                        <td>5.00%</td>
-                                        <td>10.00%</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Minimax-M2</strong> <span class="model-org">MiniMax</span></td>
-                                        <td>6.25%</td>
-                                        <td>9.82%</td>
-                                        <td>11.84%</td>
-                                        <td>10.00%</td>
-                                        <td>8.50%</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
                     <p class="figure-caption">Model performance by category. Numbers in parentheses indicate the number
                         of tasks. All results are avg@4.</p>
                 </div>
@@ -331,6 +213,23 @@
                     prematurely due to overconfidence or fail to translate execution feedback into valid architectural
                     fixes.
                 </p>
+                <div class="figure-wrap"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+                    <div>
+                        <img src="static/images/csbench_comparison.png"
+                            alt="Comparison between CSBench and other software engineering benchmarks"
+                            style="width: 100%;">
+                        <p class="figure-caption">Comparison between CSBench and other software engineering benchmarks.
+                            CSBench targets <strong>System Construction</strong> (Spec-to-Code), complementing
+                            maintenance-centric benchmarks like SWE-bench.</p>
+                    </div>
+                    <div>
+                        <img src="static/images/case-252.png"
+                            alt="Case study of Gemini-3-Pro solving an OpenMP optimization task" style="width: 100%;">
+                        <p class="figure-caption">Case study: Gemini-3-Pro's problem-solving trajectory on an HPC task
+                            requiring OpenMP parallelization.</p>
+                    </div>
+                </div>
             </section>
 
             <!-- ===== Key Highlights ===== -->
@@ -563,67 +462,6 @@
                 </div>
             </section>
 
-            <!-- ===== Case Study ===== -->
-            <section id="case-study">
-                <h2>Benchmark Case: CS000232</h2>
-                <p>
-                    <strong>CS000232</strong> is a concrete CSBench task instance included in this repository. The
-                    panel below exposes its complete folder structure so visitors can inspect the benchmark packaging,
-                    starter code, metadata, and test files directly on the website.
-                </p>
-
-                <div class="card case-explorer-card">
-                    <div class="case-explorer-intro">
-                        <div class="case-badge-row">
-                            <span class="case-badge" id="cs000232-file-count">18 files</span>
-                            <span class="case-badge" id="cs000232-folder-count">6 folders</span>
-                            <span class="case-badge">Static preview</span>
-                        </div>
-                        <p class="case-explorer-note">
-                            Click any file in the tree to load its content. The explorer fetches the original file from
-                            the repository, so the preview always matches the tracked artifact.
-                        </p>
-                    </div>
-
-                    <div class="case-explorer-layout">
-                        <aside class="case-tree-panel" aria-labelledby="cs000232-tree-title">
-                            <div class="case-panel-header">
-                                <div>
-                                    <h3 id="cs000232-tree-title">Complete File Structure</h3>
-                                    <p class="case-panel-subtitle">Root directory: <strong>CS000232/</strong></p>
-                                </div>
-                            </div>
-                            <div id="cs000232-tree" class="case-tree" aria-label="CS000232 file explorer"></div>
-                        </aside>
-
-                        <div class="case-viewer-panel" aria-labelledby="cs000232-viewer-title">
-                            <div class="case-panel-header">
-                                <div>
-                                    <h3 id="cs000232-viewer-title">File Preview</h3>
-                                    <p class="case-current-path" id="cs000232-current-path">CS000232/metadata/task.md
-                                    </p>
-                                </div>
-                                <a id="cs000232-open-file" class="case-open-link" href="CS000232/metadata/task.md"
-                                    target="_blank" rel="noopener noreferrer">Open raw file</a>
-                            </div>
-
-                            <div class="case-file-meta">
-                                <span class="case-badge" id="cs000232-file-type">Markdown</span>
-                                <span class="case-badge" id="cs000232-file-size">Loading…</span>
-                            </div>
-
-                            <div id="cs000232-viewer" class="case-viewer" aria-live="polite">
-                                <div class="case-viewer-status">Loading default file…</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <p class="figure-caption">This embedded explorer shows the full directory tree under
-                        <strong>CS000232</strong>, including metadata, overrides, source files, and tests.
-                    </p>
-                </div>
-            </section>
-
             <!-- ===== Main Results ===== -->
             <section id="results">
                 <h2>Detailed Results</h2>
@@ -786,7 +624,7 @@
                         consistently outperforming GPT-5.2 across all k values.
                     </p>
                     <div class="figure-wrap">
-                        <img src="static/images/pass_at_k.png" alt="Pass@k performance across task categories" style="width: 80%;">
+                        <img src="static/images/pass_at_k.png" alt="Pass@k performance across task categories">
                         <p class="figure-caption">Pass@k performance of representative models across different task
                             categories.</p>
                     </div>
@@ -802,22 +640,22 @@
                 </p>
 
                 <div class="grid-2" style="margin-top: 1.5rem;">
-                    <div class="card failure-card" style="border-left: 3px solid #06d6a0;">
+                    <div class="card failure-card" style="border-left: 4px solid #059669;">
                         <h3>🎯 Strategic &amp; Planning</h3>
                         <p>Missing requirements, flawed design, or premature termination — the agent believes it has
                             finished when critical features are incomplete.</p>
                     </div>
-                    <div class="card failure-card" style="border-left: 3px solid #38bdf8;">
+                    <div class="card failure-card" style="border-left: 4px solid #14a88a;">
                         <h3>💻 Implementation &amp; Coding</h3>
                         <p>Compilation errors, runtime crashes, or hallucinating non-existent APIs — low-level code
                             correctness failures.</p>
                     </div>
-                    <div class="card failure-card" style="border-left: 3px solid #ef476f;">
+                    <div class="card failure-card" style="border-left: 4px solid #d25014;">
                         <h3>🔄 Debugging &amp; Iteration</h3>
                         <p>Oscillating between broken states, test regression, or failing to locate root cause despite
                             seeing error logs.</p>
                     </div>
-                    <div class="card failure-card" style="border-left: 3px solid #ffd166;">
+                    <div class="card failure-card" style="border-left: 4px solid #b48c00;">
                         <h3>🔧 Environment &amp; Tool Use</h3>
                         <p>Environment destruction, test hacking, or incorrect tool-call formats — failures in system
                             interaction.</p>
@@ -834,8 +672,7 @@
                     </p>
                     <div class="figure-wrap">
                         <img src="static/images/failure_distribution.png"
-                            alt="Distribution of failure categories across models"
-                            style="width: 80%;">
+                            alt="Distribution of failure categories across models">
                         <p class="figure-caption">Distribution of failure categories across all task instances for each
                             model.</p>
                     </div>
@@ -847,6 +684,8 @@
                     of CSBench tasks, agents frequently either abandon prematurely due to overconfidence, or get stuck
                     in diagnostic loops without converging to a fix.
                 </div>
+
+
             </section>
 
             <!-- ===== Citation ===== -->
@@ -869,7 +708,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 CSBench Team</p>
+        <p>&copy; CSBench Team. Page style adapted from the FLEX project template.</p>
     </footer>
 
     <script src="js/main.js"></script>
