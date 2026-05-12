@@ -700,3 +700,324 @@ function escapeHtml(value) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
 }
+
+/* ========================================
+   CSBench Dataset Case Index
+   Overrides the legacy CS000232 explorer.
+   ======================================== */
+const CSBENCH_DATASET_ROWS_URL = 'https://datasets-server.huggingface.co/rows?dataset=BytedTsinghua-SIA/CSBench&config=default&split=test&offset=0&length=100';
+
+const CSBENCH_FALLBACK_CASES = [
+    {
+        id: 'cs000003',
+        category: 'System',
+        sub_category: 'System Fundamentals',
+        university: 'CMU',
+        course_id: 'cs15213',
+        course_name: 'Computer Systems',
+        programming_languages: "['C']",
+        lab_name: 'bomblab',
+        language: 'English',
+        pass_to_pass: '0',
+        fail_to_pass: '7',
+        task_desc: 'Bomb Lab requires students to defuse a binary bomb by reverse engineering multiple phases.',
+        specification: 'Students inspect machine code with tools such as gdb, infer valid inputs for each phase, and avoid triggering BOOM!!! failures.',
+        scaffold_desc: 'The scaffold includes phase-oriented tests that validate whether each bomb phase and the secret phase have been defused.',
+        ut_desc: 'Phase tests check expected success strings for every defused phase.'
+    },
+    {
+        id: 'cs000006',
+        category: 'System',
+        sub_category: 'System Fundamentals',
+        university: 'CMU',
+        course_id: 'cs15213',
+        course_name: 'Computer Systems',
+        programming_languages: "['C', 'Python']",
+        lab_name: 'cachelab',
+        language: 'English',
+        pass_to_pass: '0',
+        fail_to_pass: '4',
+        task_desc: 'Implement a cache simulator and optimize matrix transpose code to reduce cache misses.',
+        specification: 'The simulator must match reference hit, miss, and eviction counts; transpose implementations must be correct and stay under miss thresholds.',
+        scaffold_desc: 'The scaffold contains csim.c, trans.c, driver scripts, reference binaries, trace files, and a Makefile.',
+        ut_desc: 'Tests validate cache simulator scores and transpose correctness/performance thresholds.'
+    },
+    {
+        id: 'cs000209',
+        category: 'AI',
+        sub_category: 'Machine Learning',
+        university: 'NTU',
+        course_id: 'ml-2025',
+        course_name: 'Machine Learning',
+        programming_languages: "['Python']",
+        lab_name: 'hw2_AI Agent2',
+        language: 'English',
+        pass_to_pass: '9',
+        fail_to_pass: '34',
+        task_desc: 'Build an AIDE-style AI agent that generates, debugs, and improves code for a time-series prediction task.',
+        specification: 'The system manages train/test CSV files, executes generated code, parses results, and searches solution trees using LLM-driven draft/debug/improve steps.',
+        scaffold_desc: 'The scaffold provides Agent, Config, Interpreter, Journal, Node, LLM interface, feature selection, text processing, and main entry modules.',
+        ut_desc: 'Tests cover agent policy, parsing, interpreter execution, tree/node behavior, feature preview, and utility functions.'
+    }
+];
+
+function initCaseExplorer() {
+    const root = {
+        search: document.getElementById('csbench-case-search'),
+        category: document.getElementById('csbench-category-filter'),
+        subcategory: document.getElementById('csbench-subcategory-filter'),
+        summaryBtn: document.getElementById('csbench-view-summary'),
+        fullBtn: document.getElementById('csbench-view-full'),
+        categoryIndex: document.getElementById('csbench-category-index'),
+        taskList: document.getElementById('csbench-task-list'),
+        viewer: document.getElementById('csbench-case-viewer'),
+        filterSummary: document.getElementById('csbench-filter-summary'),
+        taskCount: document.getElementById('csbench-task-count'),
+        categoryCount: document.getElementById('csbench-category-count'),
+        fetchStatus: document.getElementById('csbench-fetch-status'),
+        currentId: document.getElementById('csbench-current-id'),
+        currentType: document.getElementById('csbench-current-type'),
+        currentLanguage: document.getElementById('csbench-current-language'),
+        currentMeta: document.getElementById('csbench-current-meta')
+    };
+
+    if (!root.search || !root.category || !root.subcategory || !root.viewer || !root.taskList) {
+        return;
+    }
+
+    const state = {
+        rows: [],
+        filteredRows: [],
+        activeId: '',
+        activeView: 'summary',
+        activeCategory: 'all',
+        activeSubcategory: 'all',
+        query: ''
+    };
+
+    bindCaseIndexEvents(root, state);
+    loadCsbenchRows(root, state);
+}
+
+async function loadCsbenchRows(root, state) {
+    try {
+        const response = await fetch(CSBENCH_DATASET_ROWS_URL);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const payload = await response.json();
+        const rows = (payload.rows || []).map(item => item.row).filter(Boolean);
+        if (rows.length === 0) {
+            throw new Error('No rows returned');
+        }
+
+        state.rows = rows;
+        root.fetchStatus.textContent = 'Live dataset';
+    } catch (error) {
+        state.rows = CSBENCH_FALLBACK_CASES;
+        root.fetchStatus.textContent = 'Fallback preview';
+        root.viewer.innerHTML = `<div class="case-viewer-status case-viewer-error">Live dataset is unavailable in this browser session, so a small static preview is shown. ${escapeHtml(error.message || '')}</div>`;
+    }
+
+    state.activeId = state.rows[0] ? state.rows[0].id : '';
+    populateCaseFilters(root, state);
+    applyCaseFilters(root, state);
+}
+
+function bindCaseIndexEvents(root, state) {
+    root.search.addEventListener('input', () => {
+        state.query = root.search.value.trim().toLowerCase();
+        applyCaseFilters(root, state);
+    });
+
+    root.category.addEventListener('change', () => {
+        state.activeCategory = root.category.value;
+        state.activeSubcategory = 'all';
+        populateSubcategoryFilter(root, state);
+        renderCategoryIndex(root, state);
+        applyCaseFilters(root, state);
+    });
+
+    root.subcategory.addEventListener('change', () => {
+        state.activeSubcategory = root.subcategory.value;
+        applyCaseFilters(root, state);
+    });
+
+    [root.summaryBtn, root.fullBtn].forEach(button => {
+        button.addEventListener('click', () => {
+            state.activeView = button.dataset.view;
+            root.summaryBtn.classList.toggle('active', state.activeView === 'summary');
+            root.fullBtn.classList.toggle('active', state.activeView === 'full');
+            renderActiveCase(root, state);
+        });
+    });
+}
+
+function populateCaseFilters(root, state) {
+    const categories = uniqueSorted(state.rows.map(row => row.category));
+    root.category.innerHTML = [
+        '<option value="all">All categories</option>',
+        ...categories.map(category => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`)
+    ].join('');
+
+    root.taskCount.textContent = `${state.rows.length} tasks`;
+    root.categoryCount.textContent = `${categories.length} categories`;
+    populateSubcategoryFilter(root, state);
+    renderCategoryIndex(root, state);
+}
+
+function populateSubcategoryFilter(root, state) {
+    const pool = state.activeCategory === 'all'
+        ? state.rows
+        : state.rows.filter(row => row.category === state.activeCategory);
+    const subcategories = uniqueSorted(pool.map(row => row.sub_category));
+
+    root.subcategory.innerHTML = [
+        '<option value="all">All sub-categories</option>',
+        ...subcategories.map(subcategory => `<option value="${escapeHtml(subcategory)}">${escapeHtml(subcategory)}</option>`)
+    ].join('');
+    root.subcategory.value = state.activeSubcategory;
+}
+
+function renderCategoryIndex(root, state) {
+    const counts = state.rows.reduce((acc, row) => {
+        const category = row.category || 'Unknown';
+        acc[category] = (acc[category] || 0) + 1;
+        return acc;
+    }, {});
+
+    const categories = uniqueSorted(Object.keys(counts));
+    root.categoryIndex.innerHTML = [
+        `<button type="button" class="case-category-btn ${state.activeCategory === 'all' ? 'active' : ''}" data-category="all">
+            <span>All</span><strong>${state.rows.length}</strong>
+        </button>`,
+        ...categories.map(category => `
+            <button type="button" class="case-category-btn ${state.activeCategory === category ? 'active' : ''}" data-category="${escapeHtml(category)}">
+                <span>${escapeHtml(category)}</span><strong>${counts[category]}</strong>
+            </button>
+        `)
+    ].join('');
+
+    root.categoryIndex.querySelectorAll('.case-category-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            state.activeCategory = button.dataset.category;
+            state.activeSubcategory = 'all';
+            root.category.value = state.activeCategory;
+            populateSubcategoryFilter(root, state);
+            renderCategoryIndex(root, state);
+            applyCaseFilters(root, state);
+        });
+    });
+}
+
+function applyCaseFilters(root, state) {
+    state.filteredRows = state.rows.filter(row => {
+        const matchesCategory = state.activeCategory === 'all' || row.category === state.activeCategory;
+        const matchesSubcategory = state.activeSubcategory === 'all' || row.sub_category === state.activeSubcategory;
+        const haystack = [
+            row.id,
+            row.category,
+            row.sub_category,
+            row.university,
+            row.course_id,
+            row.course_name,
+            row.programming_languages,
+            row.lab_name,
+            row.task_desc,
+            row.specification,
+            row.scaffold_desc
+        ].join(' ').toLowerCase();
+        const matchesQuery = !state.query || haystack.includes(state.query);
+
+        return matchesCategory && matchesSubcategory && matchesQuery;
+    });
+
+    if (!state.filteredRows.some(row => row.id === state.activeId)) {
+        state.activeId = state.filteredRows[0] ? state.filteredRows[0].id : '';
+    }
+
+    renderTaskList(root, state);
+    renderActiveCase(root, state);
+}
+
+function renderTaskList(root, state) {
+    const count = state.filteredRows.length;
+    root.filterSummary.textContent = `${count} matching ${count === 1 ? 'task' : 'tasks'}`;
+
+    if (count === 0) {
+        root.taskList.innerHTML = '<div class="case-tree-empty">No tasks match the current filters.</div>';
+        return;
+    }
+
+    root.taskList.innerHTML = state.filteredRows.map(row => `
+        <button type="button" class="case-task-item ${row.id === state.activeId ? 'active' : ''}" data-id="${escapeHtml(row.id)}">
+            <span class="case-task-id">${escapeHtml(row.id || 'unknown')}</span>
+            <span class="case-task-title">${escapeHtml(row.lab_name || row.course_name || row.sub_category || 'Untitled task')}</span>
+            <span class="case-task-meta">${escapeHtml(row.sub_category || 'Unknown sub-category')} · ${escapeHtml(row.programming_languages || 'Language n/a')}</span>
+        </button>
+    `).join('');
+
+    root.taskList.querySelectorAll('.case-task-item').forEach(button => {
+        button.addEventListener('click', () => {
+            state.activeId = button.dataset.id;
+            renderTaskList(root, state);
+            renderActiveCase(root, state);
+        });
+    });
+}
+
+function renderActiveCase(root, state) {
+    const row = state.rows.find(item => item.id === state.activeId);
+    if (!row) {
+        root.currentId.textContent = 'No task selected';
+        root.currentType.textContent = 'Task type';
+        root.currentLanguage.textContent = 'Language';
+        root.currentMeta.textContent = 'Select a task to preview';
+        root.viewer.innerHTML = '<div class="case-viewer-status">Select a task from the index to preview it.</div>';
+        return;
+    }
+
+    root.currentId.textContent = row.id || 'Unknown id';
+    root.currentType.textContent = [row.category, row.sub_category].filter(Boolean).join(' / ') || 'Unknown type';
+    root.currentLanguage.textContent = row.programming_languages || row.language || 'Language n/a';
+    root.currentMeta.textContent = `${row.university || 'Unknown university'} · ${row.course_name || row.course_id || 'Unknown course'}`;
+
+    if (state.activeView === 'full') {
+        renderFullCaseRecord(root.viewer, row);
+    } else {
+        renderCaseSummary(root.viewer, row);
+    }
+}
+
+function renderCaseSummary(container, row) {
+    const fields = [
+        ['task_desc', 'Task Description'],
+        ['specification', 'Specification'],
+        ['scaffold_desc', 'Scaffold Description']
+    ];
+
+    container.innerHTML = `
+        <div class="case-summary">
+            ${fields.map(([key, label]) => `
+                <article class="case-field">
+                    <h4>${label}</h4>
+                    <div class="case-field-key">${key}</div>
+                    <p class="case-field-body">${escapeHtml(row[key] || 'Not provided.')}</p>
+                </article>
+            `).join('')}
+        </div>
+    `;
+}
+
+function renderFullCaseRecord(container, row) {
+    const pre = document.createElement('pre');
+    pre.className = 'case-json';
+    pre.textContent = JSON.stringify(row, null, 2);
+    container.innerHTML = '';
+    container.appendChild(pre);
+}
+
+function uniqueSorted(values) {
+    return Array.from(new Set(values.filter(Boolean))).sort((a, b) => String(a).localeCompare(String(b)));
+}

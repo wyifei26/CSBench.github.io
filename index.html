@@ -80,9 +80,8 @@
         <a href="#abstract">Abstract</a>
         <a href="#highlights">Highlights</a>
         <a href="#benchmark">Benchmark</a>
-        <a href="#case-study">Case Study</a>
+        <a href="#case-study">Case Index</a>
         <a href="#results">Results</a>
-        <a href="#analysis">Analysis</a>
         <a href="#citation">Citation</a>
     </nav>
 
@@ -563,63 +562,90 @@
                 </div>
             </section>
 
-            <!-- ===== Case Study ===== -->
+            <!-- ===== Case Index ===== -->
             <section id="case-study">
-                <h2>Benchmark Case: CS000232</h2>
+                <h2>Benchmark Case Index</h2>
                 <p>
-                    <strong>CS000232</strong> is a concrete CSBench task instance included in this repository. The
-                    panel below exposes its complete folder structure so visitors can inspect the benchmark packaging,
-                    starter code, metadata, and test files directly on the website.
+                    The released CSBench dataset can be explored by task type. Select a category or sub-category to
+                    inspect representative tasks, then switch between the compact task description view and the complete
+                    data record view.
                 </p>
 
                 <div class="card case-explorer-card">
                     <div class="case-explorer-intro">
                         <div class="case-badge-row">
-                            <span class="case-badge" id="cs000232-file-count">18 files</span>
-                            <span class="case-badge" id="cs000232-folder-count">6 folders</span>
-                            <span class="case-badge">Static preview</span>
+                            <span class="case-badge" id="csbench-task-count">100 tasks</span>
+                            <span class="case-badge" id="csbench-category-count">4 categories</span>
+                            <span class="case-badge" id="csbench-fetch-status">Hugging Face dataset</span>
                         </div>
                         <p class="case-explorer-note">
-                            Click any file in the tree to load its content. The explorer fetches the original file from
-                            the repository, so the preview always matches the tracked artifact.
+                            Data is loaded from
+                            <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/CSBench" target="_blank"
+                                rel="noopener noreferrer">BytedTsinghua-SIA/CSBench</a>. The compact view shows only
+                            <code>task_desc</code>, <code>specification</code>, and <code>scaffold_desc</code>; the
+                            full view shows every field in the dataset row.
                         </p>
                     </div>
 
+                    <div class="case-controls" aria-label="Benchmark case filters">
+                        <label class="case-search-label" for="csbench-case-search">
+                            <span>Search</span>
+                            <input id="csbench-case-search" type="search" placeholder="Search id, topic, course, language">
+                        </label>
+                        <label for="csbench-category-filter">
+                            <span>Category</span>
+                            <select id="csbench-category-filter"></select>
+                        </label>
+                        <label for="csbench-subcategory-filter">
+                            <span>Sub-category</span>
+                            <select id="csbench-subcategory-filter"></select>
+                        </label>
+                        <div class="case-view-toggle" role="group" aria-label="Case display version">
+                            <button id="csbench-view-summary" class="case-view-btn active" type="button"
+                                data-view="summary">Task fields</button>
+                            <button id="csbench-view-full" class="case-view-btn" type="button" data-view="full">Full
+                                record</button>
+                        </div>
+                    </div>
+
                     <div class="case-explorer-layout">
-                        <aside class="case-tree-panel" aria-labelledby="cs000232-tree-title">
+                        <aside class="case-tree-panel" aria-labelledby="csbench-index-title">
                             <div class="case-panel-header">
                                 <div>
-                                    <h3 id="cs000232-tree-title">Complete File Structure</h3>
-                                    <p class="case-panel-subtitle">Root directory: <strong>CS000232/</strong></p>
+                                    <h3 id="csbench-index-title">Task Type Index</h3>
+                                    <p class="case-panel-subtitle" id="csbench-filter-summary">Loading dataset…</p>
                                 </div>
                             </div>
-                            <div id="cs000232-tree" class="case-tree" aria-label="CS000232 file explorer"></div>
+                            <div id="csbench-category-index" class="case-category-index"
+                                aria-label="CSBench category index"></div>
+                            <div id="csbench-task-list" class="case-task-list" aria-label="CSBench task list"></div>
                         </aside>
 
-                        <div class="case-viewer-panel" aria-labelledby="cs000232-viewer-title">
+                        <div class="case-viewer-panel" aria-labelledby="csbench-viewer-title">
                             <div class="case-panel-header">
                                 <div>
-                                    <h3 id="cs000232-viewer-title">File Preview</h3>
-                                    <p class="case-current-path" id="cs000232-current-path">CS000232/metadata/task.md
-                                    </p>
+                                    <h3 id="csbench-viewer-title">Case Preview</h3>
+                                    <p class="case-current-path" id="csbench-current-meta">Select a task to preview</p>
                                 </div>
-                                <a id="cs000232-open-file" class="case-open-link" href="CS000232/metadata/task.md"
-                                    target="_blank" rel="noopener noreferrer">Open raw file</a>
+                                <a class="case-open-link"
+                                    href="https://huggingface.co/datasets/BytedTsinghua-SIA/CSBench" target="_blank"
+                                    rel="noopener noreferrer">Open dataset</a>
                             </div>
 
                             <div class="case-file-meta">
-                                <span class="case-badge" id="cs000232-file-type">Markdown</span>
-                                <span class="case-badge" id="cs000232-file-size">Loading…</span>
+                                <span class="case-badge" id="csbench-current-id">No task selected</span>
+                                <span class="case-badge" id="csbench-current-type">Task type</span>
+                                <span class="case-badge" id="csbench-current-language">Language</span>
                             </div>
 
-                            <div id="cs000232-viewer" class="case-viewer" aria-live="polite">
-                                <div class="case-viewer-status">Loading default file…</div>
+                            <div id="csbench-case-viewer" class="case-viewer" aria-live="polite">
+                                <div class="case-viewer-status">Loading dataset from Hugging Face…</div>
                             </div>
                         </div>
                     </div>
 
-                    <p class="figure-caption">This embedded explorer shows the full directory tree under
-                        <strong>CS000232</strong>, including metadata, overrides, source files, and tests.
+                    <p class="figure-caption">This index is grouped by CSBench task category and sub-category, and
+                        supports both compact benchmark-case descriptions and complete dataset-row inspection.
                     </p>
                 </div>
             </section>
@@ -791,61 +817,6 @@
                         <p class="figure-caption">Pass@k performance of representative models across different task
                             categories.</p>
                     </div>
-                </div>
-            </section>
-
-            <!-- ===== Analysis ===== -->
-            <section id="analysis">
-                <h2>Failure Analysis</h2>
-                <p>
-                    We classify failed agent trajectories into four categories to diagnose root causes of failure in
-                    system construction tasks.
-                </p>
-
-                <div class="grid-2" style="margin-top: 1.5rem;">
-                    <div class="card failure-card" style="border-left: 3px solid #06d6a0;">
-                        <h3>🎯 Strategic &amp; Planning</h3>
-                        <p>Missing requirements, flawed design, or premature termination — the agent believes it has
-                            finished when critical features are incomplete.</p>
-                    </div>
-                    <div class="card failure-card" style="border-left: 3px solid #38bdf8;">
-                        <h3>💻 Implementation &amp; Coding</h3>
-                        <p>Compilation errors, runtime crashes, or hallucinating non-existent APIs — low-level code
-                            correctness failures.</p>
-                    </div>
-                    <div class="card failure-card" style="border-left: 3px solid #ef476f;">
-                        <h3>🔄 Debugging &amp; Iteration</h3>
-                        <p>Oscillating between broken states, test regression, or failing to locate root cause despite
-                            seeing error logs.</p>
-                    </div>
-                    <div class="card failure-card" style="border-left: 3px solid #ffd166;">
-                        <h3>🔧 Environment &amp; Tool Use</h3>
-                        <p>Environment destruction, test hacking, or incorrect tool-call formats — failures in system
-                            interaction.</p>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-top: 1.5rem;">
-                    <h3>Failure Distribution</h3>
-                    <p>
-                        <strong>Strategic &amp; Planning</strong> and <strong>Debugging &amp; Iteration</strong>
-                        constitute the vast majority (&gt;60%) of failures across all models, indicating that
-                        cutting-edge models generally handle tool invocation and code correctness well, but struggle
-                        with long-term reasoning and planning.
-                    </p>
-                    <div class="figure-wrap">
-                        <img src="static/images/failure_distribution.png"
-                            alt="Distribution of failure categories across models" style="width: 80%;">
-                        <p class="figure-caption">Distribution of failure categories across all task instances for each
-                            model.</p>
-                    </div>
-                </div>
-
-                <div class="results-note" style="margin-top: 1.5rem;">
-                    <strong>Universal Bottlenecks:</strong> <em>"Stopped Too Early"</em> and <em>"Failed to Locate Root
-                        Cause"</em> are the two most frequent failure patterns across all models. Given the complexity
-                    of CSBench tasks, agents frequently either abandon prematurely due to overconfidence, or get stuck
-                    in diagnostic loops without converging to a fix.
                 </div>
             </section>
 

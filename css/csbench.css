@@ -1206,3 +1206,228 @@
         padding: 0 0.6rem;
     }
 }
+
+/* ========================================
+   CSBench Dataset Case Index
+   ======================================== */
+.case-controls {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.4fr) minmax(160px, 0.75fr) minmax(180px, 0.9fr) auto;
+    gap: 0.85rem;
+    align-items: end;
+    margin: 1.2rem 0 1.25rem;
+}
+
+.case-controls label {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.case-controls input,
+.case-controls select {
+    width: 100%;
+    min-height: 2.55rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    padding: 0.55rem 0.7rem;
+    font: inherit;
+}
+
+.case-controls input:focus,
+.case-controls select:focus {
+    outline: none;
+    border-color: var(--primary-border);
+    box-shadow: 0 0 0 3px rgba(6, 214, 160, 0.12);
+}
+
+.case-view-toggle {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.55rem;
+    padding: 0.18rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.case-view-btn {
+    min-height: 2.15rem;
+    padding: 0 0.8rem;
+    border: none;
+    border-radius: calc(var(--radius-sm) - 2px);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background var(--t-fast), color var(--t-fast);
+}
+
+.case-view-btn.active {
+    background: var(--primary);
+    color: var(--text-inverse);
+}
+
+.case-category-index {
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.75rem 0.75rem 0.4rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.case-category-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    width: 100%;
+    min-height: 2.2rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+    text-align: left;
+}
+
+.case-category-btn strong {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+}
+
+.case-category-btn:hover,
+.case-category-btn.active {
+    background: rgba(0, 122, 204, 0.16);
+    border-color: rgba(56, 189, 248, 0.18);
+    color: #ffffff;
+}
+
+.case-task-list {
+    max-height: 640px;
+    overflow: auto;
+    padding: 0.65rem;
+}
+
+.case-task-item {
+    display: grid;
+    gap: 0.18rem;
+    width: 100%;
+    padding: 0.65rem 0.7rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-secondary);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background var(--t-fast), border-color var(--t-fast), color var(--t-fast);
+}
+
+.case-task-item+.case-task-item {
+    margin-top: 0.3rem;
+}
+
+.case-task-item:hover,
+.case-task-item.active {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.case-task-item.active {
+    background: rgba(6, 214, 160, 0.1);
+    border-color: var(--primary-border);
+}
+
+.case-task-id {
+    color: var(--primary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.case-task-title {
+    color: #eef6ff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.case-task-meta {
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    line-height: 1.35;
+}
+
+.case-summary {
+    display: grid;
+    gap: 0.9rem;
+    padding: 0.95rem;
+}
+
+.case-field {
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.025);
+    padding: 0.9rem;
+}
+
+.case-field h4 {
+    margin: 0 0 0.25rem;
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.case-field-key {
+    margin-bottom: 0.65rem;
+    color: var(--primary);
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+}
+
+.case-field-body {
+    margin: 0;
+    color: #dbe7ff;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+.case-json {
+    margin: 0;
+    padding: 1rem 1.1rem;
+    color: #dbe7ff;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    white-space: pre;
+}
+
+@media (max-width: 1100px) {
+    .case-controls {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .case-view-toggle {
+        width: 100%;
+    }
+
+    .case-view-btn {
+        flex: 1;
+    }
+}
+
+@media (max-width: 640px) {
+    .case-controls {
+        grid-template-columns: 1fr;
+    }
+}
