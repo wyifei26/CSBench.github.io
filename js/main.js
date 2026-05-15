@@ -356,160 +356,8 @@ function initPerfToggle() {
 }
 
 /* ========================================
-   CS000232 Case Explorer
+   Case File Tree Renderer
    ======================================== */
-const CS000232_TREE = {
-    name: 'CS000232',
-    path: 'CS000232',
-    type: 'folder',
-    open: true,
-    children: [
-        {
-            name: 'metadata',
-            path: 'CS000232/metadata',
-            type: 'folder',
-            open: true,
-            children: [
-                { name: 'Dockerfile', path: 'CS000232/metadata/Dockerfile', type: 'file' },
-                { name: 'task.md', path: 'CS000232/metadata/task.md', type: 'file' },
-                {
-                    name: 'test_override',
-                    path: 'CS000232/metadata/test_override',
-                    type: 'folder',
-                    open: true,
-                    children: [
-                        { name: 'test.sh', path: 'CS000232/metadata/test_override/test.sh', type: 'file' },
-                        {
-                            name: 'testbed',
-                            path: 'CS000232/metadata/test_override/testbed',
-                            type: 'folder',
-                            open: true,
-                            children: []
-                        },
-                        {
-                            name: 'tests',
-                            path: 'CS000232/metadata/test_override/tests',
-                            type: 'folder',
-                            open: true,
-                            children: [
-                                { name: 'conftest.py', path: 'CS000232/metadata/test_override/tests/conftest.py', type: 'file' },
-                                { name: 'test_correctness.py', path: 'CS000232/metadata/test_override/tests/test_correctness.py', type: 'file' },
-                                { name: 'test_performance.py', path: 'CS000232/metadata/test_override/tests/test_performance.py', type: 'file' },
-                                { name: 'test_threads.py', path: 'CS000232/metadata/test_override/tests/test_threads.py', type: 'file' }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            name: 'src',
-            path: 'CS000232/src',
-            type: 'folder',
-            open: true,
-            children: [
-                { name: '.gitignore', path: 'CS000232/src/.gitignore', type: 'file' },
-                { name: 'Makefile', path: 'CS000232/src/Makefile', type: 'file' },
-                { name: 'quake.in', path: 'CS000232/src/quake.in', type: 'file' },
-                { name: 'quake.in.short', path: 'CS000232/src/quake.in.short', type: 'file' },
-                { name: 'quake_omp.c', path: 'CS000232/src/quake_omp.c', type: 'file' },
-                { name: 'quake_serial.c', path: 'CS000232/src/quake_serial.c', type: 'file' },
-                { name: 'test.sh', path: 'CS000232/src/test.sh', type: 'file' },
-                {
-                    name: 'tests',
-                    path: 'CS000232/src/tests',
-                    type: 'folder',
-                    open: true,
-                    children: [
-                        { name: 'conftest.py', path: 'CS000232/src/tests/conftest.py', type: 'file' },
-                        { name: 'test_correctness.py', path: 'CS000232/src/tests/test_correctness.py', type: 'file' },
-                        { name: 'test_performance.py', path: 'CS000232/src/tests/test_performance.py', type: 'file' },
-                        { name: 'test_threads.py', path: 'CS000232/src/tests/test_threads.py', type: 'file' }
-                    ]
-                }
-            ]
-        }
-    ]
-};
-
-const CS000232_DEFAULT_FILE = 'CS000232/metadata/task.md';
-
-function initCaseExplorer() {
-    const treeContainer = document.getElementById('cs000232-tree');
-    const viewer = document.getElementById('cs000232-viewer');
-    const currentPathEl = document.getElementById('cs000232-current-path');
-    const fileTypeEl = document.getElementById('cs000232-file-type');
-    const fileSizeEl = document.getElementById('cs000232-file-size');
-    const openFileLink = document.getElementById('cs000232-open-file');
-    const fileCountEl = document.getElementById('cs000232-file-count');
-    const folderCountEl = document.getElementById('cs000232-folder-count');
-
-    if (!treeContainer || !viewer || !currentPathEl || !fileTypeEl || !fileSizeEl || !openFileLink) {
-        return;
-    }
-
-    const stats = countTreeStats(CS000232_TREE);
-    if (fileCountEl) fileCountEl.textContent = `${stats.files} files`;
-    if (folderCountEl) folderCountEl.textContent = `${stats.folders} folders`;
-
-    const state = {
-        activeButton: null,
-        requestToken: 0
-    };
-
-    treeContainer.appendChild(buildTreeNode(CS000232_TREE, state, loadCaseFile));
-
-    const defaultButton = treeContainer.querySelector(`[data-file-path="${CS000232_DEFAULT_FILE}"]`);
-    if (defaultButton) {
-        loadCaseFile(CS000232_DEFAULT_FILE, defaultButton);
-    } else {
-        viewer.innerHTML = '<div class="case-viewer-status case-viewer-error">Default file could not be located.</div>';
-    }
-
-    async function loadCaseFile(path, buttonEl) {
-        state.requestToken += 1;
-        const requestToken = state.requestToken;
-
-        if (state.activeButton) {
-            state.activeButton.classList.remove('active');
-        }
-        if (buttonEl) {
-            buttonEl.classList.add('active');
-            state.activeButton = buttonEl;
-        }
-
-        currentPathEl.textContent = path;
-        fileTypeEl.textContent = inferFileType(path);
-        fileSizeEl.textContent = 'Loading…';
-        openFileLink.href = path;
-        viewer.innerHTML = '<div class="case-viewer-status">Loading file content…</div>';
-
-        if (window.location.protocol === 'file:') {
-            fileSizeEl.textContent = 'Local preview';
-            renderCaseFileEmbed(viewer, path);
-            return;
-        }
-
-        try {
-            const response = await fetch(encodeURI(path));
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
-
-            const content = await response.text();
-            if (requestToken !== state.requestToken) return;
-
-            fileSizeEl.textContent = formatBytes(new Blob([content]).size);
-            renderCaseFileContent(viewer, content);
-        } catch (error) {
-            if (requestToken !== state.requestToken) return;
-
-            fileSizeEl.textContent = 'Fallback preview';
-            renderCaseFileEmbed(viewer, path, error);
-        }
-    }
-}
-
 function buildTreeNode(node, state, onFileSelect) {
     if (node.type === 'folder') {
         const details = document.createElement('details');
@@ -576,98 +424,6 @@ function buildTreeNode(node, state, onFileSelect) {
     return fileButton;
 }
 
-function renderCaseFileContent(container, content) {
-    const normalized = content.replace(/\r\n/g, '\n');
-    const lines = normalized.split('\n');
-
-    container.innerHTML = '';
-
-    if (normalized.length === 0) {
-        container.innerHTML = '<div class="case-viewer-status">This file is empty.</div>';
-        return;
-    }
-
-    const codeWrap = document.createElement('div');
-    codeWrap.className = 'case-code';
-
-    lines.forEach((line, index) => {
-        const row = document.createElement('div');
-        row.className = 'case-code-line';
-
-        const number = document.createElement('span');
-        number.className = 'case-line-number';
-        number.textContent = String(index + 1);
-
-        const contentEl = document.createElement('span');
-        contentEl.className = 'case-line-content';
-        contentEl.textContent = line.length ? line : ' ';
-
-        row.appendChild(number);
-        row.appendChild(contentEl);
-        codeWrap.appendChild(row);
-    });
-
-    container.appendChild(codeWrap);
-}
-
-function renderCaseFileEmbed(container, path, error) {
-    container.innerHTML = '';
-
-    const wrapper = document.createElement('div');
-    wrapper.className = 'case-embed-wrap';
-
-    if (error) {
-        const note = document.createElement('div');
-        note.className = 'case-viewer-status';
-        note.innerHTML = `Direct fetch is unavailable, showing a browser preview instead${error.message ? ` (${escapeHtml(error.message)})` : ''}.`;
-        wrapper.appendChild(note);
-    }
-
-    const iframe = document.createElement('iframe');
-    iframe.className = 'case-file-embed';
-    iframe.src = encodeURI(path);
-    iframe.title = `Preview of ${path}`;
-
-    wrapper.appendChild(iframe);
-    container.appendChild(wrapper);
-}
-
-function countTreeStats(node) {
-    let files = 0;
-    let folders = 0;
-
-    if (node.type === 'file') {
-        return { files: 1, folders: 0 };
-    }
-
-    if (node.path !== 'CS000232') {
-        folders += 1;
-    }
-
-    (node.children || []).forEach(child => {
-        const childStats = countTreeStats(child);
-        files += childStats.files;
-        folders += childStats.folders;
-    });
-
-    return { files, folders };
-}
-
-function inferFileType(path) {
-    const fileName = path.split('/').pop() || path;
-
-    if (fileName === 'Dockerfile') return 'Dockerfile';
-    if (fileName === 'Makefile') return 'Makefile';
-    if (fileName === '.gitignore') return 'Git ignore';
-    if (fileName.endsWith('.md')) return 'Markdown';
-    if (fileName.endsWith('.py')) return 'Python';
-    if (fileName.endsWith('.sh')) return 'Shell';
-    if (fileName.endsWith('.c')) return 'C source';
-    if (fileName.endsWith('.in') || fileName.endsWith('.short')) return 'Input data';
-
-    return 'Text file';
-}
-
 function getFileIconClass(fileName) {
     if (fileName === 'Dockerfile') return 'case-tree-icon-docker';
     if (fileName === 'Makefile') return 'case-tree-icon-build';
@@ -681,21 +437,6 @@ function getFileIconClass(fileName) {
     return 'case-tree-icon-file';
 }
 
-function formatBytes(bytes) {
-    if (bytes < 1024) return `${bytes} B`;
-
-    const units = ['KB', 'MB', 'GB'];
-    let value = bytes / 1024;
-    let unitIndex = 0;
-
-    while (value >= 1024 && unitIndex < units.length - 1) {
-        value /= 1024;
-        unitIndex += 1;
-    }
-
-    return `${value.toFixed(value >= 10 ? 0 : 1)} ${units[unitIndex]}`;
-}
-
 function escapeHtml(value) {
     return String(value)
         .replace(/&/g, '&amp;')
@@ -707,9 +448,8 @@ function escapeHtml(value) {
 
 /* ========================================
    CSBench Dataset Case Index
-   Overrides the legacy CS000232 explorer.
    ======================================== */
-const CSBENCH_DATASET_ROWS_URL = 'https://datasets-server.huggingface.co/rows?dataset=BytedTsinghua-SIA/CSBench&config=default&split=test&offset=0&length=100';
+const CSBENCH_DATASET_ROWS_URL = 'data/csbench-dataset-rows.json';
 
 const CSBENCH_FALLBACK_CASES = [
     {
@@ -803,8 +543,7 @@ async function loadCsbenchRows(root, state) {
             throw new Error(`HTTP ${response.status}`);
         }
 
-        const payload = await response.json();
-        const rows = (payload.rows || []).map(item => item.row).filter(Boolean);
+        const rows = (await response.json()).filter(Boolean);
         if (rows.length === 0) {
             throw new Error('No rows returned');
         }
@@ -812,7 +551,7 @@ async function loadCsbenchRows(root, state) {
         state.rows = rows;
     } catch (error) {
         state.rows = CSBENCH_FALLBACK_CASES;
-        root.viewer.innerHTML = `<div class="case-viewer-status case-viewer-error">Live dataset is unavailable in this browser session, so a small static preview is shown. ${escapeHtml(error.message || '')}</div>`;
+        root.viewer.innerHTML = `<div class="case-viewer-status case-viewer-error">Local dataset snapshot is unavailable, so a small static preview is shown. ${escapeHtml(error.message || '')}</div>`;
     }
 
     state.activeId = state.rows[0] ? state.rows[0].id : '';
