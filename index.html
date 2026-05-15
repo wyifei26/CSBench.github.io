@@ -566,27 +566,13 @@
             <section id="case-study">
                 <h2>Benchmark Case Index</h2>
                 <p>
-                    The released CSBench dataset can be explored by task type. Select a category or sub-category to
-                    inspect representative tasks, then switch between the compact task description view and the complete
-                    data record view.
+                    Explore CSBench tasks by category or sub-category using data loaded from
+                    <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/CSBench" target="_blank"
+                        rel="noopener noreferrer">BytedTsinghua-SIA/CSBench</a>, then switch between compact task
+                    fields and the corresponding task file tree.
                 </p>
 
                 <div class="card case-explorer-card">
-                    <div class="case-explorer-intro">
-                        <div class="case-badge-row">
-                            <span class="case-badge" id="csbench-task-count">100 tasks</span>
-                            <span class="case-badge" id="csbench-category-count">4 categories</span>
-                            <span class="case-badge" id="csbench-fetch-status">Hugging Face dataset</span>
-                        </div>
-                        <p class="case-explorer-note">
-                            Data is loaded from
-                            <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/CSBench" target="_blank"
-                                rel="noopener noreferrer">BytedTsinghua-SIA/CSBench</a>. The compact view shows only
-                            <code>task_desc</code>, <code>specification</code>, and <code>scaffold_desc</code>; the
-                            full view shows every field in the dataset row.
-                        </p>
-                    </div>
-
                     <div class="case-controls" aria-label="Benchmark case filters">
                         <label class="case-search-label" for="csbench-case-search">
                             <span>Search</span>
@@ -603,8 +589,7 @@
                         <div class="case-view-toggle" role="group" aria-label="Case display version">
                             <button id="csbench-view-summary" class="case-view-btn active" type="button"
                                 data-view="summary">Task fields</button>
-                            <button id="csbench-view-full" class="case-view-btn" type="button" data-view="full">Full
-                                record</button>
+                            <button id="csbench-view-full" class="case-view-btn" type="button" data-view="full">File tree</button>
                         </div>
                     </div>
 
@@ -612,12 +597,10 @@
                         <aside class="case-tree-panel" aria-labelledby="csbench-index-title">
                             <div class="case-panel-header">
                                 <div>
-                                    <h3 id="csbench-index-title">Task Type Index</h3>
+                                    <h3 id="csbench-index-title">Task Index</h3>
                                     <p class="case-panel-subtitle" id="csbench-filter-summary">Loading dataset…</p>
                                 </div>
                             </div>
-                            <div id="csbench-category-index" class="case-category-index"
-                                aria-label="CSBench category index"></div>
                             <div id="csbench-task-list" class="case-task-list" aria-label="CSBench task list"></div>
                         </aside>
 
@@ -632,21 +615,12 @@
                                     rel="noopener noreferrer">Open dataset</a>
                             </div>
 
-                            <div class="case-file-meta">
-                                <span class="case-badge" id="csbench-current-id">No task selected</span>
-                                <span class="case-badge" id="csbench-current-type">Task type</span>
-                                <span class="case-badge" id="csbench-current-language">Language</span>
-                            </div>
-
                             <div id="csbench-case-viewer" class="case-viewer" aria-live="polite">
                                 <div class="case-viewer-status">Loading dataset from Hugging Face…</div>
                             </div>
                         </div>
                     </div>
 
-                    <p class="figure-caption">This index is grouped by CSBench task category and sub-category, and
-                        supports both compact benchmark-case descriptions and complete dataset-row inspection.
-                    </p>
                 </div>
             </section>
 
@@ -843,6 +817,7 @@
         <p>&copy; 2026 CSBench Team</p>
     </footer>
 
+    <script src="js/csbench-task-trees.js"></script>
     <script src="js/main.js"></script>
 </body>
 

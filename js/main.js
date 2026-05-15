@@ -554,7 +554,7 @@ function buildTreeNode(node, state, onFileSelect) {
 
     const fileButton = document.createElement('button');
     fileButton.type = 'button';
-    fileButton.className = 'case-tree-file';
+    fileButton.className = `case-tree-file${onFileSelect ? '' : ' case-tree-file-static'}`;
     fileButton.dataset.filePath = node.path;
     fileButton.title = node.path;
     fileButton.innerHTML = `
@@ -565,9 +565,13 @@ function buildTreeNode(node, state, onFileSelect) {
         <span class="case-tree-name">${escapeHtml(node.name)}</span>
     `;
 
-    fileButton.addEventListener('click', () => {
-        onFileSelect(node.path, fileButton);
-    });
+    if (onFileSelect) {
+        fileButton.addEventListener('click', () => {
+            onFileSelect(node.path, fileButton);
+        });
+    } else {
+        fileButton.disabled = true;
+    }
 
     return fileButton;
 }
@@ -768,16 +772,9 @@ function initCaseExplorer() {
         subcategory: document.getElementById('csbench-subcategory-filter'),
         summaryBtn: document.getElementById('csbench-view-summary'),
         fullBtn: document.getElementById('csbench-view-full'),
-        categoryIndex: document.getElementById('csbench-category-index'),
         taskList: document.getElementById('csbench-task-list'),
         viewer: document.getElementById('csbench-case-viewer'),
         filterSummary: document.getElementById('csbench-filter-summary'),
-        taskCount: document.getElementById('csbench-task-count'),
-        categoryCount: document.getElementById('csbench-category-count'),
-        fetchStatus: document.getElementById('csbench-fetch-status'),
-        currentId: document.getElementById('csbench-current-id'),
-        currentType: document.getElementById('csbench-current-type'),
-        currentLanguage: document.getElementById('csbench-current-language'),
         currentMeta: document.getElementById('csbench-current-meta')
     };
 
@@ -813,10 +810,8 @@ async function loadCsbenchRows(root, state) {
         }
 
         state.rows = rows;
-        root.fetchStatus.textContent = 'Live dataset';
     } catch (error) {
         state.rows = CSBENCH_FALLBACK_CASES;
-        root.fetchStatus.textContent = 'Fallback preview';
         root.viewer.innerHTML = `<div class="case-viewer-status case-viewer-error">Live dataset is unavailable in this browser session, so a small static preview is shown. ${escapeHtml(error.message || '')}</div>`;
     }
 
@@ -835,7 +830,6 @@ function bindCaseIndexEvents(root, state) {
         state.activeCategory = root.category.value;
         state.activeSubcategory = 'all';
         populateSubcategoryFilter(root, state);
-        renderCategoryIndex(root, state);
         applyCaseFilters(root, state);
     });
 
@@ -861,10 +855,7 @@ function populateCaseFilters(root, state) {
         ...categories.map(category => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`)
     ].join('');
 
-    root.taskCount.textContent = `${state.rows.length} tasks`;
-    root.categoryCount.textContent = `${categories.length} categories`;
     populateSubcategoryFilter(root, state);
-    renderCategoryIndex(root, state);
 }
 
 function populateSubcategoryFilter(root, state) {
@@ -878,37 +869,6 @@ function populateSubcategoryFilter(root, state) {
         ...subcategories.map(subcategory => `<option value="${escapeHtml(subcategory)}">${escapeHtml(subcategory)}</option>`)
     ].join('');
     root.subcategory.value = state.activeSubcategory;
-}
-
-function renderCategoryIndex(root, state) {
-    const counts = state.rows.reduce((acc, row) => {
-        const category = row.category || 'Unknown';
-        acc[category] = (acc[category] || 0) + 1;
-        return acc;
-    }, {});
-
-    const categories = uniqueSorted(Object.keys(counts));
-    root.categoryIndex.innerHTML = [
-        `<button type="button" class="case-category-btn ${state.activeCategory === 'all' ? 'active' : ''}" data-category="all">
-            <span>All</span><strong>${state.rows.length}</strong>
-        </button>`,
-        ...categories.map(category => `
-            <button type="button" class="case-category-btn ${state.activeCategory === category ? 'active' : ''}" data-category="${escapeHtml(category)}">
-                <span>${escapeHtml(category)}</span><strong>${counts[category]}</strong>
-            </button>
-        `)
-    ].join('');
-
-    root.categoryIndex.querySelectorAll('.case-category-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            state.activeCategory = button.dataset.category;
-            state.activeSubcategory = 'all';
-            root.category.value = state.activeCategory;
-            populateSubcategoryFilter(root, state);
-            renderCategoryIndex(root, state);
-            applyCaseFilters(root, state);
-        });
-    });
 }
 
 function applyCaseFilters(root, state) {
@@ -970,17 +930,11 @@ function renderTaskList(root, state) {
 function renderActiveCase(root, state) {
     const row = state.rows.find(item => item.id === state.activeId);
     if (!row) {
-        root.currentId.textContent = 'No task selected';
-        root.currentType.textContent = 'Task type';
-        root.currentLanguage.textContent = 'Language';
         root.currentMeta.textContent = 'Select a task to preview';
         root.viewer.innerHTML = '<div class="case-viewer-status">Select a task from the index to preview it.</div>';
         return;
     }
 
-    root.currentId.textContent = row.id || 'Unknown id';
-    root.currentType.textContent = [row.category, row.sub_category].filter(Boolean).join(' / ') || 'Unknown type';
-    root.currentLanguage.textContent = row.programming_languages || row.language || 'Language n/a';
     root.currentMeta.textContent = `${row.university || 'Unknown university'} · ${row.course_name || row.course_id || 'Unknown course'}`;
 
     if (state.activeView === 'full') {
@@ -1011,11 +965,32 @@ function renderCaseSummary(container, row) {
 }
 
 function renderFullCaseRecord(container, row) {
-    const pre = document.createElement('pre');
-    pre.className = 'case-json';
-    pre.textContent = JSON.stringify(row, null, 2);
+    const taskTrees = window.CSBENCH_TASK_TREES && window.CSBENCH_TASK_TREES.tasks;
+    const taskId = String(row.id || '').toUpperCase();
+    const taskEntry = taskTrees && taskTrees[taskId];
+
     container.innerHTML = '';
-    container.appendChild(pre);
+
+    if (!taskEntry || !taskEntry.tree) {
+        container.innerHTML = `<div class="case-viewer-status case-viewer-error">File tree is unavailable for ${escapeHtml(taskId || 'this task')}.</div>`;
+        return;
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'case-tree-preview';
+    wrapper.innerHTML = `
+        <div class="case-tree-preview-header">
+            <span>${escapeHtml(taskId)}</span>
+            <span>${taskEntry.files} files · ${taskEntry.folders} folders</span>
+        </div>
+    `;
+
+    const treeWrap = document.createElement('div');
+    treeWrap.className = 'case-tree case-tree-readonly';
+    treeWrap.appendChild(buildTreeNode(taskEntry.tree, {}, null));
+
+    wrapper.appendChild(treeWrap);
+    container.appendChild(wrapper);
 }
 
 function uniqueSorted(values) {
