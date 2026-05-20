@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/page-components.css?v=page-nav">
-    <link rel="stylesheet" href="css/csbench.css">
+    <link rel="stylesheet" href="css/page-components.css?v=page-nav-2">
+    <link rel="stylesheet" href="css/csbench.css?v=20260520-2">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vscode/codicons@0.0.36/dist/codicon.css">
 </head>
 
@@ -36,14 +36,195 @@
          ============================================================ -->
     <main id="main-content">
         <div class="container">
+            <!-- ===== Benchmark Design ===== -->
+            <section id="benchmark">
+                <h2>Benchmark Design</h2>
+                <p>
+                    Each CSBench task is formally defined as a tuple <strong>T = (S, C<sub>init</sub>, U, E)</strong>:
+                    a <em>Specification</em>, <em>Initial Scaffold</em>, <em>Test Suite</em>, and a containerized
+                    <em>Environment</em>.
+                    Given (S, C<sub>init</sub>), a model produces a completed implementation; a task is solved when all
+                    tests pass inside the Docker container.
+                </p>
+
+                <div class="pipeline-stack">
+                    <div class="card">
+                        <h3>Three-Stage Construction Pipeline</h3>
+                        <p>
+                            CSBench employs an <strong>adversarial, expert-in-the-loop workflow</strong> to transform
+                            heterogeneous courseware into standardized, execution-based benchmark tasks.
+                        </p>
+                        <div class="pipeline-stages">
+                            <div class="pipeline-stage">
+                                <div class="stage-number">1</div>
+                                <div class="stage-content">
+                                    <h4>Sourcing</h4>
+                                    <p>Candidate projects sourced from open-source CS courses at top-tier universities,
+                                        organized by a comprehensive topic taxonomy (System, AI, Application, Others).
+                                        Priority given to projects with non-trivial, multi-file starter scaffolds.</p>
+                                </div>
+                            </div>
+                            <div class="pipeline-stage">
+                                <div class="stage-number">2</div>
+                                <div class="stage-content">
+                                    <h4>Annotation</h4>
+                                    <p>Domain experts construct task artifacts with adversarial review:
+                                        <strong>Annotators</strong> build scaffold code, specifications, and test
+                                        suites; independent <strong>Reviewers</strong> audit outputs and iterate until
+                                        strict criteria are met.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="pipeline-stage">
+                                <div class="stage-number">3</div>
+                                <div class="stage-content">
+                                    <h4>Quality Assurance</h4>
+                                    <p>Three-layer verification: <strong>Automated checks</strong> (solvability,
+                                        layout), <strong>AI-assisted auditing</strong> (leakage, ambiguity), and
+                                        <strong>Human-in-the-loop decision</strong> (spec fidelity, runtime stability).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="figure-wrap">
+                            <img src="static/images/csbench_pipeline.png"
+                                alt="CSBench construction pipeline: Sourcing, Annotation, Quality Assurance"
+                                style="width: 80%;">
+                            <p class="figure-caption">The three-stage construction pipeline of CSBench: Sourcing,
+                                Annotation, and Quality Assurance.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
 
             <!-- ===== Statistic ===== -->
             <section id="highlights">
                 <h2>Statistic</h2>
 
+                <!-- Domain Distribution -->
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3>Domain &amp; Language Distribution</h3>
+                    <p>
+                        CSBench spans <strong>4 high-level topics</strong> and <strong>19 sub-topics</strong>, ensuring
+                        systematic domain representation. It covers Python (41%), C/C++ (39%), and other mainstream
+                        languages including Java, JavaScript, Go, Rust, and Assembly.
+                    </p>
+                    <div class="distribution-chart-grid">
+                        <div class="distribution-chart-panel">
+                            <h4>Course Topic Taxonomy</h4>
+                            <svg class="pie-chart" viewBox="0 50 440 260" role="img"
+                                aria-label="Course topic taxonomy distribution across CSBench tasks">
+                                <g class="pie-slices">
+                                    <path d="M 220.0 178.0 L 220.0 86.0 A 92.0 92.0 0 0 1 287.1 115.0 Z" fill="#2563eb" />
+                                    <path d="M 220.0 178.0 L 287.1 115.0 A 92.0 92.0 0 0 1 310.4 160.8 Z" fill="#3b82f6" />
+                                    <path d="M 220.0 178.0 L 310.4 160.8 A 92.0 92.0 0 0 1 310.4 195.2 Z" fill="#60a5fa" />
+                                    <path d="M 220.0 178.0 L 310.4 195.2 A 92.0 92.0 0 0 1 307.5 206.4 Z" fill="#93c5fd" />
+                                    <path d="M 220.0 178.0 L 307.5 206.4 A 92.0 92.0 0 0 1 264.3 258.6 Z" fill="#047857" />
+                                    <path d="M 220.0 178.0 L 264.3 258.6 A 92.0 92.0 0 0 1 214.2 269.8 Z" fill="#059669" />
+                                    <path d="M 220.0 178.0 L 214.2 269.8 A 92.0 92.0 0 0 1 180.8 261.2 Z" fill="#10b981" />
+                                    <path d="M 220.0 178.0 L 180.8 261.2 A 92.0 92.0 0 0 1 157.0 245.1 Z" fill="#34d399" />
+                                    <path d="M 220.0 178.0 L 157.0 245.1 A 92.0 92.0 0 0 1 139.4 222.3 Z" fill="#6ee7b7" />
+                                    <path d="M 220.0 178.0 L 139.4 222.3 A 92.0 92.0 0 0 1 130.9 200.9 Z" fill="#2dd4bf" />
+                                    <path d="M 220.0 178.0 L 130.9 200.9 A 92.0 92.0 0 0 1 128.0 178.0 Z" fill="#14b8a6" />
+                                    <path d="M 220.0 178.0 L 128.0 178.0 A 92.0 92.0 0 0 1 128.2 172.2 Z" fill="#99f6e4" />
+                                    <path d="M 220.0 178.0 L 128.2 172.2 A 92.0 92.0 0 0 1 139.4 133.7 Z" fill="#b7791f" />
+                                    <path d="M 220.0 178.0 L 139.4 133.7 A 92.0 92.0 0 0 1 152.9 115.0 Z" fill="#d69e2e" />
+                                    <path d="M 220.0 178.0 L 152.9 115.0 A 92.0 92.0 0 0 1 170.7 100.3 Z" fill="#f6ad55" />
+                                    <path d="M 220.0 178.0 L 170.7 100.3 A 92.0 92.0 0 0 1 186.1 92.5 Z" fill="#fbbf24" />
+                                    <path d="M 220.0 178.0 L 186.1 92.5 A 92.0 92.0 0 0 1 191.6 90.5 Z" fill="#fde68a" />
+                                    <path d="M 220.0 178.0 L 191.6 90.5 A 92.0 92.0 0 0 1 208.5 86.7 Z" fill="#be185d" />
+                                    <path d="M 220.0 178.0 L 208.5 86.7 A 92.0 92.0 0 0 1 220.0 86.0 Z" fill="#db2777" />
+                                </g>
+                                <g class="pie-labels">
+                                    <polyline points="254.9,97.2 262.9,78.9 355.0,78.9" />
+                                    <text x="436.0" y="81.9" text-anchor="end">DL 13%</text>
+                                    <polyline points="298.4,138.0 316.2,129.0 355.0,129.0" />
+                                    <text x="436.0" y="132.0" text-anchor="end">ML 9%</text>
+                                    <polyline points="308.0,178.0 328.0,178.0 340.0,178.0" />
+                                    <text x="436.0" y="181.0" text-anchor="end">Intro AI 6%</text>
+                                    <polyline points="305.2,199.9 324.6,204.9 355.0,204.9" />
+                                    <text x="436.0" y="207.9" text-anchor="end">ML Sys 2%</text>
+                                    <polyline points="287.8,234.1 303.2,246.8 355.0,246.8" />
+                                    <text x="436.0" y="249.8" text-anchor="end">OS 12%</text>
+                                    <polyline points="239.2,263.9 243.6,283.4 340.0,283.4" />
+                                    <text x="436.0" y="286.4" text-anchor="end">Sys Fund 9%</text>
+                                    <polyline points="198.1,263.2 193.1,282.6 105.0,284.3" />
+                                    <text x="4.0" y="287.3" text-anchor="start">Security 6%</text>
+                                    <polyline points="170.5,250.8 159.3,267.3 105.0,267.3" />
+                                    <text x="4.0" y="270.3" text-anchor="start">Dist Sys 5%</text>
+                                    <polyline points="150.5,231.9 134.7,244.2 105.0,244.2" />
+                                    <text x="4.0" y="247.2" text-anchor="start">Network 5%</text>
+                                    <polyline points="138.2,210.4 119.6,217.8 105.0,223.2" />
+                                    <text x="4.0" y="226.2" text-anchor="start">Arch 4%</text>
+                                    <polyline points="132.7,189.0 112.9,191.5 105.0,206.2" />
+                                    <text x="4.0" y="209.2" text-anchor="start">DB 4%</text>
+                                    <polyline points="132.0,175.2 112.1,174.6 105.0,189.2" />
+                                    <text x="4.0" y="192.2" text-anchor="start">Compiler 1%</text>
+                                    <polyline points="135.5,153.4 116.3,147.9 105.0,172.2" />
+                                    <text x="4.0" y="175.2" text-anchor="start">Web Dev 7%</text>
+                                    <polyline points="148.8,126.3 132.6,114.5 105.0,155.2" />
+                                    <text x="4.0" y="158.2" text-anchor="start">DSA 4%</text>
+                                    <polyline points="163.9,110.2 151.2,94.8 105.0,138.2" />
+                                    <text x="4.0" y="141.2" text-anchor="start">Prog 4%</text>
+                                    <polyline points="180.0,99.6 171.0,81.8 105.0,121.2" />
+                                    <text x="4.0" y="124.2" text-anchor="start">Data Sci 3%</text>
+                                    <polyline points="190.2,95.2 183.4,76.4 105.0,104.2" />
+                                    <text x="4.0" y="107.2" text-anchor="start">Soft Eng 1%</text>
+                                    <polyline points="200.8,92.1 196.4,72.6 105.0,87.2" />
+                                    <text x="4.0" y="90.2" text-anchor="start">Graphics 3%</text>
+                                    <polyline points="214.5,90.2 213.2,70.2 105.0,70.2" />
+                                    <text x="4.0" y="73.2" text-anchor="start">Math 2%</text>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="distribution-chart-panel">
+                            <h4>Programming Languages</h4>
+                            <svg class="pie-chart" viewBox="0 50 440 260" role="img"
+                                aria-label="Programming language distribution across CSBench tasks">
+                                <g class="pie-slices">
+                                    <path d="M 220.0 178.0 L 220.0 86.0 A 92.0 92.0 0 0 1 269.3 255.7 Z" fill="#2563eb" />
+                                    <path d="M 220.0 178.0 L 269.3 255.7 A 92.0 92.0 0 0 1 157.0 245.1 Z" fill="#059669" />
+                                    <path d="M 220.0 178.0 L 157.0 245.1 A 92.0 92.0 0 0 1 132.5 149.6 Z" fill="#7c3aed" />
+                                    <path d="M 220.0 178.0 L 132.5 149.6 A 92.0 92.0 0 0 1 157.0 110.9 Z" fill="#be185d" />
+                                    <path d="M 220.0 178.0 L 157.0 110.9 A 92.0 92.0 0 0 1 180.8 94.8 Z" fill="#06b6d4" />
+                                    <path d="M 220.0 178.0 L 180.8 94.8 A 92.0 92.0 0 0 1 197.1 88.9 Z" fill="#f97316" />
+                                    <path d="M 220.0 178.0 L 197.1 88.9 A 92.0 92.0 0 0 1 208.5 86.7 Z" fill="#38bdf8" />
+                                    <path d="M 220.0 178.0 L 208.5 86.7 A 92.0 92.0 0 0 1 214.2 86.2 Z" fill="#ef4444" />
+                                    <path d="M 220.0 178.0 L 214.2 86.2 A 92.0 92.0 0 0 1 220.0 86.0 Z" fill="#84cc16" />
+                                </g>
+                                <g class="pie-labels">
+                                    <polyline points="304.5,153.4 323.7,147.9 355.0,147.9" />
+                                    <text x="436.0" y="150.9" text-anchor="end">Python 41%</text>
+                                    <polyline points="211.7,265.6 209.8,285.5 105.0,285.5" />
+                                    <text x="4.0" y="288.5" text-anchor="start">C++ 21%</text>
+                                    <polyline points="134.8,199.9 115.4,204.9 105.0,204.9" />
+                                    <text x="4.0" y="207.9" text-anchor="start">C 18%</text>
+                                    <polyline points="145.7,130.8 128.8,120.1 105.0,170.1" />
+                                    <text x="4.0" y="173.1" text-anchor="start">JavaScript 8%</text>
+                                    <polyline points="170.5,105.2 159.3,88.7 105.0,150.1" />
+                                    <text x="4.0" y="153.1" text-anchor="start">Java 5%</text>
+                                    <polyline points="190.2,95.2 183.4,76.4 105.0,130.1" />
+                                    <text x="4.0" y="133.1" text-anchor="start">Go 3%</text>
+                                    <polyline points="203.5,91.6 199.8,71.9 105.0,110.1" />
+                                    <text x="4.0" y="113.1" text-anchor="start">Lisp 2%</text>
+                                    <polyline points="211.7,90.4 209.8,70.5 105.0,90.1" />
+                                    <text x="4.0" y="93.1" text-anchor="start">Rust 1%</text>
+                                    <polyline points="217.2,90.0 216.6,70.1 105.0,70.1" />
+                                    <text x="4.0" y="73.1" text-anchor="start">Julia 1%</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Dataset Statistics Comparison Table -->
                 <div class="stats-table-wrap">
                     <h3>Dataset Statistics Comparison</h3>
+                    <p>
+                        CSBench requires an order-of-magnitude more implementation effort (902 lines edited on average
+                        vs. 33 in SWE-Bench), reflecting genuine system construction complexity.
+                    </p>
                     <div class="table-scroll">
                         <table class="data-table comparison-table">
                             <colgroup>
@@ -159,85 +340,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <p class="figure-caption">CSBench requires an order-of-magnitude more implementation effort (902
-                        lines edited on average vs. 33 in SWE-Bench), reflecting genuine system construction complexity.
-                    </p>
-                </div>
-            </section>
-            <!-- ===== Benchmark Design ===== -->
-            <section id="benchmark">
-                <h2>Benchmark Design</h2>
-                <p>
-                    Each CSBench task is formally defined as a tuple <strong>T = (S, C<sub>init</sub>, U, E)</strong>:
-                    a <em>Specification</em>, <em>Initial Scaffold</em>, <em>Test Suite</em>, and a containerized
-                    <em>Environment</em>.
-                    Given (S, C<sub>init</sub>), a model produces a completed implementation; a task is solved when all
-                    tests pass inside the Docker container.
-                </p>
-
-                <div class="pipeline-stack">
-                    <div class="card">
-                        <h3>Three-Stage Construction Pipeline</h3>
-                        <p>
-                            CSBench employs an <strong>adversarial, expert-in-the-loop workflow</strong> to transform
-                            heterogeneous courseware into standardized, execution-based benchmark tasks.
-                        </p>
-                        <div class="pipeline-stages">
-                            <div class="pipeline-stage">
-                                <div class="stage-number">1</div>
-                                <div class="stage-content">
-                                    <h4>Sourcing</h4>
-                                    <p>Candidate projects sourced from open-source CS courses at top-tier universities,
-                                        organized by a comprehensive topic taxonomy (System, AI, Application, Others).
-                                        Priority given to projects with non-trivial, multi-file starter scaffolds.</p>
-                                </div>
-                            </div>
-                            <div class="pipeline-stage">
-                                <div class="stage-number">2</div>
-                                <div class="stage-content">
-                                    <h4>Annotation</h4>
-                                    <p>Domain experts construct task artifacts with adversarial review:
-                                        <strong>Annotators</strong> build scaffold code, specifications, and test
-                                        suites; independent <strong>Reviewers</strong> audit outputs and iterate until
-                                        strict criteria are met.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="pipeline-stage">
-                                <div class="stage-number">3</div>
-                                <div class="stage-content">
-                                    <h4>Quality Assurance</h4>
-                                    <p>Three-layer verification: <strong>Automated checks</strong> (solvability,
-                                        layout), <strong>AI-assisted auditing</strong> (leakage, ambiguity), and
-                                        <strong>Human-in-the-loop decision</strong> (spec fidelity, runtime stability).
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="figure-wrap">
-                            <img src="static/images/csbench_pipeline.png"
-                                alt="CSBench construction pipeline: Sourcing, Annotation, Quality Assurance"
-                                style="width: 80%;">
-                            <p class="figure-caption">The three-stage construction pipeline of CSBench: Sourcing,
-                                Annotation, and Quality Assurance.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Domain Distribution -->
-                <div class="card" style="margin-top: 1.5rem;">
-                    <h3>Domain &amp; Language Distribution</h3>
-                    <p>
-                        CSBench spans <strong>4 high-level topics</strong> and <strong>19 sub-topics</strong>, ensuring
-                        systematic domain representation. It covers Python (41%), C/C++ (32%), and other mainstream
-                        languages including Java, JavaScript, Go, Rust, and Assembly.
-                    </p>
-                    <div class="figure-wrap">
-                        <img src="static/images/category_language.png"
-                            alt="CSBench task distribution by topic and programming language">
-                        <p class="figure-caption">Left: Task distribution by course topic taxonomy. Right: Programming
-                            language distribution across CSBench tasks.</p>
-                    </div>
                 </div>
             </section>
             <!-- ===== Main Results ===== -->
@@ -247,6 +349,11 @@
                 <!-- Detailed Topic Results -->
                 <div class="card" style="margin-top: 1.5rem;">
                     <h3>Detailed Performance by Topic (Top 3 Models)</h3>
+                    <p>
+                        Model performance is highly non-uniform across CS domains. Top models perform strongly on
+                        algorithmic and logic-heavy topics, but their success rates drop substantially on low-level
+                        system construction tasks such as operating systems, databases, and compilers.
+                    </p>
                     <div class="table-scroll">
                         <table class="data-table topic-table">
                             <colgroup>
@@ -401,9 +508,9 @@
                         <strong>Gemini-3-Pro demonstrates superior performance in the System category</strong>,
                         consistently outperforming GPT-5.2 across all k values.
                     </p>
-                    <div class="figure-wrap">
-                        <img src="static/images/pass_at_k.png" alt="Pass@k performance across task categories"
-                            style="width: 80%;">
+                    <div class="figure-wrap pass-k-figure-wrap">
+                        <iframe class="pass-k-embed" src="pass_k_performance.html?v=20260520-2"
+                            title="Pass@k performance across task categories" loading="lazy"></iframe>
                         <p class="figure-caption">Pass@k performance of representative models across different task
                             categories.</p>
                     </div>

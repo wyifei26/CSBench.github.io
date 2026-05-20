@@ -674,7 +674,7 @@ function renderTaskList(root, state) {
         <button type="button" class="case-task-item ${row.id === state.activeId ? 'active' : ''}" data-id="${escapeHtml(row.id)}">
             <span class="case-task-id">${escapeHtml(row.id || 'unknown')}</span>
             <span class="case-task-title">${escapeHtml(row.lab_name || row.course_name || row.sub_category || 'Untitled task')}</span>
-            <span class="case-task-meta">${escapeHtml(row.sub_category || 'Unknown sub-category')} · ${escapeHtml(row.programming_languages || 'Language n/a')}</span>
+            <span class="case-task-meta">${escapeHtml(row.sub_category || 'Unknown sub-category')}</span>
         </button>
     `).join('');
 
