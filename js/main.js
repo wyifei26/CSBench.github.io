@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initScrollAnimations();
     initSmoothScroll();
     initNavigationHighlight();
+    initPageNavigation();
     initProgressIndicator();
     initPerfToggle();
     initCaseExplorer();
@@ -77,7 +78,7 @@ function initNavigationHighlight() {
 
     if (sections.length === 0 || navLinks.length === 0) return;
 
-    window.addEventListener('scroll', () => {
+    const updateActiveSection = () => {
         let current = '';
 
         sections.forEach(section => {
@@ -88,12 +89,32 @@ function initNavigationHighlight() {
             }
         });
 
+        if (!current) {
+            current = sections[0].getAttribute('id');
+        }
+
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${current}`) {
                 link.classList.add('active');
             }
         });
+    };
+
+    window.addEventListener('scroll', updateActiveSection);
+    updateActiveSection();
+}
+
+/* ========================================
+   Page Navigation
+   ======================================== */
+function initPageNavigation() {
+    const nav = document.querySelector('nav[data-page]');
+    if (!nav) return;
+
+    const currentPage = nav.dataset.page;
+    nav.querySelectorAll('[data-page-link]').forEach(link => {
+        link.classList.toggle('active', link.dataset.pageLink === currentPage);
     });
 }
 

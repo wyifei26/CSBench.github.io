@@ -3,37 +3,45 @@
 /* ========================================
    Navigation
    ======================================== */
-nav {
-    background: rgba(10, 15, 26, 0.85);
+.page-nav {
+    position: fixed;
+    top: 1.25rem;
+    left: 1.5rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+    max-width: calc(100vw - 3rem);
+    padding: 0.3rem;
+    background: rgba(10, 15, 26, 0.58);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
     backdrop-filter: blur(12px) saturate(1.2);
     -webkit-backdrop-filter: blur(12px) saturate(1.2);
-    padding: 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-    flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
 }
 
-nav a {
+.hero .page-nav {
+    position: absolute;
+}
+
+.page-nav a {
     text-decoration: none;
     color: var(--text-muted);
     font-weight: 500;
-    font-size: 0.85rem;
-    transition: color var(--t-fast);
+    font-size: 0.82rem;
+    transition: color var(--t-fast), background var(--t-fast);
     position: relative;
-    padding: 0.85rem 1rem;
+    padding: 0.45rem 0.7rem;
     letter-spacing: 0.01em;
+    border-radius: var(--radius-sm);
 }
 
-nav a::after {
+.page-nav a::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: 0.18rem;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
@@ -43,17 +51,23 @@ nav a::after {
     border-radius: 1px;
 }
 
-nav a:hover {
+.page-nav a:hover {
     color: var(--primary);
+    background: var(--primary-glow);
 }
 
-nav a:hover::after,
-nav a.active::after {
+.page-nav a:hover::after,
+.page-nav a.active::after {
     width: 60%;
 }
 
-nav a.active {
+.page-nav a.active {
     color: var(--primary);
+    background: rgba(6, 214, 160, 0.08);
+}
+
+.subpage main {
+    padding-top: 3rem;
 }
 
 /* ========================================
@@ -349,13 +363,19 @@ footer {
    Responsive
    ======================================== */
 @media (max-width: 768px) {
-    nav {
-        gap: 0;
+    .page-nav {
+        top: 0.75rem;
+        left: 0.75rem;
+        max-width: calc(100vw - 1.5rem);
     }
 
-    nav a {
-        padding: 0.6rem 0.6rem;
-        font-size: 0.78rem;
+    .page-nav a {
+        padding: 0.4rem 0.55rem;
+        font-size: 0.74rem;
+    }
+
+    .subpage main {
+        padding-top: 3.5rem;
     }
 
     .grid-2,

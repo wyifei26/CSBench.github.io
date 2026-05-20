@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="CSBench: A Comprehensive Benchmark for Evaluating Project-Level System Construction in Computer Science.">
+    <meta name="keywords"
+        content="CSBench, Benchmark, LLM, Coding Agent, System Construction, Computer Science, Software Engineering">
+    <meta name="author" content="CSBench Team">
+    <title>Benchmark Details | CSBench</title>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/page-components.css?v=page-nav">
+    <link rel="stylesheet" href="css/csbench.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vscode/codicons@0.0.36/dist/codicon.css">
+</head>
+
+<body class="subpage benchmark-details-page">
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <!-- ============================================================
+         NAV
+         ============================================================ -->
+    <nav class="page-nav" role="navigation" aria-label="Main navigation" data-page="benchmark-details">
+        <a href="index.html" data-page-link="home">Home</a>
+        <a href="benchmark-details.html" data-page-link="benchmark-details">Benchmark Details</a>
+        <a href="case-study.html" data-page-link="case-study">Case Study</a>
+    </nav>
+
+    <!-- ============================================================
+         MAIN CONTENT
+         ============================================================ -->
+    <main id="main-content">
+        <div class="container">
+
+            <!-- ===== Statistic ===== -->
+            <section id="highlights">
+                <h2>Statistic</h2>
+
+                <!-- Dataset Statistics Comparison Table -->
+                <div class="stats-table-wrap">
+                    <h3>Dataset Statistics Comparison</h3>
+                    <div class="table-scroll">
+                        <table class="data-table comparison-table">
+                            <colgroup>
+                                <col style="width: 14%">
+                                <col style="width: 16%">
+                            </colgroup>
+                            <colgroup class="colgroup-swe">
+                                <col>
+                                <col>
+                            </colgroup>
+                            <colgroup class="colgroup-multi">
+                                <col>
+                                <col>
+                            </colgroup>
+                            <colgroup class="colgroup-csbench">
+                                <col>
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Metric</th>
+                                    <th rowspan="2">Attribute</th>
+                                    <th colspan="2" class="group-header">SWE-Bench</th>
+                                    <th colspan="2" class="group-header">Multi-SWE-Bench</th>
+                                    <th colspan="2" class="group-header group-csbench">CSBench</th>
+                                </tr>
+                                <tr>
+                                    <th>Mean</th>
+                                    <th>Max</th>
+                                    <th>Mean</th>
+                                    <th>Max</th>
+                                    <th class="th-csbench">Mean</th>
+                                    <th class="th-csbench">Max</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Task Specification</td>
+                                    <td>Length (words)</td>
+                                    <td>195.1</td>
+                                    <td>4,477</td>
+                                    <td>550.6</td>
+                                    <td>—</td>
+                                    <td class="highlight-cell">676.2</td>
+                                    <td class="highlight-cell">5,693</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">Initial Code</td>
+                                    <td># Files (non-test)</td>
+                                    <td>3,010</td>
+                                    <td>5,890</td>
+                                    <td>3,817.5</td>
+                                    <td>—</td>
+                                    <td>77.8</td>
+                                    <td>1,168</td>
+                                </tr>
+                                <tr>
+                                    <td># Lines (non-test)</td>
+                                    <td>438K</td>
+                                    <td>886K</td>
+                                    <td>178.6K</td>
+                                    <td>—</td>
+                                    <td>185K</td>
+                                    <td>657K</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3">Gold Patch</td>
+                                    <td># Lines edited</td>
+                                    <td>32.8</td>
+                                    <td>5,888</td>
+                                    <td>163.3</td>
+                                    <td>—</td>
+                                    <td class="highlight-cell">902.3</td>
+                                    <td class="highlight-cell">25K</td>
+                                </tr>
+                                <tr>
+                                    <td># Hunks edited</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                    <td>11.7</td>
+                                    <td>—</td>
+                                    <td class="highlight-cell">28.1</td>
+                                    <td class="highlight-cell">1,530</td>
+                                </tr>
+                                <tr>
+                                    <td># Files edited</td>
+                                    <td>1.7</td>
+                                    <td>31</td>
+                                    <td>4.89</td>
+                                    <td>—</td>
+                                    <td class="highlight-cell">10.6</td>
+                                    <td class="highlight-cell">363</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">Test Suite</td>
+                                    <td># Fail to Pass</td>
+                                    <td>9.1</td>
+                                    <td>1,633</td>
+                                    <td>6.26</td>
+                                    <td>—</td>
+                                    <td>13.7</td>
+                                    <td>63</td>
+                                </tr>
+                                <tr>
+                                    <td># Total</td>
+                                    <td>120.8</td>
+                                    <td>9,459</td>
+                                    <td>2,241.2</td>
+                                    <td>—</td>
+                                    <td>17.0</td>
+                                    <td>68</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="figure-caption">CSBench requires an order-of-magnitude more implementation effort (902
+                        lines edited on average vs. 33 in SWE-Bench), reflecting genuine system construction complexity.
+                    </p>
+                </div>
+            </section>
+            <!-- ===== Benchmark Design ===== -->
+            <section id="benchmark">
+                <h2>Benchmark Design</h2>
+                <p>
+                    Each CSBench task is formally defined as a tuple <strong>T = (S, C<sub>init</sub>, U, E)</strong>:
+                    a <em>Specification</em>, <em>Initial Scaffold</em>, <em>Test Suite</em>, and a containerized
+                    <em>Environment</em>.
+                    Given (S, C<sub>init</sub>), a model produces a completed implementation; a task is solved when all
+                    tests pass inside the Docker container.
+                </p>
+
+                <div class="pipeline-stack">
+                    <div class="card">
+                        <h3>Three-Stage Construction Pipeline</h3>
+                        <p>
+                            CSBench employs an <strong>adversarial, expert-in-the-loop workflow</strong> to transform
+                            heterogeneous courseware into standardized, execution-based benchmark tasks.
+                        </p>
+                        <div class="pipeline-stages">
+                            <div class="pipeline-stage">
+                                <div class="stage-number">1</div>
+                                <div class="stage-content">
+                                    <h4>Sourcing</h4>
+                                    <p>Candidate projects sourced from open-source CS courses at top-tier universities,
+                                        organized by a comprehensive topic taxonomy (System, AI, Application, Others).
+                                        Priority given to projects with non-trivial, multi-file starter scaffolds.</p>
+                                </div>
+                            </div>
+                            <div class="pipeline-stage">
+                                <div class="stage-number">2</div>
+                                <div class="stage-content">
+                                    <h4>Annotation</h4>
+                                    <p>Domain experts construct task artifacts with adversarial review:
+                                        <strong>Annotators</strong> build scaffold code, specifications, and test
+                                        suites; independent <strong>Reviewers</strong> audit outputs and iterate until
+                                        strict criteria are met.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="pipeline-stage">
+                                <div class="stage-number">3</div>
+                                <div class="stage-content">
+                                    <h4>Quality Assurance</h4>
+                                    <p>Three-layer verification: <strong>Automated checks</strong> (solvability,
+                                        layout), <strong>AI-assisted auditing</strong> (leakage, ambiguity), and
+                                        <strong>Human-in-the-loop decision</strong> (spec fidelity, runtime stability).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="figure-wrap">
+                            <img src="static/images/csbench_pipeline.png"
+                                alt="CSBench construction pipeline: Sourcing, Annotation, Quality Assurance"
+                                style="width: 80%;">
+                            <p class="figure-caption">The three-stage construction pipeline of CSBench: Sourcing,
+                                Annotation, and Quality Assurance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domain Distribution -->
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3>Domain &amp; Language Distribution</h3>
+                    <p>
+                        CSBench spans <strong>4 high-level topics</strong> and <strong>19 sub-topics</strong>, ensuring
+                        systematic domain representation. It covers Python (41%), C/C++ (32%), and other mainstream
+                        languages including Java, JavaScript, Go, Rust, and Assembly.
+                    </p>
+                    <div class="figure-wrap">
+                        <img src="static/images/category_language.png"
+                            alt="CSBench task distribution by topic and programming language">
+                        <p class="figure-caption">Left: Task distribution by course topic taxonomy. Right: Programming
+                            language distribution across CSBench tasks.</p>
+                    </div>
+                </div>
+            </section>
+            <!-- ===== Main Results ===== -->
+            <section id="results">
+                <h2>Detailed Results</h2>
+
+                <!-- Detailed Topic Results -->
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3>Detailed Performance by Topic (Top 3 Models)</h3>
+                    <div class="table-scroll">
+                        <table class="data-table topic-table">
+                            <colgroup>
+                                <col style="width: 35%">
+                                <col span="3">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Topic</th>
+                                    <th>GPT-5.2</th>
+                                    <th>Sonnet-4.5</th>
+                                    <th>Gemini-3-Pro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="category-group-header system-group">
+                                    <td colspan="4">System (48 tasks)</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Operating System (12)</td>
+                                    <td>37.50%</td>
+                                    <td class="best-in-row">45.83%</td>
+                                    <td>27.08%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>System Fundamentals (9)</td>
+                                    <td>19.44%</td>
+                                    <td>30.56%</td>
+                                    <td class="best-in-row">33.33%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>System Security (8)</td>
+                                    <td class="best-in-row">56.25%</td>
+                                    <td>43.75%</td>
+                                    <td class="best-in-row">56.25%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Computer Network (5)</td>
+                                    <td class="best-in-row">60.00%</td>
+                                    <td>35.00%</td>
+                                    <td>50.00%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Parallel &amp; Distributed (5)</td>
+                                    <td>20.00%</td>
+                                    <td>20.00%</td>
+                                    <td class="best-in-row">45.00%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Computer Architecture (4)</td>
+                                    <td>31.25%</td>
+                                    <td>31.25%</td>
+                                    <td class="best-in-row">62.50%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Database System (4)</td>
+                                    <td>31.25%</td>
+                                    <td>0.00%</td>
+                                    <td class="best-in-row">43.75%</td>
+                                </tr>
+                                <tr class="cat-system-row">
+                                    <td>Compiler (1)</td>
+                                    <td class="best-in-row">25.00%</td>
+                                    <td>0.00%</td>
+                                    <td>0.00%</td>
+                                </tr>
+                                <tr class="category-group-header ai-group">
+                                    <td colspan="4">AI (28 tasks)</td>
+                                </tr>
+                                <tr class="cat-ai-row">
+                                    <td>Deep Learning (13)</td>
+                                    <td class="best-in-row">71.15%</td>
+                                    <td>46.15%</td>
+                                    <td>36.54%</td>
+                                </tr>
+                                <tr class="cat-ai-row">
+                                    <td>Machine Learning (9)</td>
+                                    <td class="best-in-row">94.44%</td>
+                                    <td>72.22%</td>
+                                    <td>36.11%</td>
+                                </tr>
+                                <tr class="cat-ai-row">
+                                    <td>Introductory AI (4)</td>
+                                    <td class="best-in-row">37.50%</td>
+                                    <td>31.25%</td>
+                                    <td>12.50%</td>
+                                </tr>
+                                <tr class="cat-ai-row">
+                                    <td>ML System (2)</td>
+                                    <td class="best-in-row">12.50%</td>
+                                    <td>0.00%</td>
+                                    <td>0.00%</td>
+                                </tr>
+                                <tr class="category-group-header app-group">
+                                    <td colspan="4">Application (19 tasks)</td>
+                                </tr>
+                                <tr class="cat-app-row">
+                                    <td>Web Development (7)</td>
+                                    <td class="best-in-row">85.71%</td>
+                                    <td>75.00%</td>
+                                    <td>25.00%</td>
+                                </tr>
+                                <tr class="cat-app-row">
+                                    <td>Data Struct &amp; Algo (4)</td>
+                                    <td class="best-in-row">93.75%</td>
+                                    <td>81.25%</td>
+                                    <td>50.00%</td>
+                                </tr>
+                                <tr class="cat-app-row">
+                                    <td>Programming Fundamentals (4)</td>
+                                    <td>50.00%</td>
+                                    <td>75.00%</td>
+                                    <td class="best-in-row">100.00%</td>
+                                </tr>
+                                <tr class="cat-app-row">
+                                    <td>Data Science (3)</td>
+                                    <td class="best-in-row">66.67%</td>
+                                    <td>0.00%</td>
+                                    <td>33.33%</td>
+                                </tr>
+                                <tr class="category-group-header others-group">
+                                    <td colspan="4">Others (5 tasks)</td>
+                                </tr>
+                                <tr class="cat-others-row">
+                                    <td>Computer Graphics (3)</td>
+                                    <td>58.33%</td>
+                                    <td class="best-in-row">100.00%</td>
+                                    <td>50.00%</td>
+                                </tr>
+                                <tr class="cat-others-row">
+                                    <td>Mathematics (2)</td>
+                                    <td class="best-in-row">100.00%</td>
+                                    <td>75.00%</td>
+                                    <td>25.00%</td>
+                                </tr>
+                                <tr class="overall-row">
+                                    <td><strong>Overall (100)</strong></td>
+                                    <td class="overall-best"><strong>55.50%</strong></td>
+                                    <td><strong>45.50%</strong></td>
+                                    <td><strong>39.00%</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pass@k -->
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3>Pass@k Analysis</h3>
+                    <p>
+                        Pass@k metrics show GPT-5.2 maintains a steady lead in AI and Application categories, while
+                        <strong>Gemini-3-Pro demonstrates superior performance in the System category</strong>,
+                        consistently outperforming GPT-5.2 across all k values.
+                    </p>
+                    <div class="figure-wrap">
+                        <img src="static/images/pass_at_k.png" alt="Pass@k performance across task categories"
+                            style="width: 80%;">
+                        <p class="figure-caption">Pass@k performance of representative models across different task
+                            categories.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CSBench Team</p>
+    </footer>
+
+
+    <script src="js/csbench-task-trees.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
