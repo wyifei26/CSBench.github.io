@@ -14,10 +14,10 @@
     "wiki_url": "https://csdiy.wiki/计算机系统基础/CSAPP/",
     "pass_to_pass": "0",
     "fail_to_pass": "7",
-    "task_desc": "Bomb Lab 项目分在线和离线两种模式，在线版学生通过指定网页获取专属炸弹，拆弹 / 爆炸数据自动上报并生成实时排行榜与自动评分文件，可通过make start/stop自由启停服务且不丢数据；离线版需讲师手动构建炸弹，学生离线完成后提交答案，讲师手动验证评分。讲师需将服务器名加入配置文件合法列表，make cleanallfiles仅可在上线前调试 / 首次启动时使用，上线后执行会删除所有学生数据与记录，导致学生需重新获取炸弹。",
-    "specification": "二进制炸弹实验的构建、运行及教学实施方式.1.实验核心是 “二进制炸弹”，含六个阶段，学生需输入特定字符串 “拆弹”，输入错误则 “爆炸”（输出 BOOM!!!）。2.学生需用 gdb/ddd 等调试器反汇编二进制文件、单步执行机器码，推断正确字符串，爆炸会扣分，拆弹得分。",
-    "scaffold_desc": "7 个测试文件，主要功能是验证炸弹拆除的进度。每个测试文件对应炸弹的一个阶段。1.test_phase1.py | \"Phase 1 defused.\" | 第1阶段已拆除 。2.test_phase2.py | \"That's number 2.\" | 第2阶段已拆除 。3.test_phase3.py | \"Halfway there!\" | 第3阶段已拆除（中途点）。4.test_phase4.py | \"So you got that one.\" | 第4阶段已拆除 。5.test_phase5.py | \"Good work! \" | 第5阶段已拆除。6.test_phase6.py | \"Congratulations! You've defused the bomb!\" | 所有6个主要阶段完成 。7.test_secret.py | \"Curses, you've found the secret phase!\" + \"You've defused the secret stage!\" | 隐藏阶段发现并拆除 |",
-    "ut_desc": "1. test_phase1_defused:"
+    "task_desc": "Bomb Lab 要求学生分析一个包含 6 个主要阶段和可选隐藏阶段的二进制炸弹程序。学生需要通过反汇编、调试和逻辑推理找出每个阶段的正确输入；任意阶段输入错误都会触发 BOOM!!!。本任务聚焦离线炸弹的解题流程和阶段进度验证，不涉及在线分发、排行榜或课程服务器运维。",
+    "specification": "给定 bomb 可执行文件、辅助源码/说明和测试脚本，目标是让炸弹在测试驱动下依次完成各阶段拆解。正确结果应使程序输出 phase 1 到 phase 6 的成功提示，并在隐藏阶段测试中输出发现并拆除 secret phase 的提示。测试判定基于 bomb 运行时的标准输出，不应依赖人工交互或外部课程服务器。",
+    "scaffold_desc": "脚手架包含 Dockerfile、任务说明、测试入口脚本、bomb 可执行文件、bomb.c、README、src/test.sh，以及按阶段拆分的 pytest 测试文件。测试文件包括 test_phase1.py、test_phase2.py、test_phase3.py、test_phase4.py、test_phase5.py、test_phase6.py 和 test_secret.py，分别覆盖 6 个主要阶段和 1 个隐藏阶段。",
+    "ut_desc": "单元测试共 7 个阶段性检查。test_phase1.py 到 test_phase6.py 分别运行 bomb 并检查对应阶段的成功输出：“Phase 1 defused.”、“That's number 2.”、“Halfway there!”、“So you got that one.”、“Good work!” 和 “Congratulations! You've defused the bomb!”。test_secret.py 额外检查隐藏阶段，要求输出 “Curses, you've found the secret phase!” 以及 “You've defused the secret stage!”。"
   },
   {
     "id": "cs000004",
