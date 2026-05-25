@@ -137,16 +137,16 @@ function initProgressIndicator() {
             left: 0;
             width: 100%;
             height: 2px;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(37, 99, 235, 0.08);
             z-index: 9999;
             pointer-events: none;
         }
         .reading-progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #06d6a0 0%, #38bdf8 50%, #ffd166 100%);
+            background: linear-gradient(90deg, #2563eb 0%, #38bdf8 50%, #ffd166 100%);
             width: 0%;
             transition: width 0.1s ease;
-            box-shadow: 0 0 8px rgba(6, 214, 160, 0.4);
+            box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
         }
     `;
     document.head.appendChild(style);
@@ -183,9 +183,9 @@ function initScrollToTop() {
             width: 44px;
             height: 44px;
             border-radius: 12px;
-            background: rgba(6, 214, 160, 0.15);
-            border: 1px solid rgba(6, 214, 160, 0.25);
-            color: #06d6a0;
+            background: rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(37, 99, 235, 0.25);
+            color: #2563eb;
             font-size: 1.3rem;
             cursor: pointer;
             opacity: 0;
@@ -200,8 +200,8 @@ function initScrollToTop() {
         }
         .scroll-to-top:hover {
             transform: translateY(-3px);
-            background: rgba(6, 214, 160, 0.25);
-            box-shadow: 0 0 20px rgba(6, 214, 160, 0.15);
+            background: rgba(37, 99, 235, 0.25);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
         }
     `;
     document.head.appendChild(style);
@@ -421,8 +421,15 @@ function buildTreeNode(node, state, onFileSelect) {
         return details;
     }
 
-    const fileButton = document.createElement('button');
-    fileButton.type = 'button';
+    const fileButton = document.createElement(state && state.sourceBase && !onFileSelect ? 'a' : 'button');
+    if (fileButton.tagName === 'BUTTON') {
+        fileButton.type = 'button';
+    } else {
+        fileButton.href = getTaskSourceUrl(state.taskId, node.path);
+        fileButton.target = '_blank';
+        fileButton.rel = 'noopener noreferrer';
+    }
+
     fileButton.className = `case-tree-file${onFileSelect ? '' : ' case-tree-file-static'}`;
     fileButton.dataset.filePath = node.path;
     fileButton.title = node.path;
@@ -438,7 +445,7 @@ function buildTreeNode(node, state, onFileSelect) {
         fileButton.addEventListener('click', () => {
             onFileSelect(node.path, fileButton);
         });
-    } else {
+    } else if (fileButton.tagName === 'BUTTON') {
         fileButton.disabled = true;
     }
 
@@ -470,7 +477,16 @@ function escapeHtml(value) {
 /* ========================================
    CSBench Dataset Case Index
    ======================================== */
-const CSBENCH_DATASET_ROWS_URL = 'data/csbench-dataset-rows.json';
+const CSBENCH_HF_ROWS_URL = 'https://datasets-server.huggingface.co/rows?dataset=BytedTsinghua-SIA%2FCSBench&config=default&split=test&offset=0&length=100';
+const CSBENCH_LOCAL_ROWS_URL = 'data/csbench-dataset-rows-v2.json';
+const CSBENCH_TASKS_BASE_URL = 'https://anonymous.4open.science/r/CSBench/tasks';
+
+const CSBENCH_ANNOTATION_FIELDS = [
+    ['task_desc', 'Task Description'],
+    ['specification', 'Specification'],
+    ['scaffold_desc', 'Scaffold Description'],
+    ['ut_desc', 'Unit Test Description']
+];
 
 const CSBENCH_FALLBACK_CASES = [
     {
@@ -531,12 +547,9 @@ function initCaseExplorer() {
         search: document.getElementById('csbench-case-search'),
         category: document.getElementById('csbench-category-filter'),
         subcategory: document.getElementById('csbench-subcategory-filter'),
-        summaryBtn: document.getElementById('csbench-view-summary'),
-        fullBtn: document.getElementById('csbench-view-full'),
         taskList: document.getElementById('csbench-task-list'),
         viewer: document.getElementById('csbench-case-viewer'),
-        filterSummary: document.getElementById('csbench-filter-summary'),
-        currentMeta: document.getElementById('csbench-current-meta')
+        filterSummary: document.getElementById('csbench-filter-summary')
     };
 
     if (!root.search || !root.category || !root.subcategory || !root.viewer || !root.taskList) {
@@ -546,8 +559,8 @@ function initCaseExplorer() {
     const state = {
         rows: [],
         filteredRows: [],
+        dataSourceLabel: '',
         activeId: '',
-        activeView: 'summary',
         activeCategory: 'all',
         activeSubcategory: 'all',
         query: ''
@@ -559,25 +572,61 @@ function initCaseExplorer() {
 
 async function loadCsbenchRows(root, state) {
     try {
-        const response = await fetch(CSBENCH_DATASET_ROWS_URL);
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
+        state.rows = await loadHuggingFaceRows();
+        state.dataSourceLabel = 'Hugging Face dataset';
+    } catch (hfError) {
+        try {
+            state.rows = await loadLocalRows();
+            state.dataSourceLabel = 'local dataset snapshot';
+        } catch (localError) {
+            state.rows = CSBENCH_FALLBACK_CASES;
+            state.dataSourceLabel = 'static fallback';
+            root.viewer.innerHTML = `<div class="case-viewer-status case-viewer-error">Dataset loading failed, so a small static preview is shown. ${escapeHtml(hfError.message || '')}</div>`;
         }
-
-        const rows = (await response.json()).filter(Boolean);
-        if (rows.length === 0) {
-            throw new Error('No rows returned');
-        }
-
-        state.rows = rows;
-    } catch (error) {
-        state.rows = CSBENCH_FALLBACK_CASES;
-        root.viewer.innerHTML = `<div class="case-viewer-status case-viewer-error">Local dataset snapshot is unavailable, so a small static preview is shown. ${escapeHtml(error.message || '')}</div>`;
     }
 
     state.activeId = state.rows[0] ? state.rows[0].id : '';
     populateCaseFilters(root, state);
     applyCaseFilters(root, state);
+}
+
+async function loadHuggingFaceRows() {
+    const response = await fetch(CSBENCH_HF_ROWS_URL, { cache: 'no-store' });
+    if (!response.ok) {
+        throw new Error(`Hugging Face rows API returned HTTP ${response.status}`);
+    }
+
+    const payload = await response.json();
+    const rows = Array.isArray(payload.rows)
+        ? payload.rows.map(item => item && item.row).filter(Boolean)
+        : [];
+
+    if (rows.length === 0) {
+        throw new Error('Hugging Face rows API returned no rows');
+    }
+
+    return rows.map(normalizeCaseRow);
+}
+
+async function loadLocalRows() {
+    const response = await fetch(CSBENCH_LOCAL_ROWS_URL);
+    if (!response.ok) {
+        throw new Error(`Local dataset snapshot returned HTTP ${response.status}`);
+    }
+
+    const rows = (await response.json()).filter(Boolean);
+    if (rows.length === 0) {
+        throw new Error('Local dataset snapshot returned no rows');
+    }
+
+    return rows.map(normalizeCaseRow);
+}
+
+function normalizeCaseRow(row) {
+    return {
+        ...row,
+        id: normalizeTaskId(row.id)
+    };
 }
 
 function bindCaseIndexEvents(root, state) {
@@ -598,14 +647,6 @@ function bindCaseIndexEvents(root, state) {
         applyCaseFilters(root, state);
     });
 
-    [root.summaryBtn, root.fullBtn].forEach(button => {
-        button.addEventListener('click', () => {
-            state.activeView = button.dataset.view;
-            root.summaryBtn.classList.toggle('active', state.activeView === 'summary');
-            root.fullBtn.classList.toggle('active', state.activeView === 'full');
-            renderActiveCase(root, state);
-        });
-    });
 }
 
 function populateCaseFilters(root, state) {
@@ -635,19 +676,7 @@ function applyCaseFilters(root, state) {
     state.filteredRows = state.rows.filter(row => {
         const matchesCategory = state.activeCategory === 'all' || row.category === state.activeCategory;
         const matchesSubcategory = state.activeSubcategory === 'all' || row.sub_category === state.activeSubcategory;
-        const haystack = [
-            row.id,
-            row.category,
-            row.sub_category,
-            row.university,
-            row.course_id,
-            row.course_name,
-            row.programming_languages,
-            row.lab_name,
-            row.task_desc,
-            row.specification,
-            row.scaffold_desc
-        ].join(' ').toLowerCase();
+        const haystack = Object.values(row).join(' ').toLowerCase();
         const matchesQuery = !state.query || haystack.includes(state.query);
 
         return matchesCategory && matchesSubcategory && matchesQuery;
@@ -674,7 +703,7 @@ function renderTaskList(root, state) {
         <button type="button" class="case-task-item ${row.id === state.activeId ? 'active' : ''}" data-id="${escapeHtml(row.id)}">
             <span class="case-task-id">${escapeHtml(row.id || 'unknown')}</span>
             <span class="case-task-title">${escapeHtml(row.lab_name || row.course_name || row.sub_category || 'Untitled task')}</span>
-            <span class="case-task-meta">${escapeHtml(row.sub_category || 'Unknown sub-category')}</span>
+            <span class="case-task-meta">${escapeHtml([row.sub_category, row.university].filter(Boolean).join(' · ') || 'Unknown sub-category')}</span>
         </button>
     `).join('');
 
@@ -690,67 +719,209 @@ function renderTaskList(root, state) {
 function renderActiveCase(root, state) {
     const row = state.rows.find(item => item.id === state.activeId);
     if (!row) {
-        root.currentMeta.textContent = 'Select a task to preview';
         root.viewer.innerHTML = '<div class="case-viewer-status">Select a task from the index to preview it.</div>';
         return;
     }
 
-    root.currentMeta.textContent = `${row.university || 'Unknown university'} · ${row.course_name || row.course_id || 'Unknown course'}`;
-
-    if (state.activeView === 'full') {
-        renderFullCaseRecord(root.viewer, row);
-    } else {
-        renderCaseSummary(root.viewer, row);
-    }
+    renderCaseDetail(root.viewer, row, state);
 }
 
-function renderCaseSummary(container, row) {
-    const fields = [
-        ['task_desc', 'Task Description'],
-        ['specification', 'Specification'],
-        ['scaffold_desc', 'Scaffold Description']
-    ];
+function renderCaseDetail(container, row) {
+    const taskTreeMarkup = renderCaseTreeMarkup(row);
 
     container.innerHTML = `
-        <div class="case-summary">
-            ${fields.map(([key, label]) => `
-                <article class="case-field">
-                    <h4>${label}</h4>
-                    <div class="case-field-key">${key}</div>
-                    <p class="case-field-body">${escapeHtml(row[key] || 'Not provided.')}</p>
-                </article>
-            `).join('')}
+        <div class="case-detail-layout">
+            ${renderCaseTagPanel(row)}
+            <div class="case-main-column">
+                <div class="case-summary">
+                    ${CSBENCH_ANNOTATION_FIELDS.map(([key, label]) => renderAnnotationField(row, key, label)).join('')}
+                </div>
+            </div>
+            <div class="case-tree-column">
+                ${taskTreeMarkup}
+            </div>
+        </div>
+    `;
+
+    hydrateCaseTree(container, row);
+}
+
+function renderCaseTagPanel(row) {
+    const taskId = normalizeTaskId(row.id);
+    const codeUrl = getTaskSourceUrl(taskId);
+    const displayId = (row.id || taskId || 'task').toUpperCase();
+    const displayName = row.lab_name || row.course_name || row.sub_category || 'Untitled task';
+    const categoryVariant = `category-${normalizeTagClass(row.category)}`;
+    const categoryText = [row.category, row.sub_category].filter(Boolean).join(' - ') || 'Not provided';
+    const courseText = [row.university, row.course_id].filter(Boolean).join(' - ') || 'Not provided';
+    const labText = [row.lab_name, row.course_name].filter(Boolean).join(' - ') || 'Not provided';
+
+    return `
+        <div class="case-tag-panel" role="region" aria-label="Task resources and dataset fields">
+            <div class="case-tag-heading">
+                <h4>
+                    <a class="case-title-id" href="${escapeHtml(codeUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(displayId)}</a>
+                    <span class="case-title-name">${escapeHtml(displayName)}</span>
+                </h4>
+            </div>
+            <div class="case-tag-cloud">
+                <div class="case-tag-row">
+                    ${renderValueTag('category', categoryText, categoryVariant)}
+                    ${renderLinkedValueTag('course', courseText, row.course_url, 'course')}
+                    ${renderLinkedValueTag('lab', labText, row.lab_url, 'lab')}
+                </div>
+                <div class="case-tag-row">
+                    ${renderValueTag('programming_languages', formatListLikeValue(row.programming_languages), 'language')}
+                    ${renderValueTag('language', row.language, 'annotation-language')}
+                    ${renderValueTag('pass_to_pass', row.pass_to_pass, 'pass')}
+                    ${renderValueTag('fail_to_pass', row.fail_to_pass, 'fail')}
+                </div>
+            </div>
         </div>
     `;
 }
 
-function renderFullCaseRecord(container, row) {
-    const taskTrees = window.CSBENCH_TASK_TREES && window.CSBENCH_TASK_TREES.tasks;
-    const taskId = String(row.id || '').toUpperCase();
-    const taskEntry = taskTrees && taskTrees[taskId];
+function renderValueTag(label, value, variant = '') {
+    const text = formatMultilineValue(value);
+    const classes = ['case-data-tag', variant && `case-data-tag-${variant}`].filter(Boolean).join(' ');
+    return `
+        <span class="${classes}">
+            <span class="case-tag-label">${escapeHtml(label)}</span>
+            <span class="case-tag-value">${escapeHtml(text || 'Not provided')}</span>
+        </span>
+    `;
+}
 
-    container.innerHTML = '';
+function renderLinkedValueTag(label, value, href, variant = '') {
+    const text = formatMultilineValue(value) || 'Not provided';
+    const url = formatMultilineValue(href);
+    if (!url) return renderValueTag(label, text, 'muted');
+    const classes = ['case-data-tag', variant && `case-data-tag-${variant}`].filter(Boolean).join(' ');
+
+    return `
+        <span class="${classes}">
+            <span class="case-tag-label">${escapeHtml(label)}</span>
+            <a class="case-tag-value case-tag-value-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(text)}</a>
+        </span>
+    `;
+}
+
+function renderAnnotationField(row, key, label) {
+    const value = formatMultilineValue(row[key]);
+
+    return `
+        <article class="case-field" aria-label="${escapeHtml(label)}">
+            <div class="case-field-title">${escapeHtml(label)}</div>
+            <div class="case-text-body">${escapeHtml(value || 'Not provided')}</div>
+        </article>
+    `;
+}
+
+function renderCaseTreeMarkup(row) {
+    const taskTrees = window.CSBENCH_TASK_TREES && window.CSBENCH_TASK_TREES.tasks;
+    const taskId = normalizeTaskId(row.id);
+    const taskEntry = taskTrees && taskTrees[taskId.toUpperCase()];
+    const taskUrl = getTaskSourceUrl(taskId);
 
     if (!taskEntry || !taskEntry.tree) {
-        container.innerHTML = `<div class="case-viewer-status case-viewer-error">File tree is unavailable for ${escapeHtml(taskId || 'this task')}.</div>`;
-        return;
+        return `
+            <div class="case-tree-preview">
+                <div class="case-tree-preview-header">
+                    <span>${escapeHtml(taskId || 'unknown')}</span>
+                    <a href="${escapeHtml(taskUrl)}" target="_blank" rel="noopener noreferrer">Open task source</a>
+                </div>
+                <div class="case-viewer-status case-viewer-error">File tree is unavailable for ${escapeHtml(taskId || 'this task')}.</div>
+            </div>
+        `;
     }
 
-    const wrapper = document.createElement('div');
-    wrapper.className = 'case-tree-preview';
-    wrapper.innerHTML = `
-        <div class="case-tree-preview-header">
-            <span>${escapeHtml(taskId)}</span>
-            <span>${taskEntry.files} files · ${taskEntry.folders} folders</span>
+    return `
+        <div class="case-tree-preview" data-task-id="${escapeHtml(taskId)}">
+            <div class="case-tree-preview-header">
+                <span>${escapeHtml(taskId)}</span>
+                <span>${taskEntry.files} files · ${taskEntry.folders} folders</span>
+            </div>
+            <div class="case-tree case-tree-readonly" data-case-tree></div>
         </div>
     `;
+}
 
-    const treeWrap = document.createElement('div');
-    treeWrap.className = 'case-tree case-tree-readonly';
-    treeWrap.appendChild(buildTreeNode(taskEntry.tree, {}, null));
+function hydrateCaseTree(container, row) {
+    const treeContainer = container.querySelector('[data-case-tree]');
+    if (!treeContainer) return;
 
-    wrapper.appendChild(treeWrap);
-    container.appendChild(wrapper);
+    const taskTrees = window.CSBENCH_TASK_TREES && window.CSBENCH_TASK_TREES.tasks;
+    const taskId = normalizeTaskId(row.id);
+    const taskEntry = taskTrees && taskTrees[taskId.toUpperCase()];
+    if (!taskEntry || !taskEntry.tree) return;
+
+    const normalizedTree = normalizeTreeForTaskSource(taskEntry.tree, taskId);
+    treeContainer.appendChild(buildTreeNode(normalizedTree, {
+        sourceBase: CSBENCH_TASKS_BASE_URL,
+        taskId
+    }, null));
+}
+
+function normalizeTreeForTaskSource(tree, taskId) {
+    const originalRoot = tree && tree.name ? String(tree.name) : taskId;
+
+    function visit(node) {
+        const cloned = { ...node };
+        const rawPath = String(cloned.path || cloned.name || '');
+        cloned.path = rawPath.replace(originalRoot, taskId);
+
+        if (rawPath === originalRoot || cloned.name === originalRoot) {
+            cloned.name = taskId;
+            cloned.path = taskId;
+        }
+
+        if (Array.isArray(node.children)) {
+            cloned.children = node.children.map(visit);
+        }
+
+        return cloned;
+    }
+
+    return visit(tree);
+}
+
+function formatMultilineValue(value) {
+    return value == null ? '' : String(value).trim();
+}
+
+function formatListLikeValue(value) {
+    const parsed = parseListLikeValue(value);
+    return parsed.length ? parsed.join(', ') : String(value).trim();
+}
+
+function parseListLikeValue(value) {
+    if (Array.isArray(value)) {
+        return value.map(item => String(item).trim()).filter(Boolean);
+    }
+
+    const trimmed = String(value).trim();
+    if (!trimmed.startsWith('[') || !trimmed.endsWith(']')) return trimmed ? [trimmed] : [];
+
+    return trimmed
+        .replace(/^\[/, '')
+        .replace(/\]$/, '')
+        .split(',')
+        .map(item => item.trim().replace(/^['"]|['"]$/g, ''))
+        .filter(Boolean);
+}
+
+function normalizeTaskId(value) {
+    return String(value || '').trim().toLowerCase();
+}
+
+function normalizeTagClass(value) {
+    return String(value || 'unknown').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'unknown';
+}
+
+function getTaskSourceUrl(taskId, path) {
+    const normalizedTaskId = normalizeTaskId(taskId);
+    const normalizedPath = path ? String(path).replace(/^\/+/, '') : normalizedTaskId;
+    return `${CSBENCH_TASKS_BASE_URL}/${encodeURI(normalizedPath || normalizedTaskId)}`;
 }
 
 function uniqueSorted(values) {

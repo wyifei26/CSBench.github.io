@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/page-components.css?v=page-nav-2">
-    <link rel="stylesheet" href="css/csbench.css?v=20260520-2">
+    <link rel="stylesheet" href="css/page-components.css?v=topbar-1">
+    <link rel="stylesheet" href="css/csbench.css?v=blue-white-1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vscode/codicons@0.0.36/dist/codicon.css">
 </head>
 
@@ -26,10 +26,16 @@
          HERO
          ============================================================ -->
     <section class="hero" id="hero">
-        <nav class="page-nav" role="navigation" aria-label="Main navigation" data-page="home">
-            <a href="index.html" data-page-link="home">Home</a>
-            <a href="benchmark-details.html" data-page-link="benchmark-details">Benchmark Details</a>
-            <a href="case-study.html" data-page-link="case-study">Case Study</a>
+        <nav class="page-nav home-topbar" role="navigation" aria-label="Main navigation" data-page="home">
+            <div class="topbar-links">
+                <a href="index.html" data-page-link="home">Home</a>
+                <a href="benchmark-details.html" data-page-link="benchmark-details">Benchmark Details</a>
+                <a href="case-study.html" data-page-link="case-study">Case Study</a>
+            </div>
+            <div class="topbar-logos" aria-label="Project organizations">
+                <img src="https://memagent-sialab.github.io/figs/seed_logo.png" alt="Seed">
+                <img src="https://memagent-sialab.github.io/figs/gensi.jpg" alt="GenSI">
+            </div>
         </nav>
         <div class="hero-particles" id="particles"></div>
         <div class="hero-content">
@@ -46,11 +52,13 @@
                     <span class="btn-icon">📄</span>
                     <span>Paper</span>
                 </a>
-                <a href="#" class="btn btn-secondary">
+                <a href="https://github.com/BytedTsinghua-SIA/CSBench" class="btn btn-secondary" target="_blank"
+                    rel="noopener noreferrer">
                     <span class="btn-icon">⭐</span>
                     <span>GitHub</span>
                 </a>
-                <a href="#" class="btn btn-secondary">
+                <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/CSBench" class="btn btn-secondary"
+                    target="_blank" rel="noopener noreferrer">
                     <span class="btn-icon">🤗</span>
                     <span>Dataset</span>
                 </a>
@@ -66,12 +74,12 @@
                     <span class="stat-label">CS Topics</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">12</span>
-                    <span class="stat-label">Models Tested</span>
+                    <span class="stat-number">902.3</span>
+                    <span class="stat-label">#Golden Patch Lines</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">55.5%</span>
-                    <span class="stat-label">Best (GPT-5.2)</span>
+                    <span class="stat-number">10.6</span>
+                    <span class="stat-label">#Golden Patch Files</span>
                 </div>
             </div>
         </div>
@@ -87,7 +95,7 @@
             <section id="leaderboard">
                 <h2>Leaderboard</h2>
                 <p>
-                    We evaluate <strong>9 state-of-the-art LLMs</strong> using a minimalist agent loop with stateless
+                    We evaluate <strong>state-of-the-art LLMs</strong> using a minimalist agent loop with stateless
                     Bash execution and file editing tools.
                     Each task allows up to 50 interaction rounds. Results are <strong>averaged over 4 independent runs
                         (avg@4)</strong>.
@@ -106,31 +114,51 @@
                     <div class="perf-view perf-view-overall active">
                         <div class="perf-chart">
                             <div class="perf-model">
-                                <div class="perf-label">🥇 <strong>GPT-5.2</strong> <span
+                                <div class="perf-label">🥇 <strong>GPT-5.4</strong> <span
                                         class="model-org">OpenAI</span></div>
                                 <div class="perf-bars">
                                     <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank rank-gold" style="width:55.50%"></div>
-                                        <span class="perf-val best-overall-val">55.50%</span>
+                                        <div class="perf-bar bar-overall-rank rank-gold" style="width:63.00%"></div>
+                                        <span class="perf-val best-overall-val">63.00%</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="perf-model">
-                                <div class="perf-label">🥈 <strong>Sonnet-4.5</strong> <span
+                                <div class="perf-label">🥈 <strong>GPT-5.2</strong> <span
+                                        class="model-org">OpenAI</span></div>
+                                <div class="perf-bars">
+                                    <div class="perf-bar-row">
+                                        <div class="perf-bar bar-overall-rank rank-silver" style="width:56.00%"></div>
+                                        <span class="perf-val">56.00%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="perf-model">
+                                <div class="perf-label">🥉 <strong>Sonnet-4.5</strong> <span
                                         class="model-org">Anthropic</span></div>
                                 <div class="perf-bars">
                                     <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank rank-silver" style="width:45.50%"></div>
+                                        <div class="perf-bar bar-overall-rank rank-bronze" style="width:45.50%"></div>
                                         <span class="perf-val">45.50%</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="perf-model">
-                                <div class="perf-label">🥉 <strong>Gemini-3-Pro</strong> <span
+                                <div class="perf-label"><strong>GPT-5.3-Codex</strong> <span
+                                        class="model-org">OpenAI</span></div>
+                                <div class="perf-bars">
+                                    <div class="perf-bar-row">
+                                        <div class="perf-bar bar-overall-rank" style="width:44.00%"></div>
+                                        <span class="perf-val">44.00%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="perf-model">
+                                <div class="perf-label"><strong>Gemini-3-Pro</strong> <span
                                         class="model-org">Google</span></div>
                                 <div class="perf-bars">
                                     <div class="perf-bar-row">
-                                        <div class="perf-bar bar-overall-rank rank-bronze" style="width:39.00%"></div>
+                                        <div class="perf-bar bar-overall-rank" style="width:39.00%"></div>
                                         <span class="perf-val">39.00%</span>
                                     </div>
                                 </div>
@@ -219,14 +247,22 @@
                                 </thead>
                                 <tbody>
                                     <tr class="rank-1">
-                                        <td><strong>GPT-5.2</strong> <span class="model-org">OpenAI</span></td>
-                                        <td>36.46%</td>
-                                        <td><strong>69.64%</strong></td>
-                                        <td><strong>77.63%</strong></td>
-                                        <td>75.00%</td>
-                                        <td class="overall-best"><strong>55.50%</strong></td>
+                                        <td><strong>GPT-5.4</strong> <span class="model-org">OpenAI</span></td>
+                                        <td><strong>45.65%</strong></td>
+                                        <td><strong>80.00%</strong></td>
+                                        <td>73.68%</td>
+                                        <td>80.00%</td>
+                                        <td class="overall-best"><strong>63.00%</strong></td>
                                     </tr>
                                     <tr class="rank-2">
+                                        <td><strong>GPT-5.2</strong> <span class="model-org">OpenAI</span></td>
+                                        <td>34.24%</td>
+                                        <td>70.83%</td>
+                                        <td><strong>77.63%</strong></td>
+                                        <td>85.00%</td>
+                                        <td>56.00%</td>
+                                    </tr>
+                                    <tr class="rank-3">
                                         <td><strong>Sonnet-4.5</strong> <span class="model-org">Anthropic</span></td>
                                         <td>32.81%</td>
                                         <td>49.11%</td>
@@ -234,9 +270,17 @@
                                         <td><strong>90.00%</strong></td>
                                         <td>45.50%</td>
                                     </tr>
-                                    <tr class="rank-3">
+                                    <tr>
+                                        <td><strong>GPT-5.3-Codex</strong> <span class="model-org">OpenAI</span></td>
+                                        <td>26.09%</td>
+                                        <td>63.33%</td>
+                                        <td>57.89%</td>
+                                        <td>40.00%</td>
+                                        <td>44.00%</td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>Gemini-3-Pro</strong> <span class="model-org">Google</span></td>
-                                        <td><strong>41.15%</strong></td>
+                                        <td>41.15%</td>
                                         <td>30.36%</td>
                                         <td>46.05%</td>
                                         <td>40.00%</td>
@@ -314,7 +358,7 @@
                     university assignments within containerized environments.
                 </p>
                 <p>
-                    Evaluating 12 state-of-the-art LLMs reveals a stark performance disparity: even top-tier models like
+                    Evaluating 13 state-of-the-art LLMs reveals a stark performance disparity: even top-tier models like
                     GPT-5.2 see success rates plummet from over 90% in algorithmic tasks to below 35% in system-level
                     domains. Our analysis identifies a <strong>fundamental deficiency in systemic reasoning and
                         construction knowledge</strong> as the primary bottleneck, where agents either terminate
@@ -373,7 +417,7 @@
 
 
     <script src="js/csbench-task-trees.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=blue-white-1"></script>
 </body>
 
 </html>

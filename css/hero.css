@@ -1,4 +1,4 @@
-/* CSBench — Hero Section: Dark Terminal Aesthetic */
+/* CSBench — Hero Section: Blue/White Technical Aesthetic */
 
 .hero {
     position: relative;
@@ -6,7 +6,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-primary);
+    background:
+        radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.16), transparent 34rem),
+        linear-gradient(180deg, #ffffff 0%, var(--bg-secondary) 100%);
     overflow: hidden;
     padding: 5rem 2rem 4rem;
 }
@@ -20,7 +22,7 @@
     transform: translateX(-50%);
     width: 800px;
     height: 800px;
-    background: radial-gradient(circle, rgba(6, 214, 160, 0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -41,7 +43,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.15;
+    opacity: 0.2;
 }
 
 /* Content */
@@ -83,14 +85,14 @@
 }
 
 .flex-logo span {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+    background: linear-gradient(135deg, #1d4ed8 0%, var(--primary) 48%, var(--secondary) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     background-size: 200% auto;
     animation: logoShift 6s ease infinite;
-    letter-spacing: -0.04em;
-    filter: drop-shadow(0 0 30px rgba(6, 214, 160, 0.2));
+    letter-spacing: 0;
+    filter: drop-shadow(0 12px 28px rgba(37, 99, 235, 0.18));
 }
 
 @keyframes logoShift {
@@ -146,18 +148,18 @@
 .btn-primary {
     background: var(--primary);
     color: var(--text-inverse);
-    box-shadow: 0 4px 20px rgba(6, 214, 160, 0.25);
+    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.24);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(6, 214, 160, 0.35);
+    box-shadow: 0 12px 32px rgba(37, 99, 235, 0.3);
     color: var(--text-inverse);
 }
 
 .btn-secondary {
-    background: transparent;
-    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--primary);
     border: 1px solid var(--border-accent);
     backdrop-filter: blur(4px);
 }

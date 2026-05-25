@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/page-components.css?v=page-nav-2">
-    <link rel="stylesheet" href="css/csbench.css?v=20260520-2">
+    <link rel="stylesheet" href="css/page-components.css?v=blue-white-1">
+    <link rel="stylesheet" href="css/csbench.css?v=blue-white-1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vscode/codicons@0.0.36/dist/codicon.css">
 </head>
 
@@ -348,7 +348,7 @@
 
                 <!-- Detailed Topic Results -->
                 <div class="card" style="margin-top: 1.5rem;">
-                    <h3>Detailed Performance by Topic (Top 3 Models)</h3>
+                    <h3>Detailed Performance by Topic (Representative Models)</h3>
                     <p>
                         Model performance is highly non-uniform across CS domains. Top models perform strongly on
                         algorithmic and logic-heavy topics, but their success rates drop substantially on low-level
@@ -491,7 +491,7 @@
                                 </tr>
                                 <tr class="overall-row">
                                     <td><strong>Overall (100)</strong></td>
-                                    <td class="overall-best"><strong>55.50%</strong></td>
+                                    <td class="overall-best"><strong>56.00%</strong></td>
                                     <td><strong>45.50%</strong></td>
                                     <td><strong>39.00%</strong></td>
                                 </tr>
@@ -504,12 +504,13 @@
                 <div class="card" style="margin-top: 1.5rem;">
                     <h3>Pass@k Analysis</h3>
                     <p>
-                        Pass@k metrics show GPT-5.2 maintains a steady lead in AI and Application categories, while
+                        Among the models shown, Pass@k metrics show GPT-5.2 maintains a steady lead in AI and
+                        Application categories, while
                         <strong>Gemini-3-Pro demonstrates superior performance in the System category</strong>,
                         consistently outperforming GPT-5.2 across all k values.
                     </p>
                     <div class="figure-wrap pass-k-figure-wrap">
-                        <iframe class="pass-k-embed" src="pass_k_performance.html?v=20260520-2"
+                        <iframe class="pass-k-embed" src="pass_k_performance.html?v=blue-white-1"
                             title="Pass@k performance across task categories" loading="lazy"></iframe>
                         <p class="figure-caption">Pass@k performance of representative models across different task
                             categories.</p>
@@ -526,7 +527,7 @@
 
 
     <script src="js/csbench-task-trees.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=blue-white-1"></script>
 </body>
 
 </html>

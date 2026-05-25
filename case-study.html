@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/page-components.css?v=page-nav-2">
-    <link rel="stylesheet" href="css/csbench.css?v=20260520-2">
+    <link rel="stylesheet" href="css/page-components.css?v=blue-white-1">
+    <link rel="stylesheet" href="css/csbench.css?v=case-workbench-1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vscode/codicons@0.0.36/dist/codicon.css">
 </head>
 
@@ -35,23 +35,24 @@
          MAIN CONTENT
          ============================================================ -->
     <main id="main-content">
-        <div class="container">
-
-            <!-- ===== Case Index ===== -->
-            <section id="case-study">
+        <!-- ===== Case Index ===== -->
+        <section id="case-study" class="case-workbench-section">
+            <div class="case-workbench-heading">
                 <h2>Benchmark Case Index</h2>
-                <p>
-                    Explore CSBench tasks by category or sub-category using a repository-local snapshot of
-                    <a href="https://huggingface.co/datasets/BytedTsinghua-SIA/CSBench" target="_blank"
-                        rel="noopener noreferrer">BytedTsinghua-SIA/CSBench</a>, then switch between compact task
-                    fields and the corresponding task file tree.
-                </p>
+            </div>
 
-                <div class="card case-explorer-card">
-                    <div class="case-controls" aria-label="Benchmark case filters">
+            <div class="case-workbench-shell">
+                <aside class="case-sidebar" aria-labelledby="csbench-index-title">
+                    <div class="case-sidebar-header">
+                        <h3 id="csbench-index-title">Tasks</h3>
+                        <p id="csbench-filter-summary">Loading dataset...</p>
+                    </div>
+
+                    <div class="case-sidebar-filters" aria-label="Benchmark case filters">
                         <label class="case-search-label" for="csbench-case-search">
                             <span>Search</span>
-                            <input id="csbench-case-search" type="search" placeholder="Search id, topic, course, language">
+                            <input id="csbench-case-search" type="search"
+                                placeholder="ID, topic, course, language">
                         </label>
                         <label for="csbench-category-filter">
                             <span>Category</span>
@@ -61,45 +62,18 @@
                             <span>Sub-category</span>
                             <select id="csbench-subcategory-filter"></select>
                         </label>
-                        <div class="case-view-toggle" role="group" aria-label="Case display version">
-                            <button id="csbench-view-summary" class="case-view-btn active" type="button"
-                                data-view="summary">Task fields</button>
-                            <button id="csbench-view-full" class="case-view-btn" type="button" data-view="full">File tree</button>
-                        </div>
                     </div>
 
-                    <div class="case-explorer-layout">
-                        <aside class="case-tree-panel" aria-labelledby="csbench-index-title">
-                            <div class="case-panel-header">
-                                <div>
-                                    <h3 id="csbench-index-title">Task Index</h3>
-                                    <p class="case-panel-subtitle" id="csbench-filter-summary">Loading dataset…</p>
-                                </div>
-                            </div>
-                            <div id="csbench-task-list" class="case-task-list" aria-label="CSBench task list"></div>
-                        </aside>
+                    <div id="csbench-task-list" class="case-task-list" aria-label="CSBench task list"></div>
+                </aside>
 
-                        <div class="case-viewer-panel" aria-labelledby="csbench-viewer-title">
-                            <div class="case-panel-header">
-                                <div>
-                                    <h3 id="csbench-viewer-title">Case Preview</h3>
-                                    <p class="case-current-path" id="csbench-current-meta">Select a task to preview</p>
-                                </div>
-                                <a class="case-open-link"
-                                    href="https://huggingface.co/datasets/BytedTsinghua-SIA/CSBench" target="_blank"
-                                    rel="noopener noreferrer">Open dataset</a>
-                            </div>
-
-                            <div id="csbench-case-viewer" class="case-viewer" aria-live="polite">
-                                <div class="case-viewer-status">Loading local dataset snapshot…</div>
-                            </div>
-                        </div>
+                <div class="case-workspace" aria-label="Case workspace">
+                    <div id="csbench-case-viewer" class="case-viewer" aria-live="polite">
+                        <div class="case-viewer-status">Loading CSBench dataset...</div>
                     </div>
-
                 </div>
-            </section>
-
-        </div>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -108,7 +82,7 @@
 
 
     <script src="js/csbench-task-trees.js"></script>
-    <script src="js/main.js?v=20260520"></script>
+    <script src="js/main.js?v=case-workbench-1"></script>
 </body>
 
 </html>

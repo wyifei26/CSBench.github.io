@@ -1,4 +1,4 @@
-/* CSBench — Page Components: Dark Theme */
+/* CSBench — Page Components: Blue/White Theme */
 
 /* ========================================
    Navigation
@@ -22,6 +22,48 @@
 
 .subpage .page-nav {
     position: absolute;
+}
+
+.hero .page-nav.home-topbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: none;
+    min-height: 72px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    padding: 0.8rem 2rem;
+    background: rgba(255, 255, 255, 0.94);
+    border-bottom: 1px solid rgba(37, 99, 235, 0.14);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.topbar-logos,
+.topbar-links {
+    display: flex;
+    align-items: center;
+}
+
+.topbar-logos {
+    gap: 1rem;
+    min-width: 0;
+    justify-content: flex-end;
+}
+
+.topbar-logos img {
+    display: block;
+    max-width: 170px;
+    max-height: 44px;
+    object-fit: contain;
+}
+
+.topbar-links {
+    gap: 0.45rem;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 .page-nav a {
@@ -50,7 +92,7 @@
 
 .page-nav a:hover {
     color: var(--primary);
-    text-shadow: 0 0 14px rgba(6, 214, 160, 0.24);
+    text-shadow: 0 0 14px rgba(37, 99, 235, 0.24);
 }
 
 .page-nav a:hover::after,
@@ -60,7 +102,7 @@
 
 .page-nav a.active {
     color: var(--primary);
-    text-shadow: 0 0 16px rgba(6, 214, 160, 0.28);
+    text-shadow: 0 0 16px rgba(37, 99, 235, 0.28);
 }
 
 .subpage main {
@@ -154,7 +196,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 12px rgba(6, 214, 160, 0.2);
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.2);
 }
 
 .stage-content h4 {
@@ -319,7 +361,7 @@
 }
 
 .resource-btn.primary:hover {
-    box-shadow: 0 4px 16px rgba(6, 214, 160, 0.3);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
 }
 
 /* ========================================
@@ -364,6 +406,30 @@ footer {
         top: 0.75rem;
         left: 0.75rem;
         max-width: calc(100vw - 1.5rem);
+    }
+
+    .hero .page-nav.home-topbar {
+        top: 0;
+        left: 0;
+        min-height: auto;
+        padding: 0.75rem 1rem;
+        gap: 0.7rem;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .topbar-logos {
+        justify-content: center;
+        gap: 0.8rem;
+    }
+
+    .topbar-logos img {
+        max-width: 138px;
+        max-height: 38px;
+    }
+
+    .topbar-links {
+        justify-content: center;
     }
 
     .page-nav a {
