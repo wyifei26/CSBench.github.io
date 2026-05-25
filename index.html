@@ -9,12 +9,12 @@
     <meta name="keywords"
         content="CSBench, Benchmark, LLM, Coding Agent, System Construction, Computer Science, Software Engineering">
     <meta name="author" content="CSBench Team">
-    <title>CSBench | Evaluating Project-Level System Construction in CS</title>
+    <title data-i18n="title.home">CSBench | Evaluating Project-Level System Construction in CS</title>
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/page-components.css?v=topbar-1">
+    <link rel="stylesheet" href="css/page-components.css?v=i18n-1">
     <link rel="stylesheet" href="css/csbench.css?v=blue-white-1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vscode/codicons@0.0.36/dist/codicon.css">
 </head>
@@ -27,10 +27,13 @@
          ============================================================ -->
     <section class="hero" id="hero">
         <nav class="page-nav home-topbar" role="navigation" aria-label="Main navigation" data-page="home">
-            <div class="topbar-links">
+            <div class="topbar-left">
+                <button class="language-toggle" type="button" data-lang-toggle>中文</button>
+                <div class="topbar-links">
                 <a href="index.html" data-page-link="home">Home</a>
                 <a href="benchmark-details.html" data-page-link="benchmark-details">Benchmark Details</a>
                 <a href="case-study.html" data-page-link="case-study">Case Study</a>
+                </div>
             </div>
             <div class="topbar-logos" aria-label="Project organizations">
                 <img src="https://memagent-sialab.github.io/figs/seed_logo.png" alt="Seed">
@@ -43,7 +46,7 @@
                 <div class="flex-logo">
                     <span>CSBench</span>
                 </div>
-                <h3 class="hero-title">A Comprehensive Benchmark for Evaluating<br>
+                <h3 class="hero-title" data-i18n="home.heroTitle" data-i18n-html="true">A Comprehensive Benchmark for Evaluating<br>
                     Project-Level System Construction in Computer Science</h3>
             </div>
 
@@ -94,7 +97,7 @@
             <!-- ===== Leaderboard ===== -->
             <section id="leaderboard">
                 <h2>Leaderboard</h2>
-                <p>
+                <p data-i18n="home.leaderboardIntro" data-i18n-html="true">
                     We evaluate <strong>state-of-the-art LLMs</strong> using a minimalist agent loop with stateless
                     Bash execution and file editing tools.
                     Each task allows up to 50 interaction rounds. Results are <strong>averaged over 4 independent runs
@@ -339,25 +342,25 @@
                         </div>
                     </div>
 
-                    <p class="figure-caption">Model performance by category. Numbers in parentheses indicate the number
+                    <p class="figure-caption" data-i18n="home.perfCaption">Model performance by category. Numbers in parentheses indicate the number
                         of tasks. All results are avg@4.</p>
                 </div>
             </section>
             <!-- ===== Abstract ===== -->
             <section id="abstract">
                 <h2>Abstract</h2>
-                <p>
+                <p data-i18n="home.abstract1" data-i18n-html="true">
                     While LLM-based coding agents have advanced to repository-scale engineering, existing benchmarks
                     predominantly focus on <strong>software maintenance</strong>, overlooking the foundational
                     capability of <em>system construction</em>.
                 </p>
-                <p>
+                <p data-i18n="home.abstract2" data-i18n-html="true">
                     We introduce <strong>CSBench</strong>, a benchmark evaluating project-level
                     <strong>Spec-to-Code</strong> implementation across core computer science domains (e.g., OS,
                     compilers, databases). CSBench features <strong>100 expert-curated tasks</strong> from top-tier
                     university assignments within containerized environments.
                 </p>
-                <p>
+                <p data-i18n="home.abstract3" data-i18n-html="true">
                     Evaluating 13 state-of-the-art LLMs reveals a stark performance disparity: even top-tier models like
                     GPT-5.2 see success rates plummet from over 90% in algorithmic tasks to below 35% in system-level
                     domains. Our analysis identifies a <strong>fundamental deficiency in systemic reasoning and
@@ -369,14 +372,14 @@
                 <div class="grid-3">
                     <div class="card">
                         <h3>🏗️ Systematic Domain Coverage</h3>
-                        <p>
+                        <p data-i18n="home.highlightCoverage" data-i18n-html="true">
                             100 tasks spanning <strong>19 sub-topics</strong> across 4 major categories (Systems, AI,
                             Application, Others), evaluating broad "CS mastery" rather than just language proficiency.
                         </p>
                     </div>
                     <div class="card">
                         <h3>🧠 Deep Reasoning Requirements</h3>
-                        <p>
+                        <p data-i18n="home.highlightReasoning" data-i18n-html="true">
                             Tasks require implementing complex systems from scratch — B+ Trees, TCP stacks, OS kernels —
                             demanding <strong>long-horizon planning</strong> and strict logical consistency beyond
                             simple pattern matching.
@@ -384,7 +387,7 @@
                     </div>
                     <div class="card">
                         <h3>🎓 Pedagogical Rigor</h3>
-                        <p>
+                        <p data-i18n="home.highlightRigor" data-i18n-html="true">
                             Sourced from <strong>top-tier university assignments</strong> (MIT, Berkeley, Stanford,
                             etc.), each task comes with expert-curated test suites and containerized Docker environments
                             for reproducible evaluation.
@@ -395,7 +398,7 @@
             <!-- ===== Citation ===== -->
             <section id="citation">
                 <h2>Citation</h2>
-                <p>If you find CSBench useful in your research, please cite:</p>
+                <p data-i18n="home.citationIntro">If you find CSBench useful in your research, please cite:</p>
                 <div class="citation-box">
                     <pre>@inproceedings{csbench2026,
   title   = {CSBench: A Comprehensive Benchmark for Evaluating
@@ -417,7 +420,7 @@
 
 
     <script src="js/csbench-task-trees.js"></script>
-    <script src="js/main.js?v=blue-white-1"></script>
+    <script src="js/main.js?v=i18n-1"></script>
 </body>
 
 </html>

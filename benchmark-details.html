@@ -9,12 +9,12 @@
     <meta name="keywords"
         content="CSBench, Benchmark, LLM, Coding Agent, System Construction, Computer Science, Software Engineering">
     <meta name="author" content="CSBench Team">
-    <title>Benchmark Details | CSBench</title>
+    <title data-i18n="title.benchmark">Benchmark Details | CSBench</title>
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/page-components.css?v=blue-white-1">
+    <link rel="stylesheet" href="css/page-components.css?v=i18n-1">
     <link rel="stylesheet" href="css/csbench.css?v=blue-white-1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vscode/codicons@0.0.36/dist/codicon.css">
 </head>
@@ -26,6 +26,7 @@
          NAV
          ============================================================ -->
     <nav class="page-nav" role="navigation" aria-label="Main navigation" data-page="benchmark-details">
+        <button class="language-toggle" type="button" data-lang-toggle>中文</button>
         <a href="index.html" data-page-link="home">Home</a>
         <a href="benchmark-details.html" data-page-link="benchmark-details">Benchmark Details</a>
         <a href="case-study.html" data-page-link="case-study">Case Study</a>
@@ -39,7 +40,7 @@
             <!-- ===== Benchmark Design ===== -->
             <section id="benchmark">
                 <h2>Benchmark Design</h2>
-                <p>
+                <p data-i18n="details.benchmarkIntro" data-i18n-html="true">
                     Each CSBench task is formally defined as a tuple <strong>T = (S, C<sub>init</sub>, U, E)</strong>:
                     a <em>Specification</em>, <em>Initial Scaffold</em>, <em>Test Suite</em>, and a containerized
                     <em>Environment</em>.
@@ -50,7 +51,7 @@
                 <div class="pipeline-stack">
                     <div class="card">
                         <h3>Three-Stage Construction Pipeline</h3>
-                        <p>
+                        <p data-i18n="details.pipelineIntro" data-i18n-html="true">
                             CSBench employs an <strong>adversarial, expert-in-the-loop workflow</strong> to transform
                             heterogeneous courseware into standardized, execution-based benchmark tasks.
                         </p>
@@ -59,7 +60,7 @@
                                 <div class="stage-number">1</div>
                                 <div class="stage-content">
                                     <h4>Sourcing</h4>
-                                    <p>Candidate projects sourced from open-source CS courses at top-tier universities,
+                                    <p data-i18n="details.sourcingDesc" data-i18n-html="true">Candidate projects sourced from open-source CS courses at top-tier universities,
                                         organized by a comprehensive topic taxonomy (System, AI, Application, Others).
                                         Priority given to projects with non-trivial, multi-file starter scaffolds.</p>
                                 </div>
@@ -68,7 +69,7 @@
                                 <div class="stage-number">2</div>
                                 <div class="stage-content">
                                     <h4>Annotation</h4>
-                                    <p>Domain experts construct task artifacts with adversarial review:
+                                    <p data-i18n="details.annotationDesc" data-i18n-html="true">Domain experts construct task artifacts with adversarial review:
                                         <strong>Annotators</strong> build scaffold code, specifications, and test
                                         suites; independent <strong>Reviewers</strong> audit outputs and iterate until
                                         strict criteria are met.
@@ -79,7 +80,7 @@
                                 <div class="stage-number">3</div>
                                 <div class="stage-content">
                                     <h4>Quality Assurance</h4>
-                                    <p>Three-layer verification: <strong>Automated checks</strong> (solvability,
+                                    <p data-i18n="details.qaDesc" data-i18n-html="true">Three-layer verification: <strong>Automated checks</strong> (solvability,
                                         layout), <strong>AI-assisted auditing</strong> (leakage, ambiguity), and
                                         <strong>Human-in-the-loop decision</strong> (spec fidelity, runtime stability).
                                     </p>
@@ -90,7 +91,7 @@
                             <img src="static/images/csbench_pipeline.png"
                                 alt="CSBench construction pipeline: Sourcing, Annotation, Quality Assurance"
                                 style="width: 80%;">
-                            <p class="figure-caption">The three-stage construction pipeline of CSBench: Sourcing,
+                            <p class="figure-caption" data-i18n="details.pipelineCaption">The three-stage construction pipeline of CSBench: Sourcing,
                                 Annotation, and Quality Assurance.</p>
                         </div>
                     </div>
@@ -105,7 +106,7 @@
                 <!-- Domain Distribution -->
                 <div class="card" style="margin-top: 1.5rem;">
                     <h3>Domain &amp; Language Distribution</h3>
-                    <p>
+                    <p data-i18n="details.domainIntro" data-i18n-html="true">
                         CSBench spans <strong>4 high-level topics</strong> and <strong>19 sub-topics</strong>, ensuring
                         systematic domain representation. It covers Python (41%), C/C++ (39%), and other mainstream
                         languages including Java, JavaScript, Go, Rust, and Assembly.
@@ -221,7 +222,7 @@
                 <!-- Dataset Statistics Comparison Table -->
                 <div class="stats-table-wrap">
                     <h3>Dataset Statistics Comparison</h3>
-                    <p>
+                    <p data-i18n="details.statsIntro">
                         CSBench requires an order-of-magnitude more implementation effort (902 lines edited on average
                         vs. 33 in SWE-Bench), reflecting genuine system construction complexity.
                     </p>
@@ -349,7 +350,7 @@
                 <!-- Detailed Topic Results -->
                 <div class="card" style="margin-top: 1.5rem;">
                     <h3>Detailed Performance by Topic (Representative Models)</h3>
-                    <p>
+                    <p data-i18n="details.resultsIntro">
                         Model performance is highly non-uniform across CS domains. Top models perform strongly on
                         algorithmic and logic-heavy topics, but their success rates drop substantially on low-level
                         system construction tasks such as operating systems, databases, and compilers.
@@ -503,7 +504,7 @@
                 <!-- Pass@k -->
                 <div class="card" style="margin-top: 1.5rem;">
                     <h3>Pass@k Analysis</h3>
-                    <p>
+                    <p data-i18n="details.passkIntro" data-i18n-html="true">
                         Among the models shown, Pass@k metrics show GPT-5.2 maintains a steady lead in AI and
                         Application categories, while
                         <strong>Gemini-3-Pro demonstrates superior performance in the System category</strong>,
@@ -512,7 +513,7 @@
                     <div class="figure-wrap pass-k-figure-wrap">
                         <iframe class="pass-k-embed" src="pass_k_performance.html?v=blue-white-1"
                             title="Pass@k performance across task categories" loading="lazy"></iframe>
-                        <p class="figure-caption">Pass@k performance of representative models across different task
+                        <p class="figure-caption" data-i18n="details.passkCaption">Pass@k performance of representative models across different task
                             categories.</p>
                     </div>
                 </div>
@@ -527,7 +528,7 @@
 
 
     <script src="js/csbench-task-trees.js"></script>
-    <script src="js/main.js?v=blue-white-1"></script>
+    <script src="js/main.js?v=i18n-1"></script>
 </body>
 
 </html>
