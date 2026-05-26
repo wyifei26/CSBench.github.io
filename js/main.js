@@ -310,6 +310,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initNavigationHighlight();
     initPageNavigation();
     initProgressIndicator();
+    initAutoResizeEmbeds();
     initPerfToggle();
     initCaseExplorer();
 });
@@ -463,6 +464,32 @@ function initProgressIndicator() {
         const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
 
         progressBarFill.style.width = scrollPercent + '%';
+    });
+}
+
+/* ========================================
+   Auto-resize Embedded Figures
+   ======================================== */
+function initAutoResizeEmbeds() {
+    window.addEventListener('message', (event) => {
+        const data = event.data;
+        if (!data || data.type !== 'csbench:embed-height') return;
+
+        const iframe = Array.from(document.querySelectorAll('iframe.pass-k-embed'))
+            .find(frame => {
+                try {
+                    return frame.contentWindow === event.source;
+                } catch (_) {
+                    return false;
+                }
+            });
+
+        if (!iframe) return;
+
+        const height = Math.ceil(Number(data.height) || 0);
+        if (height > 0) {
+            iframe.style.height = `${height}px`;
+        }
     });
 }
 
