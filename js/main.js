@@ -114,9 +114,9 @@ const I18N_MESSAGES = {
 
 const I18N_TEXT_MAP = {
     'Skip to main content': '跳到主要内容',
-    'Home': '首页',
-    'Benchmark Details': '基准细节',
-    'Case Study': '案例研究',
+    'Home': '项目主页',
+    'Benchmark Details': '细节分析',
+    'Case Study': '样本案例',
     'Paper': '论文',
     'GitHub': 'GitHub',
     'Dataset': '数据集',
@@ -192,7 +192,7 @@ const I18N_TEXT_MAP = {
     'Computer Graphics (3)': '计算机图形学（3）',
     'Mathematics (2)': '数学（2）',
     'Pass@k Analysis': 'Pass@k 分析',
-    'Benchmark Case Index': '基准案例索引',
+    'Benchmark Case Index': '测试集索引',
     'Tasks': '任务',
     'Search': '搜索',
     'Category': '类别',
